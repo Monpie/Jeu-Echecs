@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>echiquier.jpg</file>
+        <file>piece.jpg</file>
+    </qresource>
+    <qresource prefix="/texte">
+        <file>sauvegarde.txt</file>
+        <file>initialisation.txt</file>
+    </qresource>
+</RCC>
