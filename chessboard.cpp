@@ -3,6 +3,7 @@
 #include <QPainter>
 #include "pion.h"
 
+<<<<<<< HEAD
 
 #include <iostream>
 #include <ostream>
@@ -13,12 +14,18 @@
 using namespace std;
 char chessBoard [8][8]  ;
 
+
+using namespace std;
+
 ChessBoard::ChessBoard(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ChessBoard)
 {
     //this->test = new Roi(this,"RB",0,50);
    this->piece = new Roi(this,"Roi blanc",50,50,0,0);
+
+    this->test = new QPushButton(this);
+    this->test->setText("OK");
     //this->initGame();
     ui->setupUi(this);
 }
@@ -40,12 +47,16 @@ void ChessBoard::paintEvent(QPaintEvent *e)
                         c.draw(&painter, Qt::white);
                     }else{
                         Case c(50,i*50,j*50);
+
                         c.draw(&painter, Qt::gray);
+
                     }
                 }else{
                     if(j%2==0){
                         Case c(50,i*50,j*50);
+
                         c.draw(&painter, Qt::gray);
+
                     }else{
                         Case c(50,i*50,j*50);
                         c.draw(&painter, Qt::white);
@@ -60,6 +71,9 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
    // cout << event->pos().x() << "pos pion : " << this->piece->getX()<< endl;
     if(event->buttons() & Qt::LeftButton ){
         qDebug("OK");
+
+        this->test->move(event->x(),event->y());
+
         this->piece->validClick(event);
         //this->piece->move(200,200);
     }
@@ -161,3 +175,4 @@ void ChessBoard::on_boutonSauvegarder_clicked()
 {
     this->lectureFichier();
 }
+

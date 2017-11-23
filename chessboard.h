@@ -4,6 +4,9 @@
 #include <QDialog>
 #include <QLabel>
 #include <QMouseEvent>
+
+#include <QPushButton>
+
 #include "case.h"
 #include "piece.h"
 #include "roi.h"
@@ -22,16 +25,21 @@ public:
     void mousePressEvent(QMouseEvent *event);
     void initGame();
     ~ChessBoard();
+
     void lectureFichier();
 
 private slots:
     void on_boutonSauvegarder_clicked();
 
+
+
 private:
     Ui::ChessBoard *ui;
     Roi *piece;
     Piece *tab[8][8] ;
-    Roi *test;
+
+    QPushButton *test;
+
 };
 
 #endif // CHESSBOARD_H
