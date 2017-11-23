@@ -1,22 +1,37 @@
 #ifndef CHESSBOARD_H
 #define CHESSBOARD_H
 
-#include <QWidget>
+#include <QDialog>
+#include <QLabel>
+#include <QMouseEvent>
+#include "case.h"
+#include "piece.h"
+#include "roi.h"
 
 namespace Ui {
 class ChessBoard;
 }
 
-class ChessBoard : public QWidget
+class ChessBoard : public QDialog
 {
     Q_OBJECT
 
 public:
     explicit ChessBoard(QWidget *parent = 0);
+    void paintEvent(QPaintEvent *);
+    void mousePressEvent(QMouseEvent *event);
+    void initGame();
     ~ChessBoard();
+    void lectureFichier();
+
+private slots:
+    void on_boutonSauvegarder_clicked();
 
 private:
     Ui::ChessBoard *ui;
+    Roi *piece;
+    Piece *tab[8][8] ;
+    Roi *test;
 };
 
 #endif // CHESSBOARD_H
