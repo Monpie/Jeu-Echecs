@@ -34,12 +34,12 @@ void ChessBoard::paintEvent(QPaintEvent *e)
                         c.draw(&painter, Qt::white);
                     }else{
                         Case c(50,i*50,j*50);
-                        c.draw(&painter, Qt::red);
+                        c.draw(&painter, Qt::gray);
                     }
                 }else{
                     if(j%2==0){
                         Case c(50,i*50,j*50);
-                        c.draw(&painter, Qt::red);
+                        c.draw(&painter, Qt::gray);
                     }else{
                         Case c(50,i*50,j*50);
                         c.draw(&painter, Qt::white);
