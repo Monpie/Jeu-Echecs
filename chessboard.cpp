@@ -3,7 +3,7 @@
 #include <QPainter>
 #include "pion.h"
 
-<<<<<<< HEAD
+
 
 #include <iostream>
 #include <ostream>
@@ -12,7 +12,7 @@
 
 
 using namespace std;
-char chessBoard [8][8]  ;
+char chessBoard [8][8] ;
 
 
 using namespace std;
@@ -111,16 +111,12 @@ void ChessBoard::initGame(){
 
 
 //Méthode pour lire un fichier
-void ChessBoard::lectureFichier(){
+void ChessBoard::lectureFichier(string sauvegarde){
 
 
     //Variable
-
     int cptLigne = 0;
-
-
-    //QFile fichier("initialisation.txt");
-    ifstream fichier("initialisation.txt", ios::in);  // on ouvre le fichier en lecture
+    ifstream fichier(sauvegarde, ios::in);  // on ouvre le fichier en lecture
     if(fichier)  // si l'ouverture a réussi
     {
         cout<<"fichier ouvert"<<endl;
@@ -170,9 +166,39 @@ void ChessBoard::lectureFichier(){
 }
 
 
+
+//Ecriture fichier sauvegarde
+void ChessBoard::ecritureFichierSauvegarde()
+{
+    using namespace std;
+    ofstream fichier("sauvegarde.txt", ios::out | ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+            if(fichier)
+
+            {
+
+                    for (int cpt1=0; cpt1<8 ;cpt1++ )
+                    {
+                        for (int cpt2=0; cpt2<8 ;cpt2++ )
+                        {
+                            fichier<<chessBoard[cpt1][cpt2];
+                        }
+
+                        fichier<<endl;
+                    }
+
+                    fichier.close();
+
+            }
+
+            else
+                    cerr << "Impossible d'ouvrir le fichier !" << endl;
+}
+
+
 //Appui du bouton sauvegarde
 void ChessBoard::on_boutonSauvegarder_clicked()
 {
-    this->lectureFichier();
+    this->lectureFichier("initialisation.txt");
+    this->ecritureFichierSauvegarde();
 }
 

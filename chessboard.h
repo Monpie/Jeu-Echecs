@@ -10,7 +10,8 @@
 #include "case.h"
 #include "piece.h"
 #include "roi.h"
-
+#include<string>
+using namespace std;
 namespace Ui {
 class ChessBoard;
 }
@@ -26,7 +27,8 @@ public:
     void initGame();
     ~ChessBoard();
 
-    void lectureFichier();
+    void lectureFichier(string Sauvegarde);
+    void ecritureFichierSauvegarde();
 
 private slots:
     void on_boutonSauvegarder_clicked();
