@@ -7,12 +7,22 @@
 class Roi : public Piece
 {
 public:
-    Roi(QWidget *parent, QString name, int width, int height, int x,int y);
+    Roi(QWidget *parent, QString color,int my_owner, int width, int height, int x,int y);
     void move(int x, int y);
-    void validClick(QMouseEvent *event);
-    void isValidMove();
+    bool validClick(QMouseEvent *event);
+    bool isValidMove();
+    void setImage(QString color);
+    void setOldX(int x);
+    void setOldY(int y);
+    int getOldX();
+    int getOldY();
+
+    int getMyOwner();
 private:
     bool isClicked = false;
+    int oldX;
+    int oldY;
+    int my_owner;
 };
 
 #endif // ROI_H

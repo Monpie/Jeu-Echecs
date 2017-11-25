@@ -1,6 +1,6 @@
-#include "pion.h"
+#include "reine.h"
 
-Pion::Pion(QWidget *parent, QString color, int width, int height, int x,int y)
+Reine::Reine(QWidget *parent, QString color, int width, int height, int x,int y)
 {
     this->lbl = new QLabel(parent);
     this->setImage(color);
@@ -11,7 +11,7 @@ Pion::Pion(QWidget *parent, QString color, int width, int height, int x,int y)
     this->y = y;
 }
 
-void Pion::setImage(QString color){
+void Reine::setImage(QString color){
     if(color.compare("Blanc")){
         this->lbl->setPixmap(QPixmap(":/images/Pieces/pion_blanc.png")); //Image tour blanche
     }else if(color.compare("Noir")){

@@ -2,25 +2,23 @@
 #include "ui_chessboard.h"
 #include <QPainter>
 #include "pion.h"
-
 #include <iostream>
 #include <ostream>
 #include <fstream>
+#include <QGridLayout>
 
 
 
-using namespace std;
 char chessBoard [8][8];
+
 
 ChessBoard::ChessBoard(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ChessBoard)
 {
-    //this->test = new Roi(this,"RB",0,50);
-   this->piece = new Roi(this,"Roi blanc",50,50,0,0);
 
-    this->test = new QPushButton(this);
-    this->test->setText("OK");
+    this->piece = new Roi(this,"g",0,50,50,0,0);
+    this->secondRoi = new Roi(this,"k",1,50,50,100,100);
     //this->initGame();
     ui->setupUi(this);
 }
@@ -30,7 +28,7 @@ ChessBoard::~ChessBoard()
     delete ui;
 }
 
-void ChessBoard::paintEvent(QPaintEvent *e)
+void ChessBoard::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
 
@@ -38,19 +36,19 @@ void ChessBoard::paintEvent(QPaintEvent *e)
             for(int j=0; j<8; j++){
                 if(i%2==0){
                     if(j%2==0){
-                        Case c(50,i*50,j*50);
+                        Case c(this->taille,i*this->taille,j*this->taille);
                         c.draw(&painter, Qt::white);
                     }else{
-                        Case c(50,i*50,j*50);
+                        Case c(this->taille,i*this->taille,j*this->taille);
                         c.draw(&painter, Qt::gray);
                     }
                 }else{
                     if(j%2==0){
-                        Case c(50,i*50,j*50);
+                        Case c(this->taille,i*this->taille,j*this->taille);
                         c.draw(&painter, Qt::gray);
 
                     }else{
-                        Case c(50,i*50,j*50);
+                        Case c(this->taille,i*this->taille,j*this->taille);
                         c.draw(&painter, Qt::white);
                     }
                 }
@@ -59,41 +57,83 @@ void ChessBoard::paintEvent(QPaintEvent *e)
 }
 
 void ChessBoard::mousePressEvent(QMouseEvent *event){
-
-   // cout << event->pos().x() << "pos pion : " << this->piece->getX()<< endl;
+    //cout << event->pos().x() << "pos pion : " << this->piece->getX()<< endl;
     if(event->buttons() & Qt::LeftButton ){
-        qDebug("OK");
-
-        this->test->move(event->x(),event->y());
-
+       // qDebug("OK");
+        /*for(int i=0;i<8;i++)
+        {
+            for(int j=0;j<8;j++){
+                if(this->piece->isValidMove()){
+                    Case c(75,i*75,j*75);
+                    c.draw(this->painter,Qt::blue);
+                }
+            }
+        }*/
         this->piece->validClick(event);
-        //this->piece->move(200,200);
+        this->piece->setOldX(this->piece->getX());
+        this->piece->setOldY(this->piece->getY());
+        this->secondRoi->validClick(event);
+        this->secondRoi->setOldX(this->secondRoi->getX());
+        cout << event->pos().x() << "old pos x pion : " << this->secondRoi->getOldX()<< "old pos y pion : " << this->secondRoi->getOldY() << endl;
+        this->secondRoi->setOldY(this->secondRoi->getY());
     }
 }
 
+void ChessBoard::mouseReleaseEvent(QMouseEvent *event){
+    qDebug("releaseEvent");
+    this->isClicked = false;
+    if(this->currentPlayer==0)
+        this->currentPlayer=1;
+    else
+        this->currentPlayer = 0;
 
+    cout << "current player : " << this->currentPlayer << endl;
+}
+
+void ChessBoard::mouseMoveEvent(QMouseEvent *event){
+    //qDebug("moveEvent");
+    if(this->piece->validClick(event) && this->piece->getMyOwner()==this->currentPlayer)
+    {
+        this->piece->move(event->x()-this->taille/4,event->y()-this->taille/4);
+    }else if(this->secondRoi->validClick(event) && this->secondRoi->getMyOwner()==this->currentPlayer){
+        this->secondRoi->move(event->x()-this->taille/4,event->y()-this->taille/4);
+    }
+}
 
 void ChessBoard::initGame(){
     //this->tab[0][0] = new Tour(this,"Tour1","B",50,50,0,0);
     //this->tab[0][1] = new Cavalier(this,"Cavalier1","B",50,50,50,0);
     //this->tab[0][2] = new Fou(this,"Fou1","B",50,50,100,0);
-    //this->lectureFichier("initialisation.txt");
+    this->lectureFichier("initialisation.txt");
 
     /*for(int i=0; i<8;i++){
         for(int j=0; j<8;j++){
-            switch()
+            switch(chessBoard[i][j])
             {
-                case
+                case 0 :
+                    break;
+                case 1 : new Pion(this,"Blanc",50,50,i*50,j*50);
+                    break;
+                case 2 : new Roi(this,"Blanc",50,50,i*50,50);
+                    break;
+                case 3 : new Roi(this,"Blanc",50,50,i*50,50);
+                    break;
+                case 4 : new Roi(this,"Blanc",50,50,i*50,50);
+                    break;
+                case 5 : new Roi(this,"Blanc",50,50,i*50,50);
+                    break;
+                case 6 : new Roi(this,"Blanc",50,50,i*50,50);
+                    break;
             }
         }
     }*/
-    for(int i=0; i<8; i++){
+    /*for(int i=0; i<8; i++){
         /*this->tab[1][i] = new Pion(this,"Pion","B",50,50,i*50,50);
-        this->tab[6][i] = new Pion(this,"Pion","N",50,50,i*50,300);*/
+        this->tab[6][i] = new Pion(this,"Pion","N",50,50,i*50,300);
         this->tab[1][i] = new Roi(this,"RB",50,50,i*50,50);
         this->tab[6][i] = new Roi(this,"RB",50,50,i*50,300);
 
-    }
+    }*/
 
     /*for(int i=0;i<8;i++){
             for(int j=0;j<8;j++){
@@ -112,13 +152,12 @@ void ChessBoard::initGame(){
 
 
 //Méthode pour lire un fichier
-void ChessBoard::lectureFichier(){
+void ChessBoard::lectureFichier(string sauvegarde){
+
+
     //Variable
-
     int cptLigne = 0;
-
-    //QFile fichier("initialisation.txt");
-    ifstream fichier("initialisation.txt", ios::in);  // on ouvre le fichier en lecture
+    ifstream fichier(sauvegarde, ios::in);  // on ouvre le fichier en lecture
     if(fichier)  // si l'ouverture a réussi
     {
         cout<<"fichier ouvert"<<endl;
@@ -168,9 +207,39 @@ void ChessBoard::lectureFichier(){
 }
 
 
+
+//Ecriture fichier sauvegarde
+void ChessBoard::ecritureFichierSauvegarde()
+{
+    using namespace std;
+    ofstream fichier("sauvegarde.txt", ios::out | ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+            if(fichier)
+
+            {
+
+                    for (int cpt1=0; cpt1<8 ;cpt1++ )
+                    {
+                        for (int cpt2=0; cpt2<8 ;cpt2++ )
+                        {
+                            fichier<<chessBoard[cpt1][cpt2];
+                        }
+
+                        fichier<<endl;
+                    }
+
+                    fichier.close();
+
+            }
+
+            else
+                    cerr << "Impossible d'ouvrir le fichier !" << endl;
+}
+
+
 //Appui du bouton sauvegarde
 void ChessBoard::on_boutonSauvegarder_clicked()
 {
-    this->lectureFichier();
+    this->lectureFichier("initialisation.txt");
+    this->ecritureFichierSauvegarde();
 }
 

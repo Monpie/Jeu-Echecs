@@ -1,9 +1,9 @@
 #include "tour.h"
 
-Tour::Tour(QWidget *parent,QString name, QString color, int width, int height, int x,int y)
+Tour::Tour(QWidget *parent, QString color, int width, int height, int x,int y)
 {
     this->lbl = new QLabel(parent);
-    this->lbl->setPixmap(QPixmap(":/images/piece.jpg"));
+    this->setImage(color);
     this->name = name;
     this->width = width;
     this->height = height;
@@ -13,11 +13,11 @@ Tour::Tour(QWidget *parent,QString name, QString color, int width, int height, i
 }
 
 void Tour::setImage(QString color){
-    if(color.compare("TB")){
-        //this->lbl->setPixmap(); //Image tour blanche
-    }else if(color.compare("TN")){
-        //Image tour noire
+    if(color.compare("Blanc")){
+        this->lbl->setPixmap(QPixmap(":/images/Pieces/tour_blanc.png")); //Image tour blanche
+    }else if(color.compare("Noir")){
+        this->lbl->setPixmap(QPixmap(":/images/Pieces/tour_noir.png"));  //Image tour noire
     }else{
-        //erreu
+        //erreur
     }
 }
