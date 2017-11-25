@@ -22,6 +22,8 @@ class ChessBoard : public QDialog
 
 public:
     explicit ChessBoard(QWidget *parent = 0);
+    explicit ChessBoard(QWidget *parent, string fichier);
+
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
     void initGame();

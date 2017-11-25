@@ -19,8 +19,11 @@ public:
 private slots:
     void on_newGameButton_clicked();
     void on_loadGameButton_clicked();
-    void lectureFichierInitialisation();
-    void ecritureFichierSauvegarde();
+
+
+    void on_btnQuitter_clicked();
+
+    void on_btnRegle_clicked();
 
 private:
     Ui::MainMenu *ui;

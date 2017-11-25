@@ -17,7 +17,24 @@ char chessBoard [8][8] ;
 
 using namespace std;
 
+
+//Constructeur initial
 ChessBoard::ChessBoard(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::ChessBoard)
+{
+    //this->test = new Roi(this,"RB",0,50);
+   this->piece = new Roi(this,"Roi blanc",50,50,0,0);
+
+    this->test = new QPushButton(this);
+    this->test->setText("OK");
+    //this->initGame();
+    ui->setupUi(this);
+}
+
+
+//Constructeur avec un paramètre string
+ChessBoard::ChessBoard(QWidget *parent , string fichier) :
     QDialog(parent),
     ui(new Ui::ChessBoard)
 {
