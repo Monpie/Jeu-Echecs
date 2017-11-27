@@ -6,7 +6,7 @@
 #include <ostream>
 #include <fstream>
 #include <QGridLayout>
-
+#include <QHBoxLayout>
 char chessBoard[8][8]; //Tableau de char
 Case *caseBoard[8][8]; // Tableau de Case
 
@@ -17,9 +17,9 @@ ChessBoard::ChessBoard(QWidget *parent) :
 {
 
     //position pieces
+    this->initGame();
     //this->piece = new Roi(this,"g",0,50,50,25,0);
     //this->secondRoi = new Roi(this,"k",1,50,50,100,75);
-    //this->initGame();
     ui->setupUi(this);
 }
 
@@ -29,12 +29,6 @@ ChessBoard::ChessBoard(QWidget *parent , string fichier) :
     QDialog(parent),
     ui(new Ui::ChessBoard)
 {
-    //this->test = new Roi(this,"RB",0,50);
-   //this->piece = new Roi(this,"Roi blanc",50,50,0,0);
-
-    //this->test = new QPushButton(this);
-    //this->test->setText("OK");
-    //this->initGame();
     ui->setupUi(this);
 }
 
@@ -45,6 +39,7 @@ ChessBoard::~ChessBoard()
 
 void ChessBoard::paintEvent(QPaintEvent *)
 {
+
     QPainter painter(this);
 
         for(int i=0; i<8 ; i++){
@@ -126,25 +121,67 @@ void ChessBoard::initGame(){
     //this->tab[0][2] = new Fou(this,"Fou1","B",50,50,100,0);
      cout << "initgame" ;
     this->lectureFichier("initialisation.txt");
-
-     //Piece *test = new Roi(this,"Blanc",1,50,50,75 +25,75);
-     //this->pieces.push_back(new Roi(this,"Blanc",1,50,50,75 +25,75));
-
    for(int i=0; i<8;i++){
         for(int j=0; j<8;j++){
             switch(chessBoard[i][j])
             {
-                case '1' :  this->pieces.push_back(new Pion(this,"Blanc",50,50,j*75 +25,i*75));
+                case '1' :
+                    if (i > 4)
+                    {
+                        this->pieces.push_back(new Pion(this,"Noir",1,50,50,j*75 +25,i*75));
+                    }
+                    else {
+                        this->pieces.push_back(new Pion(this,"Blanc",1,50,50,j*75 +25,i*75));
+                    }
                     break;
-                case '2' :  this->pieces.push_back(new Reine(this,"Blanc",50,50,j*75 +25,i*75));
+                case '2' :
+                if (i > 4)
+                {
+                   this->pieces.push_back(new Cavalier(this,"Noir",2 ,50,50,j*75 +25,i*75));
+                }
+                else {
+                    this->pieces.push_back(new Cavalier(this,"Blanc",1 ,50,50,j*75 +25,i*75));
+                }
+
                     break;
-                case '3' :  this->pieces.push_back(new Reine(this,"Blanc",50,50,j*75 +25,i*75));
+                case '3' :
+                if (i > 4)
+                {
+                    this->pieces.push_back(new Tour(this,"Noir", 2,50,50,j*75 +25,i*75));
+                }
+                else {
+                   this->pieces.push_back(new Tour(this,"Blanc", 1,50,50,j*75 +25,i*75));
+                }
+
                     break;
-                case '4' :  this->pieces.push_back(new Reine(this,"Blanc",50,50,j*75 +25,i*75));
+                case '4' :
+                if (i > 4)
+                {
+                     this->pieces.push_back(new Fou(this,"Noir", 2 ,50,50,j*75 +25,i*75));
+                }
+                else {
+                     this->pieces.push_back(new Fou(this,"Blanc", 1 ,50,50,j*75 +25,i*75));
+                }
+
                     break;
-                case '5' : this->pieces.push_back(new Reine(this,"Blanc",50,50,j*75 +25,i*75));
+                case '5' :
+                if (i > 4)
+                {
+                     this->pieces.push_back(new Reine(this,"Noir", 1 ,50,50,j*75 +25,i*75));
+                }
+                else {
+                     this->pieces.push_back(new Reine(this,"Blanc", 1 ,50,50,j*75 +25,i*75));
+                }
+
                     break;
-                case '6' : this->pieces.push_back(new Reine(this,"Blanc",50,50,j*75 +25,i*75));
+                case '6' :
+                    if (i > 4)
+                    {
+                         this->pieces.push_back(new Roi(this,"Noir", 1 ,50,50,j*75 +25,i*75));
+                    }
+                    else {
+                         this->pieces.push_back(new Roi(this,"Blanc", 1 ,50,50,j*75 +25,i*75));
+                    }
                     break;
             }
         }

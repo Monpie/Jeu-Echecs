@@ -13,7 +13,7 @@ Roi::Roi(QWidget *parent, QString color,int my_owner, int width, int height, int
     this->x = x;
     this->y = y;
     this->lbl->move(x,y);
-    this->my_owner = my_owner;
+    this->owner = my_owner;
 }
 
 void Roi::move(int x,int y){

@@ -2,15 +2,13 @@
 #define CASE_H
 
 #include <QColor>
-#include <QRect>
 #include <QPainter>
 
-class Case : public QRect
+class Case
 {
 public:
     Case(int size,int x,int y);
     void draw(QPainter *painter, QColor);
-
 
 private:
     int size;

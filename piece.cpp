@@ -16,6 +16,10 @@ int Piece::getY(){
     return this->lbl->y();
 }
 
+int Piece::getOwner(){
+    return this->owner;
+}
+
 
 bool Piece::validClick(QMouseEvent *event){
     if(event->pos().x() <= this->getX()+this->getWidth() && event->pos().y() <= this->getY()+this->getHeigth() && event->pos().x() >= this->getX() && event->pos().y() >= this->getY())

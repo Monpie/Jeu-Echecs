@@ -10,7 +10,10 @@
 #include "case.h"
 #include "piece.h"
 #include "roi.h"
+#include "cavalier.h"
 #include "reine.h"
+#include "fou.h"
+#include "tour.h"
 #include<string>
 using namespace std;
 namespace Ui {
