@@ -7,11 +7,8 @@
 #include <fstream>
 #include <QGridLayout>
 
-
-
 char chessBoard[8][8]; //Tableau de char
 Case *caseBoard[8][8]; // Tableau de Case
-
 
 //Constructeur initial
 ChessBoard::ChessBoard(QWidget *parent) :
@@ -20,9 +17,9 @@ ChessBoard::ChessBoard(QWidget *parent) :
 {
 
     //position pieces
-    this->piece = new Roi(this,"g",0,50,50,25,0);
-    this->secondRoi = new Roi(this,"k",1,50,50,100,75);
-    this->initGame();
+    //this->piece = new Roi(this,"g",0,50,50,25,0);
+    //this->secondRoi = new Roi(this,"k",1,50,50,100,75);
+    //this->initGame();
     ui->setupUi(this);
 }
 
@@ -78,48 +75,47 @@ void ChessBoard::paintEvent(QPaintEvent *)
 void ChessBoard::mousePressEvent(QMouseEvent *event){
     //cout << event->pos().x() << "pos pion : " << this->piece->getX()<< endl;
     if(event->buttons() & Qt::LeftButton ){
-       // qDebug("OK");
-        /*for(int i=0;i<8;i++)
-        {
-            for(int j=0;j<8;j++){
-                if(this->piece->isValidMove()){
-                    Case c(75,i*75,j*75);
-                    c.draw(this->painter,Qt::blue);
-                }
+        qDebug("OK");
+        for(int i=0;i<this->pieces.size();i++){
+           if(event->x() > this->pieces.at(i)->getX() && event->x() <this->pieces.at(i)->getX()+50 && event->y() > this->pieces.at(i)->getY() && event->y() < this->pieces.at(i)->getY()+50){
+                cout << "valid click" << endl;
+                cout << event->pos().x() << "old pos x pion : " << this->pieces.at(i)->getX()<< "old pos y pion : " << this->pieces.at(i)->getY() << endl;
             }
-        }*/
-        this->piece->validClick(event);
+        }
+
+        /*this->piece->validClick(event);
         this->piece->setOldX(this->piece->getX());
         this->piece->setOldY(this->piece->getY());
         this->secondRoi->validClick(event);
         this->secondRoi->setOldX(this->secondRoi->getX());
         cout << event->pos().x() << "old pos x pion : " << this->secondRoi->getOldX()<< "old pos y pion : " << this->secondRoi->getOldY() << endl;
-        this->secondRoi->setOldY(this->secondRoi->getY());
+        this->secondRoi->setOldY(this->secondRoi->getY());*/
+
     }
 }
 
 void ChessBoard::mouseReleaseEvent(QMouseEvent *event){
     qDebug("releaseEvent");
     this->isClicked = false;
-    if(this->currentPlayer==0)
+    /*if(this->currentPlayer==0)
         this->currentPlayer=1;
     else
-        this->currentPlayer = 0;
+        this->currentPlayer = 0;*/
 
-    cout << "current player : " << this->currentPlayer << endl;
+   // cout << "current player : " << this->currentPlayer << endl;
 }
 
 void ChessBoard::mouseMoveEvent(QMouseEvent *event){
 
 
     //qDebug("moveEvent");
-    if(this->piece->validClick(event) && this->piece->getMyOwner()==this->currentPlayer)
+    /*if(this->piece->validClick(event) && this->piece->getMyOwner()==this->currentPlayer)
     {
 
         this->piece->move(event->x()-this->taille/4,event->y()-this->taille/4);
     }else if(this->secondRoi->validClick(event) && this->secondRoi->getMyOwner()==this->currentPlayer){
         this->secondRoi->move(event->x()-this->taille/4,event->y()-this->taille/4);
-    }
+    }*/
 }
 
 
@@ -128,52 +124,32 @@ void ChessBoard::initGame(){
     //this->tab[0][0] = new Tour(this,"Tour1","B",50,50,0,0);
     //this->tab[0][1] = new Cavalier(this,"Cavalier1","B",50,50,50,0);
     //this->tab[0][2] = new Fou(this,"Fou1","B",50,50,100,0);
+     cout << "initgame" ;
     this->lectureFichier("initialisation.txt");
+
+     //Piece *test = new Roi(this,"Blanc",1,50,50,75 +25,75);
+     //this->pieces.push_back(new Roi(this,"Blanc",1,50,50,75 +25,75));
 
    for(int i=0; i<8;i++){
         for(int j=0; j<8;j++){
             switch(chessBoard[i][j])
             {
-                case 0 :
+                case '1' :  this->pieces.push_back(new Pion(this,"Blanc",50,50,j*75 +25,i*75));
                     break;
-                case 1 : this->tab[i][j] = new Pion(this,"Blanc",50,50,i*75 +25,j*75);
+                case '2' :  this->pieces.push_back(new Reine(this,"Blanc",50,50,j*75 +25,i*75));
                     break;
-                case 2 : this->tab[i][j] = new Roi(this,"Blanc",1 ,50,50,i*75 +25,j*75);
+                case '3' :  this->pieces.push_back(new Reine(this,"Blanc",50,50,j*75 +25,i*75));
                     break;
-                case 3 : this->tab[i][j] = new Roi(this,"Blanc", 2,50,50,i*75 +25,j*75);
+                case '4' :  this->pieces.push_back(new Reine(this,"Blanc",50,50,j*75 +25,i*75));
                     break;
-                case 4 : this->tab[i][j] = new Roi(this,"Blanc", 3 ,50,50,i*75 +25,j*75);
+                case '5' : this->pieces.push_back(new Reine(this,"Blanc",50,50,j*75 +25,i*75));
                     break;
-                case 5 : this->tab[i][j] = new Roi(this,"Blanc", 4,50,50,i*75 +25,j*75);
-                    break;
-                case 6 : this->tab[i][j] = new Roi(this,"Blanc", 5,50,50,i*75 +25,j*75);
+                case '6' : this->pieces.push_back(new Reine(this,"Blanc",50,50,j*75 +25,i*75));
                     break;
             }
         }
     }
 }
-   /* for(int i=0; i<8; i++){
-        this->tab[1][i] = new Pion(this,"Pion","B",50,50,i*50,50);
-        this->tab[6][i] = new Pion(this,"Pion","N",50,50,i*50,300);
-        this->tab[1][i] = new Roi(this,"RB",50,50,i*50,50);
-        this->tab[6][i] = new Roi(this,"RB",50,50,i*50,300);
-
-    }*/
-
-  /*  for(int i=0;i<8;i++){
-            for(int j=0;j<8;j++){
-                cout <<"Position piece : "<< i << "," <<j<< this->tab[i][j]->getX() << " , " << this->tab[i][j]->getY() << endl;
-            }
-    }*/
-
-   /* for(int i=0;i<8;i++){
-        for(int j=0;j<8;j++){
-            Roi *test = new Roi(this,"RB",50,50,j*50,i*50);
-            tab[i][j] = test;
-            cout << "Roi : " << i <<" , " << j <<endl;
-        }
-    }
-}*/
 
 
 

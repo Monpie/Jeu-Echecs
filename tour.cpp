@@ -10,6 +10,7 @@ Tour::Tour(QWidget *parent, QString color, int width, int height, int x,int y)
     this->color = color;
     this->x = x;
     this->y = y;
+    this->lbl->move(x,y);
 }
 
 void Tour::setImage(QString color){

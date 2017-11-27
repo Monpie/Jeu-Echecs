@@ -9,6 +9,7 @@ Cavalier::Cavalier(QWidget *parent, QString color, int width, int height, int x,
     this->height = height;
     this->x = x;
     this->y = y;
+    this->lbl->move(x,y);
 }
 
 void Cavalier::setImage(QString color){

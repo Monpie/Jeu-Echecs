@@ -10,6 +10,7 @@
 #include "case.h"
 #include "piece.h"
 #include "roi.h"
+#include "reine.h"
 #include<string>
 using namespace std;
 namespace Ui {
@@ -45,6 +46,7 @@ private:
     Roi *piece;
     Roi *secondRoi;
     Piece *tab[8][8] ;
+    vector<Piece*> pieces;
     const int taille = 75;
     bool isClicked = false;
     int currentPlayer = 0;

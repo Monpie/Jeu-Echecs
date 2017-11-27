@@ -9,6 +9,7 @@ Fou::Fou(QWidget *parent, QString color, int width, int height, int x,int y)
     this->height = height;
     this->x = x;
     this->y = y;
+    this->lbl->move(x,y);
 }
 
 void Fou::setImage(QString color){

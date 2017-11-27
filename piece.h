@@ -16,7 +16,7 @@ public:
      //virtual void setImage(QString name);
      void move(int x, int y);
      void isValidMove();
-     void validClick(QMouseEvent *event);
+     bool validClick(QMouseEvent *event);
      //void mousePressEvent(QMouseEvent *ev);
 
 protected:
