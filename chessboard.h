@@ -6,7 +6,7 @@
 #include <QMouseEvent>
 
 #include <QPushButton>
-
+#include <QPainter>
 #include "case.h"
 #include "piece.h"
 #include "roi.h"
@@ -26,9 +26,12 @@ public:
 
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
     void initGame();
     ~ChessBoard();
 
+    void modifierCase(char valeur, int ligne, int colonne);
     void lectureFichier(string Sauvegarde);
     void ecritureFichierSauvegarde();
 
@@ -40,10 +43,11 @@ private slots:
 private:
     Ui::ChessBoard *ui;
     Roi *piece;
+    Roi *secondRoi;
     Piece *tab[8][8] ;
-
-    QPushButton *test;
-
+    const int taille = 75;
+    bool isClicked = false;
+    int currentPlayer = 0;
 };
 
 #endif // CHESSBOARD_H

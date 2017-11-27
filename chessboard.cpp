@@ -2,20 +2,15 @@
 #include "ui_chessboard.h"
 #include <QPainter>
 #include "pion.h"
-
-
-
 #include <iostream>
 #include <ostream>
 #include <fstream>
+#include <QGridLayout>
 
 
 
-using namespace std;
-char chessBoard [8][8] ;
-
-
-using namespace std;
+char chessBoard[8][8]; //Tableau de char
+Case *caseBoard[8][8]; // Tableau de Case
 
 
 //Constructeur initial
@@ -23,12 +18,11 @@ ChessBoard::ChessBoard(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ChessBoard)
 {
-    //this->test = new Roi(this,"RB",0,50);
-   this->piece = new Roi(this,"Roi blanc",50,50,0,0);
 
-    this->test = new QPushButton(this);
-    this->test->setText("OK");
-    //this->initGame();
+    //position pieces
+    this->piece = new Roi(this,"g",0,50,50,25,0);
+    this->secondRoi = new Roi(this,"k",1,50,50,100,75);
+    this->initGame();
     ui->setupUi(this);
 }
 
@@ -39,10 +33,10 @@ ChessBoard::ChessBoard(QWidget *parent , string fichier) :
     ui(new Ui::ChessBoard)
 {
     //this->test = new Roi(this,"RB",0,50);
-   this->piece = new Roi(this,"Roi blanc",50,50,0,0);
+   //this->piece = new Roi(this,"Roi blanc",50,50,0,0);
 
-    this->test = new QPushButton(this);
-    this->test->setText("OK");
+    //this->test = new QPushButton(this);
+    //this->test->setText("OK");
     //this->initGame();
     ui->setupUi(this);
 }
@@ -52,7 +46,7 @@ ChessBoard::~ChessBoard()
     delete ui;
 }
 
-void ChessBoard::paintEvent(QPaintEvent *e)
+void ChessBoard::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
 
@@ -60,72 +54,137 @@ void ChessBoard::paintEvent(QPaintEvent *e)
             for(int j=0; j<8; j++){
                 if(i%2==0){
                     if(j%2==0){
-                        Case c(50,i*50,j*50);
-                        c.draw(&painter, Qt::white);
+                        caseBoard[i][j] = new Case(this->taille,i*this->taille,j*this->taille);
+                        caseBoard[i][j]->draw(&painter, Qt::white);
                     }else{
-                        Case c(50,i*50,j*50);
-
-                        c.draw(&painter, Qt::gray);
-
+                        caseBoard[i][j] = new Case(this->taille,i*this->taille,j*this->taille);
+                        caseBoard[i][j]->draw(&painter, Qt::gray);
                     }
                 }else{
                     if(j%2==0){
-                        Case c(50,i*50,j*50);
-
-                        c.draw(&painter, Qt::gray);
+                        caseBoard[i][j]= new Case(this->taille,i*this->taille,j*this->taille);
+                        caseBoard[i][j]->draw(&painter, Qt::gray);
 
                     }else{
-                        Case c(50,i*50,j*50);
-                        c.draw(&painter, Qt::white);
+                        caseBoard[i][j]=new Case(this->taille,i*this->taille,j*this->taille);
+                        caseBoard[i][j]->draw(&painter, Qt::white);
                     }
                 }
             }
         }
 }
 
+//____________________________________________________________DEPLACEMENT PIECE___________________________________________________
 void ChessBoard::mousePressEvent(QMouseEvent *event){
-
-   // cout << event->pos().x() << "pos pion : " << this->piece->getX()<< endl;
+    //cout << event->pos().x() << "pos pion : " << this->piece->getX()<< endl;
     if(event->buttons() & Qt::LeftButton ){
-        qDebug("OK");
-
-        this->test->move(event->x(),event->y());
-
+       // qDebug("OK");
+        /*for(int i=0;i<8;i++)
+        {
+            for(int j=0;j<8;j++){
+                if(this->piece->isValidMove()){
+                    Case c(75,i*75,j*75);
+                    c.draw(this->painter,Qt::blue);
+                }
+            }
+        }*/
         this->piece->validClick(event);
-        //this->piece->move(200,200);
+        this->piece->setOldX(this->piece->getX());
+        this->piece->setOldY(this->piece->getY());
+        this->secondRoi->validClick(event);
+        this->secondRoi->setOldX(this->secondRoi->getX());
+        cout << event->pos().x() << "old pos x pion : " << this->secondRoi->getOldX()<< "old pos y pion : " << this->secondRoi->getOldY() << endl;
+        this->secondRoi->setOldY(this->secondRoi->getY());
+    }
+}
+
+void ChessBoard::mouseReleaseEvent(QMouseEvent *event){
+    qDebug("releaseEvent");
+    this->isClicked = false;
+    if(this->currentPlayer==0)
+        this->currentPlayer=1;
+    else
+        this->currentPlayer = 0;
+
+    cout << "current player : " << this->currentPlayer << endl;
+}
+
+void ChessBoard::mouseMoveEvent(QMouseEvent *event){
+
+
+    //qDebug("moveEvent");
+    if(this->piece->validClick(event) && this->piece->getMyOwner()==this->currentPlayer)
+    {
+
+        this->piece->move(event->x()-this->taille/4,event->y()-this->taille/4);
+    }else if(this->secondRoi->validClick(event) && this->secondRoi->getMyOwner()==this->currentPlayer){
+        this->secondRoi->move(event->x()-this->taille/4,event->y()-this->taille/4);
     }
 }
 
 
-
+//____________________________________________________________INITIALISATION JEU__________________________________________________
 void ChessBoard::initGame(){
     //this->tab[0][0] = new Tour(this,"Tour1","B",50,50,0,0);
     //this->tab[0][1] = new Cavalier(this,"Cavalier1","B",50,50,50,0);
     //this->tab[0][2] = new Fou(this,"Fou1","B",50,50,100,0);
+    this->lectureFichier("initialisation.txt");
 
-    for(int i=0; i<8; i++){
-        /*this->tab[1][i] = new Pion(this,"Pion","B",50,50,i*50,50);
-        this->tab[6][i] = new Pion(this,"Pion","N",50,50,i*50,300);*/
+   for(int i=0; i<8;i++){
+        for(int j=0; j<8;j++){
+            switch(chessBoard[i][j])
+            {
+                case 0 :
+                    break;
+                case 1 : this->tab[i][j] = new Pion(this,"Blanc",50,50,i*75 +25,j*75);
+                    break;
+                case 2 : this->tab[i][j] = new Roi(this,"Blanc",1 ,50,50,i*75 +25,j*75);
+                    break;
+                case 3 : this->tab[i][j] = new Roi(this,"Blanc", 2,50,50,i*75 +25,j*75);
+                    break;
+                case 4 : this->tab[i][j] = new Roi(this,"Blanc", 3 ,50,50,i*75 +25,j*75);
+                    break;
+                case 5 : this->tab[i][j] = new Roi(this,"Blanc", 4,50,50,i*75 +25,j*75);
+                    break;
+                case 6 : this->tab[i][j] = new Roi(this,"Blanc", 5,50,50,i*75 +25,j*75);
+                    break;
+            }
+        }
+    }
+}
+   /* for(int i=0; i<8; i++){
+        this->tab[1][i] = new Pion(this,"Pion","B",50,50,i*50,50);
+        this->tab[6][i] = new Pion(this,"Pion","N",50,50,i*50,300);
         this->tab[1][i] = new Roi(this,"RB",50,50,i*50,50);
         this->tab[6][i] = new Roi(this,"RB",50,50,i*50,300);
 
-    }
+    }*/
 
-    /*for(int i=0;i<8;i++){
+  /*  for(int i=0;i<8;i++){
             for(int j=0;j<8;j++){
                 cout <<"Position piece : "<< i << "," <<j<< this->tab[i][j]->getX() << " , " << this->tab[i][j]->getY() << endl;
             }
     }*/
 
-    /*for(int i=0;i<8;i++){
+   /* for(int i=0;i<8;i++){
         for(int j=0;j<8;j++){
             Roi *test = new Roi(this,"RB",50,50,j*50,i*50);
             tab[i][j] = test;
             cout << "Roi : " << i <<" , " << j <<endl;
         }
-    }*/
-}
+    }
+}*/
 
+
+
+
+//____________________________________________________________GESTION LECTURE FICHIER___________________________________________________
+
+
+void ChessBoard::modifierCase(char valeur, int ligne, int colonne)
+{
+    chessBoard[ligne][colonne]= valeur;
+}
 
 //Méthode pour lire un fichier
 void ChessBoard::lectureFichier(string sauvegarde){

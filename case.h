@@ -8,8 +8,9 @@
 class Case : public QRect
 {
 public:
-    Case(int,int,int);
+    Case(int size,int x,int y);
     void draw(QPainter *painter, QColor);
+
 
 private:
     int size;

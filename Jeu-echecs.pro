@@ -31,7 +31,10 @@ SOURCES += \
     piece.cpp \
     roi.cpp \
     pion.cpp \
-    tour.cpp
+    tour.cpp \
+    cavalier.cpp \
+    fou.cpp \
+    reine.cpp
 
 HEADERS += \
         chessboard.h \
@@ -40,7 +43,10 @@ HEADERS += \
     piece.h \
     roi.h \
     pion.h \
-    tour.h
+    tour.h \
+    cavalier.h \
+    fou.h \
+    reine.h
 
 FORMS += \
         chessboard.ui \

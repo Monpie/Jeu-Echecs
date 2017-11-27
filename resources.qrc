@@ -2,6 +2,18 @@
     <qresource prefix="/images">
         <file>echiquier.jpg</file>
         <file>piece.jpg</file>
+        <file>Pieces/cavalier_blanc.png</file>
+        <file>Pieces/cavalier_noir.png</file>
+        <file>Pieces/fou_blanc.png</file>
+        <file>Pieces/fou_noir.png</file>
+        <file>Pieces/pion_blanc.png</file>
+        <file>Pieces/pion_noir.png</file>
+        <file>Pieces/reine_blanc.png</file>
+        <file>Pieces/reine_noir.png</file>
+        <file>Pieces/roi_blanc.png</file>
+        <file>Pieces/roi_noir.png</file>
+        <file>Pieces/tour_blanc.png</file>
+        <file>Pieces/tour_noir.png</file>
     </qresource>
     <qresource prefix="/texte">
         <file>sauvegarde.txt</file>

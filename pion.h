@@ -6,7 +6,8 @@
 class Pion : public Piece
 {
 public:
-    Pion(QWidget *parent, QString name, QString color, int width, int height, int x,int y);
+    Pion(QWidget *parent, QString color, int width, int height, int x,int y);
+    void setImage(QString color);
 };
 
 #endif // PION_H
