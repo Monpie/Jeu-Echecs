@@ -16,5 +16,9 @@ int Piece::getY(){
     return this->lbl->y();
 }
 
+int Piece::getOwner(){
+    return this->owner;
+}
+
 
 

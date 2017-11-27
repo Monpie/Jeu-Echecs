@@ -20,9 +20,10 @@ ChessBoard::ChessBoard(QWidget *parent) :
 {
 
     //position pieces
-    this->piece = new Roi(this,"g",0,50,50,25,0);
-    this->secondRoi = new Roi(this,"k",1,50,50,100,75);
     this->initGame();
+    //this->piece = new Roi(this,"g",0,50,50,25,0);
+    //this->secondRoi = new Roi(this,"k",1,50,50,100,75);
+
     ui->setupUi(this);
 }
 
@@ -129,24 +130,75 @@ void ChessBoard::initGame(){
     //this->tab[0][1] = new Cavalier(this,"Cavalier1","B",50,50,50,0);
     //this->tab[0][2] = new Fou(this,"Fou1","B",50,50,100,0);
     this->lectureFichier("initialisation.txt");
-
+    cout<<"initGame"<<endl;
    for(int i=0; i<8;i++){
         for(int j=0; j<8;j++){
             switch(chessBoard[i][j])
             {
-                case 0 :
+                case '0' :
                     break;
-                case 1 : this->tab[i][j] = new Pion(this,"Blanc",50,50,i*75 +25,j*75);
+                case '1' :
+                    if (i > 4)
+                    {
+                        this->tab[i][j] = new Pion(this,"Noir", 2 ,50,50,j*75 +25,i*75);
+                    }
+                    else {
+                        this->tab[i][j] = new Pion(this,"Blanc", 1 ,50,50,j*75 +25,i*75);
+                    }
+
+
                     break;
-                case 2 : this->tab[i][j] = new Roi(this,"Blanc",1 ,50,50,i*75 +25,j*75);
+                case '2' :
+                if (i > 4)
+                {
+                    this->tab[i][j] = new Cavalier(this,"Noir",2 ,50,50,j*75 +25,i*75);
+                }
+                else {
+                    this->tab[i][j] = new Cavalier(this,"Blanc",1 ,50,50,j*75 +25,i*75);
+                }
+
                     break;
-                case 3 : this->tab[i][j] = new Roi(this,"Blanc", 2,50,50,i*75 +25,j*75);
+                case '3' :
+                if (i > 4)
+                {
+                    this->tab[i][j] = new Tour(this,"Noir", 2,50,50,j*75 +25,i*75);
+                }
+                else {
+                    this->tab[i][j] = new Tour(this,"Blanc", 1,50,50,j*75 +25,i*75);
+                }
+
                     break;
-                case 4 : this->tab[i][j] = new Roi(this,"Blanc", 3 ,50,50,i*75 +25,j*75);
+                case '4' :
+                if (i > 4)
+                {
+                     this->tab[i][j] = new Fou(this,"Noir", 2 ,50,50,j*75 +25,i*75);
+                }
+                else {
+                     this->tab[i][j] = new Fou(this,"Blanc", 1 ,50,50,j*75 +25,i*75);
+                }
+
                     break;
-                case 5 : this->tab[i][j] = new Roi(this,"Blanc", 4,50,50,i*75 +25,j*75);
+                case '5' :
+                if (i > 4)
+                {
+                     this->tab[i][j] = new Reine(this,"Noir", 1 ,50,50,j*75 +25,i*75);
+                }
+                else {
+                     this->tab[i][j] = new Reine(this,"Blanc", 1 ,50,50,j*75 +25,i*75);
+                }
+
                     break;
-                case 6 : this->tab[i][j] = new Roi(this,"Blanc", 5,50,50,i*75 +25,j*75);
+                case '6' :
+                    if (i > 4)
+                    {
+                         this->tab[i][j] = new Roi(this,"Noir", 1 ,50,50,j*75 +25,i*75);
+                    }
+                    else {
+                         this->tab[i][j] = new Roi(this,"Blanc", 1 ,50,50,j*75 +25,i*75);
+                    }
+
+                    break;
+                 default : cout<<"erreur"<<endl;
                     break;
             }
         }

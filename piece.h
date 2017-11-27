@@ -9,6 +9,7 @@ class Piece
 public:
      int getX();
      int getY();
+     int getOwner();
      int setX();
      int setY();
      int getWidth();
@@ -27,6 +28,7 @@ protected:
     int height; //Hauteur de la pièce
     int x;  //Position x de la pièce
     int y;  //Position y de la pièce
+    int owner;
     bool isClicked = false;
 };
 
