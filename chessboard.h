@@ -26,13 +26,12 @@ class ChessBoard : public QDialog
 
 public:
     explicit ChessBoard(QWidget *parent = 0);
-    explicit ChessBoard(QWidget *parent, string fichier);
 
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
-    void initGame();
+    void initGame(string fichier);
     ~ChessBoard();
 
     void modifierCase(char valeur, int ligne, int colonne);
