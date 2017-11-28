@@ -27,12 +27,12 @@ int Player::getId()
 //removePiece
 void Player::removePiece(Piece piece)
 {
-    this->pieces.erase(piece);
+    //this->pieces.erase(piece);
 }
 
 //addPiece
 void Player::addPiece(Piece piece){
-    this->pieces.push_back(piece);
+    this->pieces.push_back(&piece);
 }
 
 

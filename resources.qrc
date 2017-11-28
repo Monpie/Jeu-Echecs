@@ -14,9 +14,21 @@
         <file>Pieces/roi_noir.png</file>
         <file>Pieces/tour_blanc.png</file>
         <file>Pieces/tour_noir.png</file>
+        <file>Pieces/chateau-de-la-hulpe.jpg</file>
     </qresource>
     <qresource prefix="/texte">
         <file>sauvegarde.txt</file>
         <file>initialisation.txt</file>
+    </qresource>
+    <qresource prefix="/musique">
+        <file>Musique/Game_of_Thrones.wav</file>
+    </qresource>
+    <qresource prefix="/images/game">
+        <file>game/background.jpg</file>
+        <file>game/Continue.png</file>
+        <file>game/Leave.png</file>
+        <file>game/logoNewGame.png</file>
+        <file>game/rules.png</file>
+        <file>game/titre.png</file>
     </qresource>
 </RCC>

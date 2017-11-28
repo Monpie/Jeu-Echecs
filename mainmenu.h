@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include "chessboard.h"
+#include <QSound>
+#include <QMediaPlayer>
 
 namespace Ui {
 class MainMenu;

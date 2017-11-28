@@ -7,10 +7,14 @@
 
 #include <ostream>
 #include <fstream>
+
 MainMenu::MainMenu(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MainMenu)
 {
+
+    QSound::play(":/musique/Musique/Game_of_Thrones.wav");
+
     ui->setupUi(this);
 }
 
@@ -25,6 +29,7 @@ void MainMenu::on_newGameButton_clicked()
 {
     ChessBoard board;
     this->hide();
+
     board.initGame("initialisation.txt");
     board.exec();
 }
@@ -35,6 +40,7 @@ void MainMenu::on_loadGameButton_clicked()
 {
     ChessBoard board;
     this->hide();
+
     board.initGame("sauvegarde.txt");
     board.exec();
 
