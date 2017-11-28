@@ -19,10 +19,10 @@ public:
      void isValidMove();
      bool validClick(QMouseEvent *event);
      //void mousePressEvent(QMouseEvent *ev);
-
+    QString name;   //Nom de la pièce
 protected:
     QLabel* lbl;    //Image de la pièce
-    QString name;   //Nom de la pièce
+
     QString color;  //Couleur de la pièce
     int width;  //Largeur de la pièce
     int height; //Hauteur de la pièce

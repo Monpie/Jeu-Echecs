@@ -1,6 +1,6 @@
 #include "pion.h"
 
-Pion::Pion(QWidget *parent, QString color, int owner,  int width, int height, int x,int y)
+Pion::Pion(QWidget *parent,QString name, QString color, int owner,  int width, int height, int x,int y)
 {
     this->lbl = new QLabel(parent);
     this->setImage(color);

@@ -70,12 +70,13 @@ void ChessBoard::paintEvent(QPaintEvent *)
 void ChessBoard::mousePressEvent(QMouseEvent *event){
     //cout << event->pos().x() << "pos pion : " << this->piece->getX()<< endl;
     if(event->buttons() & Qt::LeftButton ){
-        qDebug("OK");
+        //qDebug("OK");
         for(int i=0;i<this->pieces.size();i++){
            if(event->x() > this->pieces.at(i)->getX() && event->x() <this->pieces.at(i)->getX()+50 && event->y() > this->pieces.at(i)->getY() && event->y() < this->pieces.at(i)->getY()+50){
                 cout << "valid click" << endl;
                 cout << event->pos().x() << "old pos x pion : " << this->pieces.at(i)->getX()<< "old pos y pion : " << this->pieces.at(i)->getY() << endl;
-            }
+                cout << this->pieces.at(i)->name << " , " << this->pieces.at(i)->getX()+50 << " , " << this->pieces.at(i)->getY()+50 << endl;
+           }
         }
 
         /*this->piece->validClick(event);
@@ -128,10 +129,10 @@ void ChessBoard::initGame(){
                 case '1' :
                     if (i > 4)
                     {
-                        this->pieces.push_back(new Pion(this,"Noir",1,50,50,j*75 +25,i*75));
+                        this->pieces.push_back(new Pion(this,"Test"+j,"Noir",1,50,50,j*75 +25,i*75));
                     }
                     else {
-                        this->pieces.push_back(new Pion(this,"Blanc",1,50,50,j*75 +25,i*75));
+                        this->pieces.push_back(new Pion(this,"Pion"+j,"Blanc",1,50,50,j*75 +25,i*75));
                     }
                     break;
                 case '2' :
