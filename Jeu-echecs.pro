@@ -34,7 +34,8 @@ SOURCES += \
     tour.cpp \
     cavalier.cpp \
     fou.cpp \
-    reine.cpp
+    reine.cpp \
+    player.cpp
 
 HEADERS += \
         chessboard.h \
@@ -46,7 +47,8 @@ HEADERS += \
     tour.h \
     cavalier.h \
     fou.h \
-    reine.h
+    reine.h \
+    player.h
 
 FORMS += \
         chessboard.ui \

@@ -25,7 +25,7 @@ void MainMenu::on_newGameButton_clicked()
 {
     ChessBoard board;
     this->hide();
-    board.initGame();
+    board.initGame("initialisation.txt");
     board.exec();
 }
 
@@ -35,8 +35,8 @@ void MainMenu::on_loadGameButton_clicked()
 {
     ChessBoard board;
     this->hide();
+    board.initGame("sauvegarde.txt");
     board.exec();
-
 }
 
 

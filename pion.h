@@ -6,9 +6,13 @@
 class Pion : public Piece
 {
 public:
-    Pion(QWidget *parent,QString name, QString color, int owner, int width, int height, int x,int y);
+    Pion(QWidget *parent, QString color, int owner, int width, int height, int x,int y);
     void setImage(QString color);
     void move(int x, int y);
+    bool isValidMove();
+
+private:
+    bool firstMove = true;
 };
 
 #endif // PION_H

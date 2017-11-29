@@ -13,9 +13,6 @@
   <property name="windowTitle">
    <string>ChessBoard</string>
   </property>
-  <property name="autoFillBackground">
-   <bool>false</bool>
-  </property>
   <widget class="QPushButton" name="boutonSauvegarder">
    <property name="geometry">
     <rect>

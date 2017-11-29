@@ -2,7 +2,6 @@
 #define PIECE_H
 #include <QLabel>
 #include <QMouseEvent>
-//#include "roi.h"
 
 class Piece
 {
@@ -14,20 +13,30 @@ public:
      int setY();
      int getWidth();
      int getHeigth();
-     //virtual void setImage(QString name);
+     int getOldX();
+     int getOldY();
+     void setOldX(int x);
+     void setOldY(int y);
+     int getTabPosX();
+     int getTabPosY();
+     void setTabPosX(int x);
+     void setTabPosY(int y);
      void move(int x, int y);
-     void isValidMove();
+     bool isValidMove();
      bool validClick(QMouseEvent *event);
-     //void mousePressEvent(QMouseEvent *ev);
-    QString name;   //Nom de la pièce
-protected:
-    QLabel* lbl;    //Image de la pièce
+     void setImage(QString color);
 
+protected:
+    QLabel  *lbl;    //Image de la pièce
     QString color;  //Couleur de la pièce
     int width;  //Largeur de la pièce
     int height; //Hauteur de la pièce
     int x;  //Position x de la pièce
     int y;  //Position y de la pièce
+    int oldX;
+    int oldY;
+    int tabPosX;    //position ligne de la pièce dans le tableau
+    int tabPosY;    //position colonne de la pièce dans le tableau
     int owner;
     bool isClicked = false;
 };

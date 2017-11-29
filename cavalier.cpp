@@ -4,7 +4,6 @@ Cavalier::Cavalier(QWidget *parent, QString color, int owner , int width, int he
 {
     this->lbl = new QLabel(parent);
     this->setImage(color);
-    this->name = name;
     this->width = width;
     this->height = height;
     this->x = x;

@@ -4,7 +4,6 @@ Tour::Tour(QWidget *parent, QString color, int owner,  int width, int height, in
 {
     this->lbl = new QLabel(parent);
     this->setImage(color);
-    this->name = name;
     this->width = width;
     this->height = height;
     this->color = color;
@@ -20,4 +19,11 @@ void Tour::setImage(QString color){
     }else if(color==("Noir")){
         this->lbl->setPixmap(QPixmap(":/images/Pieces/tour_noir.png"));  //Image tour noire
     }
+}
+
+bool Tour::isValidMove(){
+    if((this->getX()>0 && this->getX()<800 && this->getY()> this->getOldY()-25 && this->getY() <this->getOldY()+25) || (this->getY()>0 && this->getY()<800 && this->getX()> this->getOldX()-25 && this->getX() <this->getOldX()+25))
+        return true;
+    else
+        return false;
 }

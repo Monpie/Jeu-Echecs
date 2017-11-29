@@ -4,7 +4,6 @@ Fou::Fou(QWidget *parent, QString color, int owner,  int width, int height, int 
 {
     this->lbl = new QLabel(parent);
     this->setImage(color);
-    this->name = name;
     this->width = width;
     this->height = height;
     this->x = x;
@@ -20,3 +19,5 @@ void Fou::setImage(QString color){
         this->lbl->setPixmap(QPixmap(":/images/Pieces/fou_noir.png"));  //Image tour noire
     }
 }
+
+

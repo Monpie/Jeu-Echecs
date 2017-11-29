@@ -7,7 +7,6 @@ Roi::Roi(QWidget *parent, QString color,int my_owner, int width, int height, int
     this->lbl = new QLabel(parent);
     this->lbl->setPixmap(QPixmap(":/images/Pieces/roi_blanc.png"));
     this->setImage(color);
-    this->name = name;
     this->width = width;
     this->height = height;
     this->x = x;

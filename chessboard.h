@@ -26,13 +26,12 @@ class ChessBoard : public QDialog
 
 public:
     explicit ChessBoard(QWidget *parent = 0);
-    explicit ChessBoard(QWidget *parent, string fichier);
 
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
-    void initGame();
+    void initGame(string fichier);
     ~ChessBoard();
 
     void modifierCase(char valeur, int ligne, int colonne);
@@ -46,13 +45,14 @@ private slots:
 
 private:
     Ui::ChessBoard *ui;
-    Roi *piece;
-    Roi *secondRoi;
-    Piece *tab[8][8] ;
+
     vector<Piece*> pieces;
-    const int taille = 75;
+    const int TAILLE = 75;
     bool isClicked = false;
+    Piece *selectedPiece;
     int currentPlayer = 0;
+    char chessBoard[8][8]; //Tableau de char
+    Case *caseBoard[8][8]; // Tableau de Case
 };
 
 #endif // CHESSBOARD_H
