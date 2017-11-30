@@ -120,45 +120,45 @@ void ChessBoard::initGame(string fichier){
             {
             case '1' :
 
-                this->pieces.push_back(new Pion(this,"Blanc",1,50,50,j*75 +25,i*75));
+                this->pieces.push_back(new Pion(this,"Blanc",1,50,50,j*95 +25,i*95));
                 break;
             case '2' :
 
-                this->pieces.push_back(new Cavalier(this,"Blanc",1 ,50,50,j*75 +25,i*75));
+                this->pieces.push_back(new Cavalier(this,"Blanc",1 ,50,50,j*95 +25,i*95));
                 break;
             case '3' :
 
-                this->pieces.push_back(new Tour(this,"Blanc", 1,50,50,j*75 +25,i*75));
+                this->pieces.push_back(new Tour(this,"Blanc", 1,50,50,j*95 +25,i*95));
                 break;
             case '4' :
 
-                this->pieces.push_back(new Fou(this,"Blanc", 1 ,50,50,j*75 +25,i*75));
+                this->pieces.push_back(new Fou(this,"Blanc", 1 ,50,50,j*95 +25,i*95));
                 break;
             case '5' :
 
-                this->pieces.push_back(new Reine(this,"Blanc", 1 ,50,50,j*75 +25,i*75));
+                this->pieces.push_back(new Reine(this,"Blanc", 1 ,50,50,j*95 +25,i*95));
                 break;
             case '6' :
 
-                this->pieces.push_back(new Roi(this,"Blanc", 1 ,50,50,j*75 +25,i*75));
+                this->pieces.push_back(new Roi(this,"Blanc", 1 ,50,50,j*95 +25,i*95));
                 break;
             case 'p' :
-                this->pieces.push_back(new Pion(this,"Noir",1,50,50,j*75 +25,i*75));
+                this->pieces.push_back(new Pion(this,"Noir",1,50,50,j*95 +25,i*95));
                 break;
             case 't' :
-                this->pieces.push_back(new Tour(this,"Noir", 2,50,50,j*75 +25,i*75));
+                this->pieces.push_back(new Tour(this,"Noir", 2,50,50,j*95 +25,i*95));
                 break;
             case 'c' :
-                this->pieces.push_back(new Cavalier(this,"Noir",2 ,50,50,j*75 +25,i*75));
+                this->pieces.push_back(new Cavalier(this,"Noir",2 ,50,50,j*95 +25,i*95));
                 break;
             case 'f' :
-                this->pieces.push_back(new Fou(this,"Noir", 2 ,50,50,j*75 +25,i*75));
+                this->pieces.push_back(new Fou(this,"Noir", 2 ,50,50,j*95 +25,i*95));
                 break;
             case 'k' :
-                this->pieces.push_back(new Roi(this,"Noir", 1 ,50,50,j*75 +25,i*75));
+                this->pieces.push_back(new Roi(this,"Noir", 1 ,50,50,j*95 +25,i*95));
                 break;
             case 'q' :
-                this->pieces.push_back(new Reine(this,"Noir", 1 ,50,50,j*75 +25,i*75));
+                this->pieces.push_back(new Reine(this,"Noir", 1 ,50,50,j*95 +25,i*95));
                 break;
             }
         }
