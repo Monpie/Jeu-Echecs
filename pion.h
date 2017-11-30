@@ -11,6 +11,7 @@ public:
     void move(int x, int y);
     bool isValidMove(int x, int y);
     void firstMovePlayed();
+    ~Pion();
 
 private:
     bool firstMove = true;

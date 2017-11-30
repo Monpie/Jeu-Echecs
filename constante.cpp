@@ -1,3 +1,3 @@
 #include "constante.h"
 
-const int TAILLECASE = 75;
+const int TAILLECASE = 95;

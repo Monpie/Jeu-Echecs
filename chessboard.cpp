@@ -32,7 +32,6 @@ void ChessBoard::paintEvent(QPaintEvent *)
         for(int j=0; j<8; j++){
             if(i%2==0){
                 if(j%2==0){
-                   // caseBoard[i][j] = new Case(this->TAILLE,i*this->TAILLE,j*this->TAILLE);
                     caseBoard[i][j] = new Case(TAILLECASE,i*TAILLECASE,j*TAILLECASE);
                     caseBoard[i][j]->draw(&painter, Qt::white);
                 }else{
@@ -118,87 +117,102 @@ void ChessBoard::initGame(string fichier){
         for(int j=0; j<8;j++){
             switch(chessBoard[i][j])
             {
-           /* case '1' :
-                Pion *pion = new Pion(this,"Blanc",1,50,50,j*75 +25,i*75);
+            case '1':
+            {
+                Pion *pion = new Pion(this,"Blanc",1,50,50,j*TAILLECASE +25,i*TAILLECASE);
                 pion->setTabPosX(i);
                 pion->setTabPosY(j);
                 this->pieces.push_back(pion);
                 break;
-           /* case '2' :
-                this->pieces.push_back(new Cavalier(this,"Blanc",1 ,50,50,j*75 +25,i*75));
-                break;
-            case '3' :
-                this->pieces.push_back(new Tour(this,"Blanc", 1,50,50,j*75 +25,i*75));
-                break;
-            case '4' :
-                this->pieces.push_back(new Fou(this,"Blanc", 1 ,50,50,j*75 +25,i*75));
-                break;
-            case '5' :
-                this->pieces.push_back(new Reine(this,"Blanc", 1 ,50,50,j*75 +25,i*75));
-                break;
-            case '6' :
-                this->pieces.push_back(new Roi(this,"Blanc", 1 ,50,50,j*75 +25,i*75));
-                break;
-            case 'p' :
-                this->pieces.push_back(new Pion(this,"Noir",2,50,50,j*75 +25,i*75));
-                break;
-            case 't' :
-                this->pieces.push_back(new Tour(this,"Noir",2,50,50,j*75 +25,i*75));
-                break;
-            case 'c' :
-                this->pieces.push_back(new Cavalier(this,"Noir",2,50,50,j*75 +25,i*75));
-                break;
-            case 'f' :
-                this->pieces.push_back(new Fou(this,"Noir",2,50,50,j*75 +25,i*75));
-                break;
-            case 'k' :
-                this->pieces.push_back(new Roi(this,"Noir",2,50,50,j*75 +25,i*75));
-                break;
-            case 'q' :
-                this->pieces.push_back(new Reine(this,"Noir",2,50,50,j*75 +25,i*75));
-                break;*/
-
-            case '1':
-                this->pieces.push_back(new Pion(this,"Blanc",1,50,50,j*95 +25,i*95));
-                break;
+            }
             case '2' :
-
-                this->pieces.push_back(new Cavalier(this,"Blanc",1 ,50,50,j*95 +25,i*95));
+            {
+                Cavalier *cavalier = new Cavalier(this,"Blanc",1 ,50,50,j*TAILLECASE +25,i*TAILLECASE);
+                cavalier->setTabPosX(i);
+                cavalier->setTabPosY(j);
+                this->pieces.push_back(cavalier);
                 break;
+            }
             case '3' :
-
-                this->pieces.push_back(new Tour(this,"Blanc", 1,50,50,j*95 +25,i*95));
+            {
+                Tour *tour = new Tour(this,"Blanc",1 ,50,50,j*TAILLECASE +25,i*TAILLECASE);
+                tour->setTabPosX(i);
+                tour->setTabPosY(j);
+                this->pieces.push_back(tour);
                 break;
+            }
             case '4' :
-
-                this->pieces.push_back(new Fou(this,"Blanc", 1 ,50,50,j*95 +25,i*95));
+            {
+                Fou *fou = new Fou(this,"Blanc",1 ,50,50,j*TAILLECASE +25,i*TAILLECASE);
+                fou->setTabPosX(i);
+                fou->setTabPosY(j);
+                this->pieces.push_back(fou);
                 break;
+            }
             case '5' :
-
-                this->pieces.push_back(new Reine(this,"Blanc", 1 ,50,50,j*95 +25,i*95));
+            {
+                Reine *reine = new Reine(this,"Blanc",1 ,50,50,j*TAILLECASE +25,i*TAILLECASE);
+                reine->setTabPosX(i);
+                reine->setTabPosY(j);
+                this->pieces.push_back(reine);
                 break;
+            }
             case '6' :
-
-                this->pieces.push_back(new Roi(this,"Blanc", 1 ,50,50,j*95 +25,i*95));
+            {
+                Roi *roi = new Roi(this,"Blanc",1 ,50,50,j*TAILLECASE +25,i*TAILLECASE);
+                roi->setTabPosX(i);
+                roi->setTabPosY(j);
+                this->pieces.push_back(roi);
                 break;
+            }
             case 'p' :
-                this->pieces.push_back(new Pion(this,"Noir",1,50,50,j*95 +25,i*95));
+            {
+                Pion *pion2 = new Pion(this,"Noir",1 ,50,50,j*TAILLECASE +25,i*TAILLECASE);
+                pion2->setTabPosX(i);
+                pion2->setTabPosY(j);
+                this->pieces.push_back(pion2);
                 break;
+            }
             case 't' :
-                this->pieces.push_back(new Tour(this,"Noir", 2,50,50,j*95 +25,i*95));
+            {
+                Tour *tour = new Tour(this,"Noir",1 ,50,50,j*TAILLECASE +25,i*TAILLECASE);
+                tour->setTabPosX(i);
+                tour->setTabPosY(j);
+                this->pieces.push_back(tour);
                 break;
+            }
             case 'c' :
-                this->pieces.push_back(new Cavalier(this,"Noir",2 ,50,50,j*95 +25,i*95));
+            {
+                Cavalier *cavalier = new Cavalier(this,"Noir",1 ,50,50,j*TAILLECASE +25,i*TAILLECASE);
+                cavalier->setTabPosX(i);
+                cavalier->setTabPosY(j);
+                this->pieces.push_back(cavalier);
                 break;
+            }
             case 'f' :
-                this->pieces.push_back(new Fou(this,"Noir", 2 ,50,50,j*95 +25,i*95));
+            {
+                Fou *fou = new Fou(this,"Noir",1 ,50,50,j*TAILLECASE +25,i*TAILLECASE);
+                fou->setTabPosX(i);
+                fou->setTabPosY(j);
+                this->pieces.push_back(fou);
                 break;
+            }
             case 'k' :
-                this->pieces.push_back(new Roi(this,"Noir", 1 ,50,50,j*95 +25,i*95));
+            {
+                Roi *roi = new Roi(this,"Noir",1 ,50,50,j*TAILLECASE +25,i*TAILLECASE);
+                roi->setTabPosX(i);
+                roi->setTabPosY(j);
+                this->pieces.push_back(roi);
                 break;
+            }
             case 'q' :
-                this->pieces.push_back(new Reine(this,"Noir", 1 ,50,50,j*95 +25,i*95));
+            {
+                Reine *reine = new Reine(this,"Noir",1 ,50,50,j*TAILLECASE +25,i*TAILLECASE);
+                reine->setTabPosX(i);
+                reine->setTabPosY(j);
+                this->pieces.push_back(reine);
                 break;
+            }
             }
         }
     }
