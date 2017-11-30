@@ -20,4 +20,11 @@ void Fou::setImage(QString color){
     }
 }
 
+void Fou::move(int x, int y){
+  //  if(this->isValidMove())
+        this->lbl->move(x,y);
+}
 
+bool Fou::isValidMove(int x, int y){
+    return false;
+}

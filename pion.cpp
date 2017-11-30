@@ -1,5 +1,7 @@
 #include "pion.h"
 #include "math.h"
+#include "iostream"
+using namespace std;
 
 Pion::Pion(QWidget *parent, QString color, int owner,  int width, int height, int x,int y)
 {
@@ -24,25 +26,34 @@ void Pion::setImage(QString color){
 }
 
 void Pion::move(int x,int y){
-    this->setTabPosX(x);
-    this->setTabPosY(y);
-    this->lbl->move(x*75,y*75);
+    cout << "move PION appelé" << endl;
+    if(this->isValidMove(x,y)){
+        this->setTabPosX(x);
+        this->setTabPosY(y);
+        this->lbl->move(x,y);
+    }
 }
 
-bool Pion::isValidMove(){
+bool Pion::isValidMove(int x,int y){
+    cout << "pion.getOldX()= " << this->getOldX()<< " x = "<< x<< endl;
+    cout << "getoldX - x = " << this->getOldX()-x << endl;
     if(this->firstMove){
-        if((this->getTabPosX()-this->getX())<=2 && (this->getTabPosY()-this->getY())==0){
-            this->firstMove = false;
+        if((this->getOldX()-x)<=150 && (this->getOldY()-y)<35){
+            qDebug("First Move");
+            //this->firstMove = false;
             return true;
         }
         else
             return false;
     }else{
-        if((this->getTabPosX()-this->getX()==1 && (this->getTabPosY()-this->getY())==0))
+        if((this->getOldX()-this->getX()<=75)) // && (this->getTabPosY()-this->getY())==0))
             return true;
         else
             return false;
     }
 }
 
+void Pion::firstMovePlayed(){
+    this->firstMove = true;
+}
 

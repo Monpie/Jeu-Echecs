@@ -20,3 +20,12 @@ void Cavalier::setImage(QString color){
     }
 }
 
+
+void Cavalier::move(int x, int y){
+    //if(this->isValidMove())
+        this->lbl->move(x,y);
+}
+
+bool Cavalier::isValidMove(int x, int y){
+    return false;
+}

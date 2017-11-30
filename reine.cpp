@@ -21,3 +21,12 @@ void Reine::setImage(QString color){
 }
 
 
+
+void Reine::move(int x, int y){
+   // if(this->isValidMove())
+        this->lbl->move(x,y);
+}
+
+bool Reine::isValidMove(int x, int y){
+    return false;
+}

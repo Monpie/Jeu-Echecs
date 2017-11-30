@@ -21,8 +21,8 @@ public:
      int getTabPosY();
      void setTabPosX(int x);
      void setTabPosY(int y);
-     void move(int x, int y);
-     bool isValidMove();
+     virtual void move(int x, int y);
+     virtual bool isValidMove(int x, int y);
      bool validClick(QMouseEvent *event);
      void setImage(QString color);
 

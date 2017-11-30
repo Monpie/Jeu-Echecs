@@ -16,14 +16,32 @@
   <widget class="QPushButton" name="boutonSauvegarder">
    <property name="geometry">
     <rect>
-     <x>780</x>
+     <x>760</x>
      <y>220</y>
-     <width>101</width>
-     <height>41</height>
+     <width>121</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="text">
     <string>Sauvegarder</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="namePlayer">
+   <property name="geometry">
+    <rect>
+     <x>760</x>
+     <y>140</y>
+     <width>141</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>27</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Joueur 1</string>
    </property>
   </widget>
  </widget>

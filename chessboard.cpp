@@ -54,9 +54,7 @@ void ChessBoard::paintEvent(QPaintEvent *)
 
 //____________________________________________________________DEPLACEMENT PIECE___________________________________________________
 void ChessBoard::mousePressEvent(QMouseEvent *event){
-    //cout << event->pos().x() << "pos pion : " << this->piece->getX()<< endl;
     if(event->buttons() & Qt::LeftButton ){
-        //qDebug("OK");
         for(int i=0;i<this->pieces.size();i++){
             if(event->x() > this->pieces.at(i)->getX() && event->x() <this->pieces.at(i)->getX()+50 && event->y() > this->pieces.at(i)->getY() && event->y() < this->pieces.at(i)->getY()+50){
                 cout << "valid click" << endl;
@@ -84,6 +82,7 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
 void ChessBoard::mouseReleaseEvent(QMouseEvent *event){
     qDebug("releaseEvent");
     this->isClicked = false;
+    this->selectedPiece = NULL;
     /*if(this->currentPlayer==0)
         this->currentPlayer=1;
     else
@@ -93,24 +92,14 @@ void ChessBoard::mouseReleaseEvent(QMouseEvent *event){
 }
 
 void ChessBoard::mouseMoveEvent(QMouseEvent *event){
-    //if(this->selectedPiece->isValidMove())
-    //cout << (int)(this->selectedPiece->getX()/75) << endl;
+
+    if(this->selectedPiece!=NULL) {
+        this->selectedPiece->move(event->x()-this->TAILLE/4,event->y()-this->TAILLE/4);
     cout << " piece pos x : " << this->selectedPiece->getX() << " , old x : " << this->selectedPiece->getOldX() << endl;
     cout << " pos curseur x : " << event->x() << " , y :" << event->y() << endl;
-   /* if(event->x() > this->selectedPiece->getOldX() && event->x() < this->selectedPiece->getOldX() +150){
-        qDebug("Move ok");
-        this->selectedPiece->move(event->x(),event->y());
-    }*/
-
-    this->selectedPiece->move(event->x(),event->y());
+}
 
 
-
-   /* for(int i=0;i<this->pieces.size();i++){
-        if(this->pieces.at(i)->validClick(event))
-            this->pieces.at(i)->move(event->x(),event->y());
-    }*/
-    //qDebug("moveEvent");
     /*if(this->piece->validClick(event) && this->piece->getMyOwner()==this->currentPlayer)
     {
 
@@ -195,7 +184,6 @@ void ChessBoard::lectureFichier(string sauvegarde){
         for(int i=0;i<8;i++){
                             getline(fichier, ligne);
             for(int j=0;j<8;j++){
-
                 this->chessBoard[i][j] = ligne[j];
             }
         }

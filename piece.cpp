@@ -1,4 +1,6 @@
 #include "piece.h"
+#include "iostream"
+using namespace std;
 
 int Piece::getWidth(){
     return this->width;
@@ -52,13 +54,14 @@ void Piece::setTabPosY(int y){
     this->tabPosY = y;
 }
 
+
 bool Piece::validClick(QMouseEvent *event){
     if(event->pos().x() <= this->getX()+this->getWidth() && event->pos().y() <= this->getY()+this->getHeigth() && event->pos().x() >= this->getX() && event->pos().y() >= this->getY())
     {
         this->isClicked = true;
         qDebug("OK");
         /*while(this->isClicked){
-           // qDebug("while");
+           // bug("while");
 
             if(event->button() & Qt::LeftButton ){
                 qDebug("buttins");
@@ -73,3 +76,7 @@ void Piece::move(int x,int y){
         this->lbl->move(x,y);
 }
 
+bool Piece::isValidMove(int x, int y){
+    cout << "isValidMove piece appelé" << endl;
+    return false;
+}

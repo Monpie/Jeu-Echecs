@@ -6,24 +6,98 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>573</width>
-    <height>320</height>
+    <width>1000</width>
+    <height>562</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
+  <property name="font">
+   <font>
+    <stylestrategy>PreferDefault</stylestrategy>
+   </font>
   </property>
-  <widget class="QLabel" name="nomProget">
+  <property name="windowTitle">
+   <string>Chess Thrones</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <widget class="QLabel" name="BackgroundImage">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>10</y>
-     <width>181</width>
-     <height>71</height>
+     <x>0</x>
+     <y>0</y>
+     <width>1000</width>
+     <height>562</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>1000</width>
+     <height>562</height>
+    </size>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/images/game/game/background.jpg</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="titre">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>0</y>
+     <width>618</width>
+     <height>99</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>618</width>
+     <height>99</height>
+    </size>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/images/game/game/titre.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="copyright">
+   <property name="geometry">
+    <rect>
+     <x>830</x>
+     <y>540</y>
+     <width>201</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>MasterEchec</string>
+    <string>© Copyright 2020 KUI-PIDEMONT</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="newGame">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>300</y>
+     <width>132</width>
+     <height>117</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>132</width>
+     <height>117</height>
+    </size>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/images/game/game/logoNewGame.png</pixmap>
    </property>
    <property name="textInteractionFlags">
     <set>Qt::LinksAccessibleByMouse</set>
@@ -32,56 +106,124 @@
   <widget class="QPushButton" name="newGameButton">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>110</y>
-     <width>171</width>
-     <height>18</height>
+     <x>120</x>
+     <y>430</y>
+     <width>121</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>Nouvelle Partie</string>
+    <string>New Game</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Continue">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>310</y>
+     <width>132</width>
+     <height>114</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>132</width>
+     <height>114</height>
+    </size>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/images/game/game/Continue.png</pixmap>
    </property>
   </widget>
   <widget class="QPushButton" name="loadGameButton">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>150</y>
-     <width>171</width>
-     <height>18</height>
+     <x>340</x>
+     <y>430</y>
+     <width>121</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>Continuer</string>
+    <string>Continue</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Rules">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>310</y>
+     <width>110</width>
+     <height>107</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>110</width>
+     <height>107</height>
+    </size>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/images/game/game/rules.png</pixmap>
    </property>
   </widget>
   <widget class="QPushButton" name="btnRegle">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>190</y>
-     <width>171</width>
-     <height>18</height>
+     <x>570</x>
+     <y>430</y>
+     <width>121</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>Règle</string>
+    <string>Rules</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Leave">
+   <property name="geometry">
+    <rect>
+     <x>780</x>
+     <y>280</y>
+     <width>90</width>
+     <height>153</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>90</width>
+     <height>153</height>
+    </size>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/images/game/game/Leave.png</pixmap>
    </property>
   </widget>
   <widget class="QPushButton" name="btnQuitter">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>230</y>
-     <width>171</width>
-     <height>18</height>
+     <x>770</x>
+     <y>430</y>
+     <width>121</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>Quitter</string>
+    <string>Leave</string>
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

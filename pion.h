@@ -9,7 +9,8 @@ public:
     Pion(QWidget *parent, QString color, int owner, int width, int height, int x,int y);
     void setImage(QString color);
     void move(int x, int y);
-    bool isValidMove();
+    bool isValidMove(int x, int y);
+    void firstMovePlayed();
 
 private:
     bool firstMove = true;
