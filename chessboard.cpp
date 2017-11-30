@@ -237,7 +237,7 @@ void ChessBoard::lectureFichier(string sauvegarde){
 void ChessBoard::ecritureFichierSauvegarde()
 {
     using namespace std;
-    ofstream fichier("sauvegarde.txt", ios::out | ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+    ofstream fichier("initialisation.txt", ios::out | ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
     if(fichier)
 
     {

@@ -49,7 +49,7 @@ private:
     Roi *secondRoi;
     Piece *tab[8][8] ;
     vector<Piece*> pieces;
-    const int taille = 75;
+    const int taille = 95;
     bool isClicked = false;
     int currentPlayer = 0;
 };

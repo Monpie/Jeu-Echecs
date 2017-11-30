@@ -57,5 +57,7 @@ void MainMenu::on_btnQuitter_clicked()
 //Bouton règle
 void MainMenu::on_btnRegle_clicked()
 {
+    pageRegle page;
     this->close();
+    page.exec();
 }

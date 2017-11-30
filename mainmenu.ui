@@ -109,6 +109,11 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton:hover{
+background-color:red;
+}</string>
+   </property>
    <property name="text">
     <string>New Game</string>
    </property>
@@ -143,6 +148,11 @@
      <width>121</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton:hover{
+background-color:red;
+}</string>
    </property>
    <property name="text">
     <string>Continue</string>
@@ -179,6 +189,11 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton:hover{
+background-color:red;
+}</string>
+   </property>
    <property name="text">
     <string>Rules</string>
    </property>
@@ -213,6 +228,11 @@
      <width>121</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton:hover{
+background-color:red;
+}</string>
    </property>
    <property name="text">
     <string>Leave</string>
