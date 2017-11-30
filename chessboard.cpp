@@ -7,7 +7,7 @@
 #include <fstream>
 #include <QGridLayout>
 #include <QHBoxLayout>
-
+#include "constante.h"
 
 //Constructeur initial
 ChessBoard::ChessBoard(QWidget *parent) :
@@ -32,19 +32,20 @@ void ChessBoard::paintEvent(QPaintEvent *)
         for(int j=0; j<8; j++){
             if(i%2==0){
                 if(j%2==0){
-                    caseBoard[i][j] = new Case(this->TAILLE,i*this->TAILLE,j*this->TAILLE);
+                   // caseBoard[i][j] = new Case(this->TAILLE,i*this->TAILLE,j*this->TAILLE);
+                    caseBoard[i][j] = new Case(TAILLECASE,i*TAILLECASE,j*TAILLECASE);
                     caseBoard[i][j]->draw(&painter, Qt::white);
                 }else{
-                    caseBoard[i][j] = new Case(this->TAILLE,i*this->TAILLE,j*this->TAILLE);
+                    caseBoard[i][j] = new Case(TAILLECASE,i*TAILLECASE,j*TAILLECASE);
                     caseBoard[i][j]->draw(&painter, Qt::gray);
                 }
             }else{
                 if(j%2==0){
-                    caseBoard[i][j]= new Case(this->TAILLE,i*this->TAILLE,j*this->TAILLE);
+                    caseBoard[i][j]= new Case(TAILLECASE,i*TAILLECASE,j*TAILLECASE);
                     caseBoard[i][j]->draw(&painter, Qt::gray);
 
                 }else{
-                    caseBoard[i][j]=new Case(this->TAILLE,i*this->TAILLE,j*this->TAILLE);
+                    caseBoard[i][j]=new Case(TAILLECASE,i*TAILLECASE,j*TAILLECASE);
                     caseBoard[i][j]->draw(&painter, Qt::white);
                 }
             }
@@ -94,7 +95,7 @@ void ChessBoard::mouseReleaseEvent(QMouseEvent *event){
 void ChessBoard::mouseMoveEvent(QMouseEvent *event){
 
     if(this->selectedPiece!=NULL) {
-        this->selectedPiece->move(event->x()-this->TAILLE/4,event->y()-this->TAILLE/4);
+        this->selectedPiece->move(event->x()-TAILLECASE/4,event->y()-TAILLECASE/4);
     cout << " piece pos x : " << this->selectedPiece->getX() << " , old x : " << this->selectedPiece->getOldX() << endl;
     cout << " pos curseur x : " << event->x() << " , y :" << event->y() << endl;
 }

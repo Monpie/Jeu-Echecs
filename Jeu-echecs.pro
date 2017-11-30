@@ -36,7 +36,8 @@ SOURCES += \
     cavalier.cpp \
     fou.cpp \
     reine.cpp \
-    player.cpp
+    player.cpp \
+    constante.cpp
 
 HEADERS += \
         chessboard.h \
@@ -49,7 +50,8 @@ HEADERS += \
     cavalier.h \
     fou.h \
     reine.h \
-    player.h
+    player.h \
+    constante.h
 
 FORMS += \
         chessboard.ui \
