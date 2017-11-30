@@ -37,7 +37,8 @@ SOURCES += \
     fou.cpp \
     reine.cpp \
     player.cpp \
-    constante.cpp
+    constante.cpp \
+    pageregle.cpp
 
 HEADERS += \
         chessboard.h \
@@ -51,11 +52,13 @@ HEADERS += \
     fou.h \
     reine.h \
     player.h \
-    constante.h
+    constante.h \
+    pageregle.h
 
 FORMS += \
         chessboard.ui \
-    mainmenu.ui
+    mainmenu.ui \
+    pageregle.ui
 
 DISTFILES +=
 

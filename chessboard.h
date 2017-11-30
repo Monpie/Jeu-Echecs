@@ -47,6 +47,7 @@ private:
     Ui::ChessBoard *ui;
 
     vector<Piece*> pieces;
+    const int taille = 95;
     bool isClicked = false;
     Piece *selectedPiece;
     int currentPlayer = 0;

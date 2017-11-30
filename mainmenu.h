@@ -5,6 +5,7 @@
 #include "chessboard.h"
 #include <QSound>
 #include <QMediaPlayer>
+#include "pageregle.h"
 
 namespace Ui {
 class MainMenu;
