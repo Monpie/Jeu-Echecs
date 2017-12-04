@@ -245,36 +245,6 @@ void ChessBoard::lectureFichier(string sauvegarde){
             }
         }
 
-        /*for(int cpt1=0; cpt1<8 ; cpt1++)
-        {
-            getline(fichier, ligne);
-            cout <<"valeur cptLigne "<< cptLigne<< " valeur cpt "<< cpt1 << endl;
-            this->chessBoard[cpt1][cpt1] = ligne[cpt1];
-            /*chessBoard[cptLigne][0]= ligne[0];
-            chessBoard[cptLigne][1]= ligne[1];
-            chessBoard[cptLigne][2]= ligne[2];
-            chessBoard[cptLigne][3]= ligne[3];
-            chessBoard[cptLigne][4]= ligne[4];
-            chessBoard[cptLigne][5]= ligne[5];
-            chessBoard[cptLigne][6]= ligne[6];
-            chessBoard[cptLigne][7]= ligne[7];
-            cptLigne++;
-        }*/
-
-
-        /*//Affichage du tableau
-        cout<<endl;
-        cout<<"Affichage tableau"<<endl;
-        for(int cpt1=0; cpt1<8; cpt1++)
-        {
-
-            for(int cpt2=0; cpt2<8; cpt2++)
-            {
-                cout<<chessBoard[cpt1][cpt2];
-            }
-            cout<<endl;
-        }*/
-
         fichier.close();
     }
     else //sinon
