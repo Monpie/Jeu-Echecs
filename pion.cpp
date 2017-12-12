@@ -37,6 +37,7 @@ void Pion::move(int x,int y){
 bool Pion::isValidMove(int x,int y){
     cout << "pion.getOldX()= " << this->getOldX()<< " x = "<< x<< endl;
     cout << "getoldX - x = " << this->getOldX()-x << endl;
+    cout << "tabX/Taillecase  = " << this->getX()/TAILLECASE << endl;
     if(this->firstMove){
         if((this->getOldX()-x)<=150 && (this->getOldY()-y)<35){
             qDebug("First Move");

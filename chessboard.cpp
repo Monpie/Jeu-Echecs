@@ -55,7 +55,7 @@ void ChessBoard::paintEvent(QPaintEvent *)
 //____________________________________________________________DEPLACEMENT PIECE___________________________________________________
 void ChessBoard::mousePressEvent(QMouseEvent *event){
     if(event->buttons() & Qt::LeftButton ){
-        for(int i=0;i<this->pieces.size();i++){
+        for(unsigned int i=0;i<this->pieces.size();i++){
             if(event->x() > this->pieces.at(i)->getX() && event->x() <this->pieces.at(i)->getX()+50 && event->y() > this->pieces.at(i)->getY() && event->y() < this->pieces.at(i)->getY()+50){
                 cout << "valid click" << endl;
                 cout << event->pos().x() << "old pos x pion : " << this->pieces.at(i)->getX()<< "old pos y pion : " << this->pieces.at(i)->getY() << endl;
@@ -79,7 +79,7 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
     }
 }
 
-void ChessBoard::mouseReleaseEvent(QMouseEvent *event){
+void ChessBoard::mouseReleaseEvent(QMouseEvent *){
     qDebug("releaseEvent");
     this->isClicked = false;
     this->selectedPiece = NULL;
@@ -119,7 +119,7 @@ void ChessBoard::initGame(string fichier){
             {
             case '1':
             {
-                Pion *pion = new Pion(this,"Blanc",1,50,50,j*TAILLECASE +25,i*TAILLECASE);
+                Pion *pion = new Pion(this,"Blanc",1,50,50,j*TAILLECASE+25,i*TAILLECASE);
                 pion->setTabPosX(i);
                 pion->setTabPosY(j);
                 this->pieces.push_back(pion);
