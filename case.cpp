@@ -8,7 +8,8 @@
     }
 
 
-    void Case::draw(QPainter *painter, QColor color){
+    void Case::draw(QPainter *painter, QColor color)
+    {
         QRect r1(this->xPos,this->yPos,this->size,this->size);
         painter->setPen(Qt::black);
         painter->setBrush(color);

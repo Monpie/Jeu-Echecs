@@ -2,6 +2,7 @@
 #define PION_H
 
 #include "piece.h"
+#include "constante.h"
 
 class Pion : public Piece
 {
