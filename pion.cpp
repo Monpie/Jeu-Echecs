@@ -20,34 +20,30 @@ Pion::Pion(QWidget *parent, QString color, int owner,  int width, int height, in
 void Pion::setImage(QString color){
     if(color==("Blanc")){
         this->lbl->setPixmap(QPixmap(":/images/Pieces/pion_blanc.png")); //Image tour blanche
+        this->namePiece = '1';
     }else if(color==("Noir")){
         this->lbl->setPixmap(QPixmap(":/images/Pieces/pion_noir.png"));  //Image tour noire
+        this->namePiece = 'p';
     }
 }
 
 void Pion::move(int x,int y){
-    cout << "move PION appelé" << endl;
     if(this->isValidMove(x,y)){
-        this->setTabPosX(x);
-        this->setTabPosY(y);
         this->lbl->move(x,y);
     }
 }
 
 bool Pion::isValidMove(int x,int y){
-    cout << "pion.getOldX()= " << this->getOldX()<< " x = "<< x<< endl;
-    cout << "getoldX - x = " << this->getOldX()-x << endl;
-    cout << "tabX/Taillecase  = " << this->getX()/TAILLECASE << endl;
     if(this->firstMove){
-        if((this->getOldX()-x)<=150 && (this->getOldY()-y)<35){
-            qDebug("First Move");
+        if(y<(this->tabPosY+2)*TAILLECASE && x<(this->tabPosX+0.5)*TAILLECASE && x>(this->tabPosX-0.15)*TAILLECASE ){
+            cout << "y = " << y << "tabPos = " << this->tabPosY << endl;
             //this->firstMove = false;
             return true;
         }
         else
             return false;
     }else{
-        if((this->getOldX()-this->getX()<=75)) // && (this->getTabPosY()-this->getY())==0))
+        if(y<(this->tabPosY+1)*TAILLECASE && x<(this->tabPosX+0.5)*TAILLECASE && x>(this->tabPosX-0.15)*TAILLECASE) // && (this->getTabPosY()-this->getY())==0))
             return true;
         else
             return false;
@@ -55,6 +51,7 @@ bool Pion::isValidMove(int x,int y){
 }
 
 void Pion::firstMovePlayed(){
-    this->firstMove = true;
+    this->firstMove = false;
 }
+
 

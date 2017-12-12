@@ -54,6 +54,14 @@ void Piece::setTabPosY(int y){
     this->tabPosY = y;
 }
 
+void Piece::setX(int x){
+    this->x = x;
+}
+
+void Piece::setY(int y){
+    this->y = y;
+}
+
 
 bool Piece::validClick(QMouseEvent *event){
     if(event->pos().x() <= this->getX()+this->getWidth() && event->pos().y() <= this->getY()+this->getHeigth() && event->pos().x() >= this->getX() && event->pos().y() >= this->getY())
@@ -79,4 +87,12 @@ void Piece::move(int x,int y){
 bool Piece::isValidMove(int x, int y){
     cout << "isValidMove piece appelé" << endl;
     return false;
+}
+
+void Piece::centrer(int x, int y){
+    this->lbl->move(x,y);
+}
+
+char Piece::getPieceName(){
+    return this->namePiece;
 }

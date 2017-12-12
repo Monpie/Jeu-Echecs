@@ -15,8 +15,10 @@ Fou::Fou(QWidget *parent, QString color, int owner,  int width, int height, int 
 void Fou::setImage(QString color){
     if(color==("Blanc")){
         this->lbl->setPixmap(QPixmap(":/images/Pieces/fou_blanc.png")); //Image tour blanche
+        this->namePiece = '4';
     }else if(color==("Noir")){
         this->lbl->setPixmap(QPixmap(":/images/Pieces/fou_noir.png"));  //Image tour noire
+        this->namePiece = 'f';
     }
 }
 

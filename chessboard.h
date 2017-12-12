@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QLabel>
 #include <QMouseEvent>
+#include <QPoint>
 
 #include <QPushButton>
 #include <QPainter>
@@ -40,6 +41,7 @@ public:
     void modifierCase(char valeur, int ligne, int colonne);
     void lectureFichier(string Sauvegarde);
     void ecritureFichierSauvegarde();
+    void centrerPiece(Piece *piece, QPoint pos);
 
 private slots:
     void on_boutonSauvegarder_clicked();

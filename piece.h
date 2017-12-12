@@ -1,7 +1,8 @@
 #ifndef PIECE_H
 #define PIECE_H
-#include <QLabel>
 #include <QMouseEvent>
+#include <QLabel>
+#include "constante.h"
 
 class Piece
 {
@@ -9,8 +10,8 @@ public:
      int getX();
      int getY();
      int getOwner();
-     int setX();
-     int setY();
+     void setX(int x);
+     void setY(int y);
      int getWidth();
      int getHeigth();
      int getOldX();
@@ -25,10 +26,13 @@ public:
      virtual bool isValidMove(int x, int y);
      bool validClick(QMouseEvent *event);
      void setImage(QString color);
+     char getPieceName();
+     void centrer(int x, int y);
 
 protected:
     QLabel  *lbl;    //Image de la pièce
     QString color;  //Couleur de la pièce
+    char namePiece;
     int width;  //Largeur de la pièce
     int height; //Hauteur de la pièce
     int x;  //Position x de la pièce
