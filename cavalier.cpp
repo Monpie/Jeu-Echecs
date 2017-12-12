@@ -4,7 +4,6 @@ Cavalier::Cavalier(QWidget *parent, QString color, int owner , int width, int he
 {
     this->lbl = new QLabel(parent);
     this->setImage(color);
-    this->name = name;
     this->width = width;
     this->height = height;
     this->x = x;
@@ -21,3 +20,12 @@ void Cavalier::setImage(QString color){
     }
 }
 
+
+void Cavalier::move(int x, int y){
+    //if(this->isValidMove())
+        this->lbl->move(x,y);
+}
+
+bool Cavalier::isValidMove(int x, int y){
+    return false;
+}

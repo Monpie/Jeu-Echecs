@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Chess Thrones</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -98,6 +98,9 @@
    </property>
    <property name="pixmap">
     <pixmap resource="resources.qrc">:/images/game/game/logoNewGame.png</pixmap>
+   </property>
+   <property name="textInteractionFlags">
+    <set>Qt::LinksAccessibleByMouse</set>
    </property>
   </widget>
   <widget class="QPushButton" name="newGameButton">

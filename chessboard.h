@@ -15,7 +15,11 @@
 #include "fou.h"
 #include "tour.h"
 #include<string>
+#include "constante.h"
 using namespace std;
+#include <mainmenu.h>
+
+
 namespace Ui {
 class ChessBoard;
 }
@@ -33,7 +37,6 @@ public:
     void mouseMoveEvent(QMouseEvent *event);
     void initGame(string fichier);
     ~ChessBoard();
-
     void modifierCase(char valeur, int ligne, int colonne);
     void lectureFichier(string Sauvegarde);
     void ecritureFichierSauvegarde();
@@ -43,15 +46,18 @@ private slots:
 
 
 
+    void on_pushButton_clicked();
+
 private:
     Ui::ChessBoard *ui;
-    Roi *piece;
-    Roi *secondRoi;
-    Piece *tab[8][8] ;
+
     vector<Piece*> pieces;
     const int taille = 95;
     bool isClicked = false;
+    Piece *selectedPiece;
     int currentPlayer = 0;
+    char chessBoard[8][8]; //Tableau de char
+    Case *caseBoard[8][8]; // Tableau de Case
 };
 
 #endif // CHESSBOARD_H

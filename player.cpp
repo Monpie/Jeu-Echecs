@@ -7,15 +7,15 @@ Player::Player(int id)
 
 
 //getteur et setteur
-void Player::setAsPlay(bool asPlay)
+void Player::setHasPlayed(bool hasPlayed)
 {
-     this->asPlay = asPlay;
+     this->hasPlayed = hasPlayed;
 }
 
 //getAsPlar
-bool Player::getAsPlay()
+bool Player::getHasPlayed()
 {
-    return this->asPlay;
+    return this->hasPlayed;
 }
 
 //getID

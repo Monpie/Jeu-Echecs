@@ -10,7 +10,7 @@ public:
     Roi(QWidget *parent, QString color,int my_owner, int width, int height, int x,int y);
     void move(int x, int y);
     bool validClick(QMouseEvent *event);
-    bool isValidMove();
+    bool isValidMove(int x, int y);
     void setImage(QString color);
     void setOldX(int x);
     void setOldY(int y);

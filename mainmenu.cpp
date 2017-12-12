@@ -12,9 +12,7 @@ MainMenu::MainMenu(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MainMenu)
 {
-
     QSound::play(":/musique/Musique/Game_of_Thrones.wav");
-
     ui->setupUi(this);
 }
 
@@ -43,7 +41,6 @@ void MainMenu::on_loadGameButton_clicked()
 
     board.initGame("sauvegarde.txt");
     board.exec();
-
 }
 
 

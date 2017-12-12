@@ -37,6 +37,7 @@ SOURCES += \
     fou.cpp \
     reine.cpp \
     player.cpp \
+    constante.cpp \
     pageregle.cpp
 
 HEADERS += \
@@ -51,6 +52,7 @@ HEADERS += \
     fou.h \
     reine.h \
     player.h \
+    constante.h \
     pageregle.h
 
 FORMS += \

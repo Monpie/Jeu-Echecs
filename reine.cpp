@@ -4,7 +4,6 @@ Reine::Reine(QWidget *parent, QString color,int owner, int width, int height, in
 {
     this->lbl = new QLabel(parent);
     this->setImage(color);
-    this->name = name;
     this->width = width;
     this->height = height;
     this->x = x;
@@ -22,3 +21,12 @@ void Reine::setImage(QString color){
 }
 
 
+
+void Reine::move(int x, int y){
+   // if(this->isValidMove())
+        this->lbl->move(x,y);
+}
+
+bool Reine::isValidMove(int x, int y){
+    return false;
+}

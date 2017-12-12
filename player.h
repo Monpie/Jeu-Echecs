@@ -7,20 +7,19 @@ class Player
 {
 public:
     Player(int id);
-
-protected:
-    vector<Piece*> pieces ; //collection de piece
-    int id; //identifiant joueur
-    bool asPlay;
-
     void removePiece(Piece piece);
     void addPiece(Piece piece);
     void playPiece();
 
     //getteur setteur asplay
-    bool getAsPlay();
-    void setAsPlay(bool asPlay);
+    bool getHasPlayed();
+    void setHasPlayed(bool hasPlayed);
     int getId();
+
+private:
+    vector<Piece*> pieces ; //collection de piece
+    int id; //identifiant joueur
+    bool hasPlayed;
 };
 
 #endif // PLAYER_H

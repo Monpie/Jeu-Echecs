@@ -9,6 +9,7 @@ public:
     Tour(QWidget *parent, QString color,int owner , int width, int height, int x,int y);
     void setImage(QString image);
     void move(int x, int y);
+    bool isValidMove(int x, int y);
 };
 
 #endif // TOUR_H

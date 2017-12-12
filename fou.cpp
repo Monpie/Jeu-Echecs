@@ -4,7 +4,6 @@ Fou::Fou(QWidget *parent, QString color, int owner,  int width, int height, int 
 {
     this->lbl = new QLabel(parent);
     this->setImage(color);
-    this->name = name;
     this->width = width;
     this->height = height;
     this->x = x;
@@ -19,4 +18,13 @@ void Fou::setImage(QString color){
     }else if(color==("Noir")){
         this->lbl->setPixmap(QPixmap(":/images/Pieces/fou_noir.png"));  //Image tour noire
     }
+}
+
+void Fou::move(int x, int y){
+  //  if(this->isValidMove())
+        this->lbl->move(x,y);
+}
+
+bool Fou::isValidMove(int x, int y){
+    return false;
 }

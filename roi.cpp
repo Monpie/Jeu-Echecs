@@ -7,7 +7,6 @@ Roi::Roi(QWidget *parent, QString color,int my_owner, int width, int height, int
     this->lbl = new QLabel(parent);
     this->lbl->setPixmap(QPixmap(":/images/Pieces/roi_blanc.png"));
     this->setImage(color);
-    this->name = name;
     this->width = width;
     this->height = height;
     this->x = x;
@@ -17,7 +16,7 @@ Roi::Roi(QWidget *parent, QString color,int my_owner, int width, int height, int
 }
 
 void Roi::move(int x,int y){
-    if(this->isValidMove())
+    if(this->isValidMove(x,y))
         this->lbl->move(x,y);
     else
     {
@@ -26,7 +25,7 @@ void Roi::move(int x,int y){
     }
 }
 
-bool Roi::isValidMove(){
+bool Roi::isValidMove(int x,int y){
     if(this->getX()<=600 && this->getX()>=0 && this->getY() <=600 && this->getY()>=0 && this->getX()<this->getOldX()+75 && this->getY()<this->getOldY()+75 && this->getX()>this->getOldX()-75 && this->getY()>this->getOldY() -75)
     {
         return true;
