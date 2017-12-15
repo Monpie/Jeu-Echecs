@@ -3,7 +3,7 @@
 
 #include <QColor>
 #include <QPainter>
-
+#include "constante.h"
 class Case
 {
 public:

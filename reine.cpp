@@ -1,6 +1,6 @@
 #include "reine.h"
 
-Reine::Reine(QWidget *parent, QString color,int owner, int width, int height, int x,int y)
+Reine::Reine(QWidget *parent, QString color,Player * owner, int width, int height, int x,int y)
 {
     this->lbl = new QLabel(parent);
     this->setImage(color);
@@ -25,10 +25,18 @@ void Reine::setImage(QString color){
 
 
 void Reine::move(int x, int y){
-   // if(this->isValidMove())
-        this->lbl->move(x,y);
+    this->lbl->move(x*TAILLECASE+25,y*TAILLECASE);
+    this->setTabPosX(x);
+    this->setTabPosY(y);
 }
 
 bool Reine::isValidMove(int x, int y){
-    return false;
+    if((x!=this->tabPosX*TAILLECASE && y==this->tabPosY) && this->moveInBoard(x,y) || (abs(x-this->tabPosX)==abs(y-this->tabPosY)) || (x==this->tabPosX && y != this->tabPosY)&& this->moveInBoard(x,y))
+        return true;
+    else
+        return false;
+}
+
+Reine::~Reine(){
+    delete this->lbl;
 }

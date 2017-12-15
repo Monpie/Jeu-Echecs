@@ -4,12 +4,14 @@
 #include <QLabel>
 #include "constante.h"
 
+class Player;
+
 class Piece
 {
 public:
      int getX();
      int getY();
-     int getOwner();
+     Player * getOwner();
      void setX(int x);
      void setY(int y);
      int getWidth();
@@ -24,12 +26,18 @@ public:
      void setTabPosY(int y);
      virtual void move(int x, int y);
      virtual bool isValidMove(int x, int y);
-     bool validClick(QMouseEvent *event);
      void setImage(QString color);
      char getPieceName();
      void centrer(int x, int y);
+     QString getColor();
+     std::vector<QPoint> allPossibleMove;
+     bool getIsPion();
+     bool allyPiece(int x, int y, char chessboard[8][8]);
+     void destructPiece(int x, int y);
+     virtual ~Piece();
 
 protected:
+    bool moveInBoard(int x, int y);
     QLabel  *lbl;    //Image de la pièce
     QString color;  //Couleur de la pièce
     char namePiece;
@@ -41,8 +49,10 @@ protected:
     int oldY;
     int tabPosX;    //position ligne de la pièce dans le tableau
     int tabPosY;    //position colonne de la pièce dans le tableau
-    int owner;
+    Player * owner;
+    bool isPion = false;
     bool isClicked = false;
+
 };
 
 #endif // PIECE_H

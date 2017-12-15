@@ -28,7 +28,7 @@ void MainMenu::on_newGameButton_clicked()
     ChessBoard board;
     this->hide();
 
-    board.initGame("initialisation.txt");
+    //board.initGame("initialisation.txt");
     board.exec();
 }
 

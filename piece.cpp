@@ -1,5 +1,6 @@
 #include "piece.h"
 #include "iostream"
+#include "player.h"
 using namespace std;
 
 int Piece::getWidth(){
@@ -10,15 +11,15 @@ int Piece::getHeigth(){
    return this->height;
 }
 
-int Piece::getX(){
+/*int Piece::getX(){
     return this->lbl->x();
-}
+}*/
 
 int Piece::getY(){
     return this->lbl->y();
 }
 
-int Piece::getOwner(){
+Player * Piece::getOwner(){
     return this->owner;
 }
 
@@ -62,30 +63,11 @@ void Piece::setY(int y){
     this->y = y;
 }
 
-
-bool Piece::validClick(QMouseEvent *event){
-    if(event->pos().x() <= this->getX()+this->getWidth() && event->pos().y() <= this->getY()+this->getHeigth() && event->pos().x() >= this->getX() && event->pos().y() >= this->getY())
-    {
-        this->isClicked = true;
-        qDebug("OK");
-        /*while(this->isClicked){
-           // bug("while");
-
-            if(event->button() & Qt::LeftButton ){
-                qDebug("buttins");
-                this->move(event->pos().x(),event->pos().y());
-                this->isClicked = false;
-            }
-        }*/
-    }
-}
-
 void Piece::move(int x,int y){
-        this->lbl->move(x,y);
+    this->lbl->move(x*TAILLECASE+25,y*TAILLECASE);
 }
 
 bool Piece::isValidMove(int x, int y){
-    cout << "isValidMove piece appelé" << endl;
     return false;
 }
 
@@ -96,3 +78,27 @@ void Piece::centrer(int x, int y){
 char Piece::getPieceName(){
     return this->namePiece;
 }
+
+bool Piece::moveInBoard(int x, int y){
+    if(x<=7 && x>=0 && y<=7 && y>=0)
+        return true;
+    else
+        return false;
+}
+
+QString Piece::getColor(){
+    return this->color;
+}
+
+bool Piece::getIsPion(){
+    return this->isPion;
+}
+
+bool Piece::allyPiece(int x, int y, char chessboard[8][8]){
+    if(chessboard[x][y]!=0)
+        return false;
+    else
+        return true;
+}
+
+Piece::~Piece(){}
