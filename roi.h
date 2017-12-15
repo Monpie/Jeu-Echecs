@@ -9,7 +9,7 @@ class Roi : public Piece
 public:
     Roi(QWidget *parent, QString color,Player * owner, int width, int height, int x,int y);
     void move(int x, int y);
-    bool isValidMove(int x, int y);
+    bool isValidMove(int x, int y,std::vector<Piece*> pieces);
     void setImage(QString color);
     bool isInDanger(int x, int y);
     ~Roi();

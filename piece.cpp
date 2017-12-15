@@ -67,7 +67,7 @@ void Piece::move(int x,int y){
     this->lbl->move(x*TAILLECASE+25,y*TAILLECASE);
 }
 
-bool Piece::isValidMove(int x, int y){
+bool Piece::isValidMove(int x, int y, std::vector<Piece *> pieces){
     return false;
 }
 
@@ -105,6 +105,13 @@ void Piece::setVerticalBlocked(bool state){
     this->verticalBlocked=state;
 }
 
+Piece * Piece::getPieceAt(std::vector<Piece*> pieces, int x, int y){
+    for(int i=0; i<pieces.size();i++){
+        if(pieces[i]->getTabPosX()==x && pieces[i]->getTabPosY()==y){
+            return pieces[i];
+        }
+    }
+}
 /*void Piece::updateAllPossibleMove(vector<Piece> pieces){
     for(int i=0;i<pieces.size();i++){
         if(pieces[i].getTabPosX())

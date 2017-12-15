@@ -71,7 +71,7 @@ void ChessBoard::paintEvent(QPaintEvent *)
 void ChessBoard::mousePressEvent(QMouseEvent *event){
     if(event->buttons() & Qt::LeftButton ){
         if(this->selectedPiece){
-            if(this->selectedPiece->isValidMove(floor(event->x()/TAILLECASE),floor(event->y()/TAILLECASE)) && !this->selectedPiece->getOwner()->getHasPlayed())
+            if(this->selectedPiece->isValidMove(floor(event->x()/TAILLECASE),floor(event->y()/TAILLECASE),this->pieces) && !this->selectedPiece->getOwner()->getHasPlayed())
             {
                 Piece * test = this->getPieceAt((int)floor(event->x()/TAILLECASE),(int)floor(event->y()/TAILLECASE));
                 if(test && test!=this->selectedPiece && test->getOwner()!=this->selectedPiece->getOwner())
@@ -104,10 +104,7 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
             this->update();
         }
         else{
-            cout << this->currentPlayer->getId() << endl;
-
             for(unsigned int i=0;i<this->pieces.size();i++){
-                cout << this->pieces[i]->getOwner()->getId() << endl;
                 if(this->currentPlayer==this->pieces[i]->getOwner() && (event->x() > this->pieces.at(i)->getTabPosX()*TAILLECASE && event->x() <this->pieces.at(i)->getTabPosX()*TAILLECASE+TAILLECASE && event->y() > this->pieces.at(i)->getY() && event->y() < this->pieces.at(i)->getY()+TAILLECASE)){
                     //cout << event->pos().x() << "old pos x pion : " << this->pieces.at(i)->getX()<< "old pos y pion : " << this->pieces.at(i)->getY() << endl;
                     //cout << this->pieces.at(i)->getX()+50 << " , " << this->pieces.at(i)->getY()+50 << endl;
@@ -123,7 +120,7 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                     for(int i=0;i<8;i++)
                     {
                         for(int j=0;j<8;j++){
-                            if(this->selectedPiece->isValidMove(i,j))
+                            if(this->selectedPiece->isValidMove(i,j,this->pieces))
                             {
                                 this->selectedPiece->allPossibleMove.push_back(QPoint(i,j));
                             }

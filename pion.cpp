@@ -38,29 +38,33 @@ void Pion::move(int x,int y){
 }
 
 
-bool Pion::isValidMove(int x,int y){
+bool Pion::isValidMove(int x,int y,std::vector<Piece*> pieces){
+    cout << "size : " << this->allPossibleMove.size() << endl;
+    for(int i=0; i<this->allPossibleMove.size();i++){
+        cout << "x = " << this->allPossibleMove[i].x() << ", y = " << this->allPossibleMove[i].y() << endl;
+    }
     for(int i = 0; i<this->allPossibleMove.size();i++){
         if(this->allPossibleMove[i].x() == x && this->allPossibleMove[i].y() == y){
-            cout << "if isValidMove ok" << endl;
             return true;
         }
     }
 
     if(this->firstMove){
-        if(y<this->tabPosY+3 && x==this->tabPosX && y>tabPosY && this->color=="Blanc") {
+        if(y<this->tabPosY+3 && x==this->tabPosX && y>tabPosY && this->color=="Blanc" && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY+1)){
             return true;
-        }else if(this->color=="Noir" && (y>this->tabPosY-3 && x==this->tabPosX && y<this->tabPosY))
+        }else if(this->color=="Noir" && (y>this->tabPosY-3 && x==this->tabPosX && y<this->tabPosY) && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY-1) )
             return true;
         else
             return false;
     }else{
-        if(y<this->tabPosY+2 && x==this->tabPosX && y>tabPosY && this->color=="Blanc")
+        if(y<this->tabPosY+2 && x==this->tabPosX && y>tabPosY && this->color=="Blanc" && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY+1))
             return true;
-        else if(this->color=="Noir" && (y>this->tabPosY-2 && x==this->tabPosX && y<this->tabPosY))
+        else if(this->color=="Noir" && (y>this->tabPosY-2 && x==this->tabPosX && y<this->tabPosY) && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY-1))
             return true;
         else
             return false;
     }
+
 }
 
 void Pion::firstMovePlayed(){
@@ -71,18 +75,15 @@ bool Pion::canAttack(char chessboard[8][8] ){
     bool flag = false;
 
     if(this->color=="Blanc")
-    {   cout << "piece " <<endl;// this->owner->getPiecesAt(this->tabPosY+1,this->tabPosX+1)->getColor().toStdString() << endl;
-        //this->owner->getPiecesAt(this->tabPosY+1,this->tabPosX+1)->getColor()!=this->color
+    {
         if(chessboard[this->tabPosY+1][this->tabPosX+1] != '0' && this->moveInBoard(this->tabPosX+1,this->tabPosY+1) && this->checkIfMate(this->tabPosX+1,this->tabPosY+1))
         {
-            cout << "can attack" << endl;
             this->allPossibleMove.push_back(QPoint(this->tabPosX+1,this->tabPosY+1));
             flag = true;
         }
 
         if(chessboard[this->tabPosY+1][this->tabPosX-1] != '0' && this->moveInBoard(this->tabPosX-1,this->tabPosY+1) && this->checkIfMate(this->tabPosX-1,this->tabPosY+1))
         {
-            cout << "can attack" << endl;
             this->allPossibleMove.push_back(QPoint(this->tabPosX-1,this->tabPosY+1));
             flag = true;
         }
@@ -99,7 +100,6 @@ bool Pion::canAttack(char chessboard[8][8] ){
             flag = true;
         }
     }
-
     return flag;
 }
 

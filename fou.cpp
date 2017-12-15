@@ -29,7 +29,7 @@ void Fou::move(int x, int y){
     this->setTabPosY(y);
 }
 
-bool Fou::isValidMove(int x, int y){
+bool Fou::isValidMove(int x, int y,std::vector<Piece*> pieces){
     cout << "Fou::isValidMove(int x, int y) = "<< x << endl;
     if((abs(x-this->tabPosX)==abs(y-this->tabPosY)) && this->moveInBoard(x,y) && (x!=this->tabPosX || y!=this->tabPosY))
         return true;

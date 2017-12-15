@@ -25,7 +25,7 @@ public:
      void setTabPosX(int x);
      void setTabPosY(int y);
      virtual void move(int x, int y);
-     virtual bool isValidMove(int x, int y);
+     virtual bool isValidMove(int x, int y, std::vector<Piece *> pieces);
      void setImage(QString color);
      char getPieceName();
      void centrer(int x, int y);
@@ -38,6 +38,7 @@ public:
      //void updateAllPossibleMove(vector<Piece> pieces);
      void setVerticalBlocked(bool state);
      void setHorizontalBlocked(bool state);
+     Piece *getPieceAt(std::vector<Piece*> pieces, int x, int y);
 
 protected:
     bool moveInBoard(int x, int y);

@@ -23,7 +23,7 @@ void Tour::setImage(QString color){
     }
 }
 
-bool Tour::isValidMove(int x, int y){
+bool Tour::isValidMove(int x, int y,std::vector<Piece*> pieces){
     if(((x!=this->tabPosX && y==this->tabPosY) || (x==this->tabPosX && y != this->tabPosY)) && this->moveInBoard(x,y))
         return true;
     else
