@@ -32,9 +32,12 @@ public:
      QString getColor();
      std::vector<QPoint> allPossibleMove;
      bool getIsPion();
-     bool allyPiece(int x, int y, char chessboard[8][8]);
      void destructPiece(int x, int y);
      virtual ~Piece();
+     //***//
+     //void updateAllPossibleMove(vector<Piece> pieces);
+     void setVerticalBlocked(bool state);
+     void setHorizontalBlocked(bool state);
 
 protected:
     bool moveInBoard(int x, int y);
@@ -51,7 +54,9 @@ protected:
     int tabPosY;    //position colonne de la pièce dans le tableau
     Player * owner;
     bool isPion = false;
-    bool isClicked = false;
+    bool verticalBlocked=false;
+    bool horizontalBlocked=false;
+    //bool isClicked = false;
 
 };
 

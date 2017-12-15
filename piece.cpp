@@ -94,11 +94,19 @@ bool Piece::getIsPion(){
     return this->isPion;
 }
 
-bool Piece::allyPiece(int x, int y, char chessboard[8][8]){
-    if(chessboard[x][y]!=0)
-        return false;
-    else
-        return true;
+Piece::~Piece(){}
+
+/***/
+void Piece::setHorizontalBlocked(bool state){
+    this->horizontalBlocked = state;
 }
 
-Piece::~Piece(){}
+void Piece::setVerticalBlocked(bool state){
+    this->verticalBlocked=state;
+}
+
+/*void Piece::updateAllPossibleMove(vector<Piece> pieces){
+    for(int i=0;i<pieces.size();i++){
+        if(pieces[i].getTabPosX())
+    }
+}*/

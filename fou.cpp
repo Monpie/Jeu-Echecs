@@ -31,7 +31,7 @@ void Fou::move(int x, int y){
 
 bool Fou::isValidMove(int x, int y){
     cout << "Fou::isValidMove(int x, int y) = "<< x << endl;
-    if((abs(x-this->tabPosX)==abs(y-this->tabPosY)) && this->moveInBoard(x,y))
+    if((abs(x-this->tabPosX)==abs(y-this->tabPosY)) && this->moveInBoard(x,y) && (x!=this->tabPosX || y!=this->tabPosY))
         return true;
     else
         return false;

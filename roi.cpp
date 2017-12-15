@@ -22,7 +22,7 @@ void Roi::move(int x,int y){
 }
 
 bool Roi::isValidMove(int x,int y){
-    if(abs(x-this->tabPosX)<=1 && abs(y-this->tabPosY)<=1 && this->moveInBoard(x,y))
+    if(abs(x-this->tabPosX)<=1 && abs(y-this->tabPosY)<=1 && this->moveInBoard(x,y) && (x!=this->tabPosX || y!=this->tabPosY))
         return true;
     else
         return false;

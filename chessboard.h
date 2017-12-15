@@ -54,7 +54,7 @@ private:
     vector<Case *> possibleMove;
     Player *player1;
     Player *player2;
-    Player *currentPlayer = player1;
+    Player *currentPlayer;
 };
 
 #endif // CHESSBOARD_H

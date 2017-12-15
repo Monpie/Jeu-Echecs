@@ -17,7 +17,10 @@ ChessBoard::ChessBoard(QWidget *parent) :
 {
     ui->setupUi(this);
     this->player1 = new Player(0);
+    this->player1->setHasPlayed(false);
     this->player2 = new Player(1);
+    this->player2->setHasPlayed(true);
+    this->currentPlayer=this->player1;
     this->initGame("initialisation.txt");
     this->initPlayers();
 }
@@ -68,7 +71,7 @@ void ChessBoard::paintEvent(QPaintEvent *)
 void ChessBoard::mousePressEvent(QMouseEvent *event){
     if(event->buttons() & Qt::LeftButton ){
         if(this->selectedPiece){
-            if(this->selectedPiece->isValidMove(floor(event->x()/TAILLECASE),floor(event->y()/TAILLECASE)))
+            if(this->selectedPiece->isValidMove(floor(event->x()/TAILLECASE),floor(event->y()/TAILLECASE)) && !this->selectedPiece->getOwner()->getHasPlayed())
             {
                 Piece * test = this->getPieceAt((int)floor(event->x()/TAILLECASE),(int)floor(event->y()/TAILLECASE));
                 if(test && test!=this->selectedPiece && test->getOwner()!=this->selectedPiece->getOwner())
@@ -77,6 +80,18 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                 this->selectedPiece->move(floor(event->x()/TAILLECASE),floor(event->y()/TAILLECASE));
                 this->chessBoard[(int)(floor(this->selectedPiece->getOldY()/TAILLECASE))][(int)(floor(this->selectedPiece->getOldX()/TAILLECASE))] = '0';
                 this->chessBoard[(int)floor(event->y()/TAILLECASE)][(int)floor(event->x()/TAILLECASE)] = this->selectedPiece->getPieceName();
+
+                this->currentPlayer->setHasPlayed(true);
+                cout << "booleen : " << this->player1->getHasPlayed() << endl;
+                cout << "booleen joueur 2 : " << this->player2->getHasPlayed() << endl;
+                if(this->currentPlayer==this->player1)
+                    this->currentPlayer=this->player2;
+                else
+                    this->currentPlayer=this->player1;
+
+                    this->currentPlayer->setHasPlayed(false);
+
+
             }
 
             /*for(int i=0; i<this->selectedPiece->allPossibleMove.size();i++){
@@ -89,8 +104,11 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
             this->update();
         }
         else{
+            cout << this->currentPlayer->getId() << endl;
+
             for(unsigned int i=0;i<this->pieces.size();i++){
-                if(event->x() > this->pieces.at(i)->getTabPosX()*TAILLECASE && event->x() <this->pieces.at(i)->getTabPosX()*TAILLECASE+TAILLECASE && event->y() > this->pieces.at(i)->getY() && event->y() < this->pieces.at(i)->getY()+TAILLECASE){
+                cout << this->pieces[i]->getOwner()->getId() << endl;
+                if(this->currentPlayer==this->pieces[i]->getOwner() && (event->x() > this->pieces.at(i)->getTabPosX()*TAILLECASE && event->x() <this->pieces.at(i)->getTabPosX()*TAILLECASE+TAILLECASE && event->y() > this->pieces.at(i)->getY() && event->y() < this->pieces.at(i)->getY()+TAILLECASE)){
                     //cout << event->pos().x() << "old pos x pion : " << this->pieces.at(i)->getX()<< "old pos y pion : " << this->pieces.at(i)->getY() << endl;
                     //cout << this->pieces.at(i)->getX()+50 << " , " << this->pieces.at(i)->getY()+50 << endl;
                     cout << this->pieces.at(i)->getTabPosX() << " , " << this->pieces.at(i)->getTabPosY() << endl;
