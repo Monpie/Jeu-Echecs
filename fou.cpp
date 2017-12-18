@@ -23,10 +23,14 @@ void Fou::setImage(QString color){
 }
 
 void Fou::move(int x, int y){
-  //  if(this->isValidMove())
+    if(this->isValidMove(x,y))
         this->lbl->move(x,y);
 }
 
 bool Fou::isValidMove(int x, int y){
-    return false;
+     //if((x!=this->tabPosX*TAILLECASE && y<(this->tabPosY+0.15)*TAILLECASE && y>(this->tabPosY-0.15)*TAILLECASE) || (y!=this->tabPosY*TAILLECASE && x<(this->tabPosX+0.15)*TAILLECASE && x>(this->tabPosX-0.15)*TAILLECASE))
+     if(x!=this->tabPosX*TAILLECASE && y!=this->tabPosX*TAILLECASE && x==y &&  y<(this->tabPosY+0.15)*TAILLECASE && y>(this->tabPosY-0.15)*TAILLECASE)
+        return true;
+    else
+        return false;
 }
