@@ -30,7 +30,7 @@ void Cavalier::move(int x, int y){
 }
 
 bool Cavalier::isValidMove(int x, int y,std::vector<Piece*> pieces){
-    if((abs(x-this->tabPosX)==2 && abs(y-this->tabPosY)==1 || abs(x-this->tabPosX)==1 && abs(y-this->tabPosY)==2) && this->moveInBoard(x,y))
+    if((abs(x-this->tabPosX)==2 && abs(y-this->tabPosY)==1 || abs(x-this->tabPosX)==1 && abs(y-this->tabPosY)==2) && this->moveInBoard(x,y) && this->checkIfMate(x,y))
         return true;
     else
         return false;

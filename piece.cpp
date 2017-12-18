@@ -112,8 +112,14 @@ Piece * Piece::getPieceAt(std::vector<Piece*> pieces, int x, int y){
         }
     }
 }
-/*void Piece::updateAllPossibleMove(vector<Piece> pieces){
-    for(int i=0;i<pieces.size();i++){
-        if(pieces[i].getTabPosX())
+
+bool Piece::checkIfMate(int x, int y){
+    if(this->owner->getPiecesAt(x,y)){
+        if(this->owner->getPiecesAt(x,y)->getOwner()!=this->owner){
+            return true;
+        }else
+            return false;
+    }else{
+        return true;
     }
-}*/
+}

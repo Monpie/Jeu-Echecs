@@ -23,6 +23,8 @@ ChessBoard::ChessBoard(QWidget *parent) :
     this->currentPlayer=this->player1;
     this->initGame("initialisation.txt");
     this->initPlayers();
+    this->operator +(1);
+
 }
 
 
@@ -387,3 +389,16 @@ Piece * ChessBoard::getPieceAt(int x, int y){
     cout << "NULL" << endl;
     return 0;
 }
+
+int ChessBoard::operator +(int a){
+    int res = a+a;
+    cout << "a : "<< a  << ", res : " << res << endl;
+    return res;
+}
+/*
+Piece ChessBoard::operator -(Piece a){
+    Piece p = a;
+    p.setTabPosX(a.getTabPosX()-2);
+    cout << " p : " << p.getTabPosX() << endl;
+    return p;
+}*/

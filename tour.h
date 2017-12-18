@@ -10,7 +10,12 @@ public:
     void setImage(QString image);
     void move(int x, int y);
     bool isValidMove(int x, int y,std::vector<Piece*> pieces);
+    void updateAllPossibleMove(std::vector<Piece*> pieces);
     ~Tour();
+
+private:
+    bool verticalBlocked = false;
+    bool horizontalBlocked = true;
 };
 
 #endif // TOUR_H

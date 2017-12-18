@@ -15,7 +15,8 @@ public:
     bool isValidMove(int x, int y,std::vector<Piece *> pieces);
     void firstMovePlayed();
     bool canAttack(char chessboard[8][8]);
-    bool checkIfMate(int x, int y);
+    //bool checkIfMate(int x, int y);
+    bool test(std::vector<Piece *> pieces,int x,int y);
     ~Pion();
 
 private:

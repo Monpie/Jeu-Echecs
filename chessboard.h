@@ -41,6 +41,8 @@ public:
     void centrerPiece(Piece *piece, QPoint pos);
     void initPlayers();
     Piece * getPieceAt(int x,int y);
+    int operator +(int a);
+   // friend Piece operator -(Piece a);
 
 private slots:
     void on_boutonSauvegarder_clicked();

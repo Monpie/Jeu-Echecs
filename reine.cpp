@@ -31,7 +31,7 @@ void Reine::move(int x, int y){
 }
 
 bool Reine::isValidMove(int x, int y,std::vector<Piece*> pieces){
-    if(((x!=this->tabPosX*TAILLECASE && y==this->tabPosY) && this->moveInBoard(x,y) || (abs(x-this->tabPosX)==abs(y-this->tabPosY)) || (x==this->tabPosX && y != this->tabPosY)&& this->moveInBoard(x,y)) && (x!=this->tabPosX || y!=this->tabPosY))
+    if( this->checkIfMate(x,y) && ((x!=this->tabPosX*TAILLECASE && y==this->tabPosY) && this->moveInBoard(x,y) || (abs(x-this->tabPosX)==abs(y-this->tabPosY)) || (x==this->tabPosX && y != this->tabPosY)&& this->moveInBoard(x,y)) && (x!=this->tabPosX || y!=this->tabPosY))
         return true;
     else
         return false;

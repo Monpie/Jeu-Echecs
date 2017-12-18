@@ -35,10 +35,11 @@ public:
      void destructPiece(int x, int y);
      virtual ~Piece();
      //***//
-     //void updateAllPossibleMove(vector<Piece> pieces);
+   //  virtual void updateAllPossibleMove(vector<Piece> pieces);
      void setVerticalBlocked(bool state);
      void setHorizontalBlocked(bool state);
      Piece *getPieceAt(std::vector<Piece*> pieces, int x, int y);
+    bool checkIfMate(int x, int y);
 
 protected:
     bool moveInBoard(int x, int y);
