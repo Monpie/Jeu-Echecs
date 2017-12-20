@@ -29,40 +29,50 @@ void Pion::setImage(QString color){
 
 void Pion::move(int x,int y){
     this->lbl->move(x*TAILLECASE+25,y*TAILLECASE);
-   // cout << "x = " << x << ", y = " << y << endl;
     this->setTabPosX(x);
     this->setTabPosY(y);
-    //cout << "new pos X = " << this->tabPosX << ", new pos y = " << this->tabPosY << endl;
     this->firstMovePlayed();
     this->allPossibleMove.clear();
 }
 
 
 bool Pion::isValidMove(int x,int y,std::vector<Piece*> pieces){
-    for(int i = 0; i<this->allPossibleMove.size();i++){
-        if(this->allPossibleMove[i].x() == x && this->allPossibleMove[i].y() == y){
-            return true;
-        }
-    }
-
-    //Bug mouvement pion
-    //Si une piece est sur une case à 2 de distance du pion et que le pion a encore son first move, il ne peut plus bouger
-    //Ou alors la piece peut sauter par dessus l'autre
     if(this->firstMove){
-        if(y<this->tabPosY+3 && x==this->tabPosX && y>tabPosY && this->color=="Blanc"){
+        this->test(pieces,x,y);
+        if(y<=this->tabPosY+2 && x==this->tabPosX && y>tabPosY && this->color=="Blanc" && this->IsPossibleMove(x,y,this->allPossibleMove)){
             return true;
-        }else if(this->color=="Noir" && (y>this->tabPosY-3 && x==this->tabPosX && y<this->tabPosY) && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY-2) )
+        }else if(this->color=="Noir" && (y>=this->tabPosY-2 && x==this->tabPosX && y<this->tabPosY) && this->IsPossibleMove(x,y,this->allPossibleMove))
             return true;
         else
             return false;
     }else{
-        if(y<this->tabPosY+2 && x==this->tabPosX && y>tabPosY && this->color=="Blanc" && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY+1))
+        if(y<=this->tabPosY+1 && x==this->tabPosX && y>tabPosY && this->color=="Blanc" && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY+1) )
             return true;
-        else if(this->color=="Noir" && (y>this->tabPosY-2 && x==this->tabPosX && y<this->tabPosY) && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY-1))
+        else if(this->color=="Noir" && (y>=this->tabPosY-1 && x==this->tabPosX && y<this->tabPosY)&& !this->getPieceAt(pieces,this->tabPosX,this->tabPosY-1))
             return true;
         else
             return false;
     }
+
+    // this->updateAllPossibleMove(pieces);
+    //Bug mouvement pion
+    //Si une piece est sur une case à 2 de distance du pion et que le pion a encore son first move, il ne peut plus bouger
+    //Ou alors la piece peut sauter par dessus l'autre
+    /*if(this->firstMove){
+        if(y<=this->tabPosY+2 && x==this->tabPosX && y>tabPosY && this->color=="Blanc" && this->test(pieces,x,y)){
+            return true;
+        }else if(this->color=="Noir" && (y>=this->tabPosY-2 && x==this->tabPosX && y<this->tabPosY)  )//&& !this->getPieceAt(pieces,this->tabPosX,this->tabPosY-2))
+            return true;
+        else
+            return false;
+    }else{
+        if(y<=this->tabPosY+1 && x==this->tabPosX && y>tabPosY && this->color=="Blanc" && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY+1) )
+            return true;
+        else if(this->color=="Noir" && (y>=this->tabPosY-1 && x==this->tabPosX && y<this->tabPosY)&& !this->getPieceAt(pieces,this->tabPosX,this->tabPosY-1))
+            return true;
+        else
+            return false;
+    }*/
 
 }
 
@@ -98,38 +108,39 @@ bool Pion::canAttack(char chessboard[8][8] ){
             this->allPossibleMove.push_back(QPoint(this->tabPosX+1,this->tabPosY-1));
             flag = true;
         }
-
-        /*if(chessboard[this->tabPosY+2][this->tabPosX]!=0 && this->firstMove)
-            this->allPossibleMove.push_back((QPoint(this->tabPosX+2,this->tabPosY)));
-        else if(chessboard[this->tabPosY+1][this->tabPosX]!=0 && !this->firstMove)
-            this->allPossibleMove.push_back(QPoint(this->tabPosX+1,this->tabPosY));
-        else
-            return false;*/
     }
     return flag;
 }
-
-/*bool Pion::checkIfMate(int x, int y){
-    if(this->owner->getPiecesAt(x,y)){
-        if(this->owner->getPiecesAt(x,y)->getOwner()!=this->owner){
-            return true;
-        }else
-            return false;
-    }else{
-        return true;
-    }
-}*/
 
 Pion::~Pion(){
     delete this->lbl;
 }
 
-/*bool Pion::test(std::vector<Piece *> pieces, int x, int y){
-    if(this->getPieceAt(pieces,x,y+1))
-        return false;
-    else if(this->getPieceAt(pieces,x,y+2)){
-        this->allPossibleMove.push_back(QPoint(x,y+1));
-        return false;
-    }else
-        return true;
-}*/
+bool Pion::IsPossibleMove(int x, int y, vector<QPoint> possibleMove){
+    for(int i=0;i<possibleMove.size();i++)
+    {
+        if(QPoint(x,y)==possibleMove[i])
+            return true;
+    }
+    return false;
+}
+
+bool Pion::test(std::vector<Piece *> pieces, int x, int y){
+    int i = tabPosY+1;
+    while(i<=this->tabPosY+2 && this->color=="Blanc"){
+        if(this->getPieceAt(pieces,this->tabPosX,i))
+            break;
+        else
+            this->allPossibleMove.push_back(QPoint(this->tabPosX,i));
+        i++;
+    }
+
+    i= tabPosY-1;
+    while(i>=this->tabPosY-2 && this->color=="Noir"){
+        if(this->getPieceAt(pieces,this->tabPosX,i))
+            break;
+        else
+            this->allPossibleMove.push_back(QPoint(this->tabPosX,i));
+        i--;
+    }
+}

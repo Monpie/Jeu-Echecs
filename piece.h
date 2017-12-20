@@ -40,6 +40,7 @@ public:
      void setHorizontalBlocked(bool state);
      Piece *getPieceAt(std::vector<Piece*> pieces, int x, int y);
     bool checkIfMate(int x, int y);
+    bool getIsTour();
 
 protected:
     bool moveInBoard(int x, int y);
@@ -58,6 +59,7 @@ protected:
     bool isPion = false;
     bool verticalBlocked=false;
     bool horizontalBlocked=false;
+    bool isTour=false;
     //bool isClicked = false;
 
 };

@@ -42,6 +42,8 @@ public:
     void initPlayers();
     Piece * getPieceAt(int x,int y);
     int operator +(int a);
+   // int operator ++(int a);
+    ChessBoard& operator++();
    // friend Piece operator -(Piece a);
 
 private slots:
@@ -57,6 +59,7 @@ private:
     Player *player1;
     Player *player2;
     Player *currentPlayer;
+    int a=5;
 };
 
 #endif // CHESSBOARD_H

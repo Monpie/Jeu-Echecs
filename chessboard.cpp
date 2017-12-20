@@ -10,6 +10,21 @@
 #include "constante.h"
 #include "math.h"
 
+/*int ChessBoard::operator ++(int a){
+    cout << "a = " << a << endl;
+    a++;
+    cout << "a++ = " << a << endl;
+    return a;
+}*/
+
+ChessBoard& ChessBoard::operator ++(){
+    cout << " a : " << this->a << endl;
+    cout << "Operateur ++" << endl;
+    this->a++;
+    cout << " a : " << this->a;
+    return *this;
+}
+
 //Constructeur initial
 ChessBoard::ChessBoard(QWidget *parent) :
     QDialog(parent),
@@ -23,7 +38,9 @@ ChessBoard::ChessBoard(QWidget *parent) :
     this->currentPlayer=this->player1;
     this->initGame("initialisation.txt");
     this->initPlayers();
-    this->operator +(1);
+    /*this->operator +(1);
+    this->operator ++();*/
+
 
 }
 
@@ -73,32 +90,30 @@ void ChessBoard::paintEvent(QPaintEvent *)
 void ChessBoard::mousePressEvent(QMouseEvent *event){
     if(event->buttons() & Qt::LeftButton ){
         if(this->selectedPiece){
-            if(this->selectedPiece->isValidMove(floor(event->x()/TAILLECASE),floor(event->y()/TAILLECASE),this->pieces) && !this->selectedPiece->getOwner()->getHasPlayed())
+             if(this->selectedPiece->isValidMove(floor(event->x()/TAILLECASE),floor(event->y()/TAILLECASE),this->pieces) && !this->selectedPiece->getOwner()->getHasPlayed())
+            //if(!this->selectedPiece->getOwner()->getHasPlayed())
             {
+                ///***Détruire la pièce si elle est mangée***///
                 Piece * test = this->getPieceAt((int)floor(event->x()/TAILLECASE),(int)floor(event->y()/TAILLECASE));
                 if(test && test!=this->selectedPiece && test->getOwner()!=this->selectedPiece->getOwner())
                     delete test;
+                ///*****************************************///
 
+                ///*****Gestion du déplacement de la pièce*****///
                 this->selectedPiece->move(floor(event->x()/TAILLECASE),floor(event->y()/TAILLECASE));
                 this->chessBoard[(int)(floor(this->selectedPiece->getOldY()/TAILLECASE))][(int)(floor(this->selectedPiece->getOldX()/TAILLECASE))] = '0';
                 this->chessBoard[(int)floor(event->y()/TAILLECASE)][(int)floor(event->x()/TAILLECASE)] = this->selectedPiece->getPieceName();
+                ///********************************************///
 
+                ///******Gestion tour joueur******///
                 this->currentPlayer->setHasPlayed(true);
-                cout << "booleen : " << this->player1->getHasPlayed() << endl;
-                cout << "booleen joueur 2 : " << this->player2->getHasPlayed() << endl;
                 if(this->currentPlayer==this->player1)
                     this->currentPlayer=this->player2;
                 else
                     this->currentPlayer=this->player1;
-
-                    this->currentPlayer->setHasPlayed(false);
-
-
+                this->currentPlayer->setHasPlayed(false);
+                ///******************************///
             }
-
-            /*for(int i=0; i<this->selectedPiece->allPossibleMove.size();i++){
-                cout << "move : " << i << " " << this->selectedPiece->allPossibleMove.at(i).x() << ", y = " << this->selectedPiece->allPossibleMove.at(i).y() << endl;
-            }*/
 
             this->selectedPiece->allPossibleMove.clear();
             this->possibleMove.clear();
@@ -124,10 +139,17 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                         for(int j=0;j<8;j++){
                             if(this->selectedPiece->isValidMove(i,j,this->pieces))
                             {
-                                this->selectedPiece->allPossibleMove.push_back(QPoint(i,j));
+                                if(!this->selectedPiece->getIsTour())
+                                    this->selectedPiece->allPossibleMove.push_back(QPoint(i,j));
                             }
                         }
                     }
+                    if(this->selectedPiece->getIsTour()){
+                        Tour *t = static_cast<Tour*> (this->selectedPiece);
+                        t->updateAllPossibleMove(this->pieces);
+                    }
+                    for(QPoint p : this->selectedPiece->allPossibleMove)
+                        cout << "x = " << p.x() << ", y = " << p.y() << endl;
                     this->update();
                 }
 

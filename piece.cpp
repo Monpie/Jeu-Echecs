@@ -123,3 +123,7 @@ bool Piece::checkIfMate(int x, int y){
         return true;
     }
 }
+
+bool Piece::getIsTour(){
+    return this->isTour;
+}
