@@ -20,6 +20,9 @@
 #include "player.h"
 
 using namespace std;
+#include <mainmenu.h>
+
+
 namespace Ui {
 class ChessBoard;
 }
@@ -30,7 +33,7 @@ class ChessBoard : public QDialog
 
 public:
     explicit ChessBoard(QWidget *parent = 0);
-   //explicit ChessBoard(QWidget *parent = 0, QString file = "initialisation.txt");
+    explicit ChessBoard(QString file,QWidget *parent = 0);
 
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
@@ -48,7 +51,9 @@ public:
 
 private slots:
     void on_boutonSauvegarder_clicked();
+    void testSlot();
 
+    void on_pushButton_clicked();
 private:
     Ui::ChessBoard *ui;
     vector<Piece*> pieces;
@@ -60,6 +65,9 @@ private:
     Player *player2;
     Player *currentPlayer;
     int a=5;
+
+signals:
+    void maxAtteint();
 };
 
 #endif // CHESSBOARD_H

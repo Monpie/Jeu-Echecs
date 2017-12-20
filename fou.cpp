@@ -29,6 +29,8 @@ void Fou::move(int x, int y){
     this->setTabPosY(y);
 }
 
+
+
 bool Fou::isValidMove(int x, int y,std::vector<Piece*> pieces){
    // cout << "Fou::isValidMove(int x, int y) = "<< x << endl;
     this->updateAllPossibleMove(pieces);
@@ -40,6 +42,7 @@ bool Fou::isValidMove(int x, int y,std::vector<Piece*> pieces){
 
 Fou::~Fou(){
     delete this->lbl;
+
 }
 
 void Fou::updateAllPossibleMove(std::vector<Piece*> pieces){

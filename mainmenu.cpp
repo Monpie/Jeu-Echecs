@@ -25,10 +25,11 @@ MainMenu::~MainMenu()
 //bouton new game
 void MainMenu::on_newGameButton_clicked()
 {
-    ChessBoard board;
+    ChessBoard board("initialisation.txt");
     this->hide();
 
-    //board.initGame("initialisation.txt");
+   // board.initGame("initialisation.txt");
+
     board.exec();
 }
 
@@ -36,10 +37,10 @@ void MainMenu::on_newGameButton_clicked()
 //bouton chargement
 void MainMenu::on_loadGameButton_clicked()
 {
-    ChessBoard board;
+    ChessBoard board("sauvegarde.txt");
     this->hide();
 
-    board.initGame("sauvegarde.txt");
+    //board.initGame("sauvegarde.txt");
     board.exec();
 }
 

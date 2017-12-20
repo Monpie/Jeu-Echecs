@@ -16,11 +16,16 @@
   <widget class="QPushButton" name="boutonSauvegarder">
    <property name="geometry">
     <rect>
-     <x>970</x>
-     <y>220</y>
-     <width>121</width>
+     <x>910</x>
+     <y>510</y>
+     <width>141</width>
      <height>51</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
    </property>
    <property name="text">
     <string>Sauvegarder</string>
@@ -42,6 +47,24 @@
    </property>
    <property name="text">
     <string>Joueur 1</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>1060</x>
+     <y>510</y>
+     <width>141</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Quitter</string>
    </property>
   </widget>
  </widget>
