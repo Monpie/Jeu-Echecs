@@ -6,10 +6,11 @@
 class Reine : public Piece
 {
 public:
-    Reine(QWidget *parent, QString color,int owner , int width, int height, int x,int y);
+    Reine(QWidget *parent, QString color,Player * owner , int width, int height, int x,int y);
     void setImage(QString color);
     void move(int x, int y);
-    bool isValidMove(int x, int y);
+    bool isValidMove(int x, int y,std::vector<Piece*> pieces);
+    ~Reine();
 };
 
 #endif // REINE_H

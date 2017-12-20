@@ -3,19 +3,19 @@
 #include "iostream"
 using namespace std;
 
-Pion::Pion(QWidget *parent, QString color, int owner,  int width, int height, int x,int y)
+Pion::Pion(QWidget *parent, QString color, Player * owner,  int width, int height, int x,int y)
 {
     this->lbl = new QLabel(parent);
     this->setImage(color);
+    this->color = color;
     this->width = width;
     this->height = height;
     this->x = x;
     this->y = y;
     this->lbl->move(x,y);
     this->owner = owner;
+    this->isPion=true;
 }
-
-
 
 void Pion::setImage(QString color){
     if(color==("Blanc")){
@@ -28,30 +28,108 @@ void Pion::setImage(QString color){
 }
 
 void Pion::move(int x,int y){
-    if(this->isValidMove(x,y)){
-        this->lbl->move(x,y);
-    }
+    this->lbl->move(x*TAILLECASE+25,y*TAILLECASE);
+   // cout << "x = " << x << ", y = " << y << endl;
+    this->setTabPosX(x);
+    this->setTabPosY(y);
+    //cout << "new pos X = " << this->tabPosX << ", new pos y = " << this->tabPosY << endl;
+    this->firstMovePlayed();
+    this->allPossibleMove.clear();
 }
 
-bool Pion::isValidMove(int x,int y){
-    if(this->firstMove){
-        if(y<(this->tabPosY+2)*TAILLECASE && x<(this->tabPosX+0.5)*TAILLECASE && x>(this->tabPosX-0.15)*TAILLECASE ){
-            cout << "y = " << y << "tabPos = " << this->tabPosY << endl;
-            //this->firstMove = false;
+
+bool Pion::isValidMove(int x,int y,std::vector<Piece*> pieces){
+    for(int i = 0; i<this->allPossibleMove.size();i++){
+        if(this->allPossibleMove[i].x() == x && this->allPossibleMove[i].y() == y){
             return true;
         }
+    }
+
+    //Bug mouvement pion
+    //Si une piece est sur une case à 2 de distance du pion et que le pion a encore son first move, il ne peut plus bouger
+    //Ou alors la piece peut sauter par dessus l'autre
+    if(this->firstMove){
+        if(y<this->tabPosY+3 && x==this->tabPosX && y>tabPosY && this->color=="Blanc"){
+            return true;
+        }else if(this->color=="Noir" && (y>this->tabPosY-3 && x==this->tabPosX && y<this->tabPosY) && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY-2) )
+            return true;
         else
             return false;
     }else{
-        if(y<(this->tabPosY+1)*TAILLECASE && x<(this->tabPosX+0.5)*TAILLECASE && x>(this->tabPosX-0.15)*TAILLECASE) // && (this->getTabPosY()-this->getY())==0))
+        if(y<this->tabPosY+2 && x==this->tabPosX && y>tabPosY && this->color=="Blanc" && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY+1))
+            return true;
+        else if(this->color=="Noir" && (y>this->tabPosY-2 && x==this->tabPosX && y<this->tabPosY) && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY-1))
             return true;
         else
             return false;
     }
+
 }
 
 void Pion::firstMovePlayed(){
     this->firstMove = false;
 }
 
+bool Pion::canAttack(char chessboard[8][8] ){
+    bool flag = false;
 
+    if(this->color=="Blanc")
+    {
+        if(chessboard[this->tabPosY+1][this->tabPosX+1] != '0' && this->moveInBoard(this->tabPosX+1,this->tabPosY+1) && this->checkIfMate(this->tabPosX+1,this->tabPosY+1))
+        {
+            this->allPossibleMove.push_back(QPoint(this->tabPosX+1,this->tabPosY+1));
+            flag = true;
+        }
+
+        if(chessboard[this->tabPosY+1][this->tabPosX-1] != '0' && this->moveInBoard(this->tabPosX-1,this->tabPosY+1) && this->checkIfMate(this->tabPosX-1,this->tabPosY+1))
+        {
+            this->allPossibleMove.push_back(QPoint(this->tabPosX-1,this->tabPosY+1));
+            flag = true;
+        }
+    }else{
+        if(chessboard[this->tabPosY-1][this->tabPosX-1] != '0' && this->moveInBoard(this->tabPosX-1,this->tabPosY-1) && this->checkIfMate(this->tabPosX-1,this->tabPosY-1))
+        {
+            this->allPossibleMove.push_back(QPoint(this->tabPosX-1,this->tabPosY-1));
+            flag = true;
+        }
+
+        if(chessboard[this->tabPosY-1][this->tabPosX+1] != '0' && this->moveInBoard(this->tabPosX+1,this->tabPosY-1) && this->checkIfMate(this->tabPosX+1,this->tabPosY-1))
+        {
+            this->allPossibleMove.push_back(QPoint(this->tabPosX+1,this->tabPosY-1));
+            flag = true;
+        }
+
+        /*if(chessboard[this->tabPosY+2][this->tabPosX]!=0 && this->firstMove)
+            this->allPossibleMove.push_back((QPoint(this->tabPosX+2,this->tabPosY)));
+        else if(chessboard[this->tabPosY+1][this->tabPosX]!=0 && !this->firstMove)
+            this->allPossibleMove.push_back(QPoint(this->tabPosX+1,this->tabPosY));
+        else
+            return false;*/
+    }
+    return flag;
+}
+
+/*bool Pion::checkIfMate(int x, int y){
+    if(this->owner->getPiecesAt(x,y)){
+        if(this->owner->getPiecesAt(x,y)->getOwner()!=this->owner){
+            return true;
+        }else
+            return false;
+    }else{
+        return true;
+    }
+}*/
+
+Pion::~Pion(){
+    delete this->lbl;
+}
+
+/*bool Pion::test(std::vector<Piece *> pieces, int x, int y){
+    if(this->getPieceAt(pieces,x,y+1))
+        return false;
+    else if(this->getPieceAt(pieces,x,y+2)){
+        this->allPossibleMove.push_back(QPoint(x,y+1));
+        return false;
+    }else
+        return true;
+}*/

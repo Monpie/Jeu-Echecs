@@ -33,7 +33,7 @@ private slots:
     void on_btnRegle_clicked();
 
 private:
-    QSound sound;
+
     Ui::MainMenu *ui;
 
 

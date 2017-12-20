@@ -1,6 +1,7 @@
 #include "fou.h"
-
-Fou::Fou(QWidget *parent, QString color, int owner,  int width, int height, int x,int y)
+#include "iostream"
+using namespace std;
+Fou::Fou(QWidget *parent, QString color, Player * owner,  int width, int height, int x,int y)
 {
     this->lbl = new QLabel(parent);
     this->setImage(color);
@@ -23,14 +24,22 @@ void Fou::setImage(QString color){
 }
 
 void Fou::move(int x, int y){
-    if(this->isValidMove(x,y))
+
+
         this->lbl->move(x,y);
 }
 
-bool Fou::isValidMove(int x, int y){
-     //if((x!=this->tabPosX*TAILLECASE && y<(this->tabPosY+0.15)*TAILLECASE && y>(this->tabPosY-0.15)*TAILLECASE) || (y!=this->tabPosY*TAILLECASE && x<(this->tabPosX+0.15)*TAILLECASE && x>(this->tabPosX-0.15)*TAILLECASE))
-     if(x!=this->tabPosX*TAILLECASE && y!=this->tabPosX*TAILLECASE && x==y &&  y<(this->tabPosY+0.15)*TAILLECASE && y>(this->tabPosY-0.15)*TAILLECASE)
+
+
+bool Fou::isValidMove(int x, int y,std::vector<Piece*> pieces){
+    cout << "Fou::isValidMove(int x, int y) = "<< x << endl;
+    if((abs(x-this->tabPosX)==abs(y-this->tabPosY)) && this->moveInBoard(x,y)  && this->checkIfMate(x,y) && (x!=this->tabPosX || y!=this->tabPosY))
         return true;
     else
         return false;
+}
+
+Fou::~Fou(){
+    delete this->lbl;
+
 }

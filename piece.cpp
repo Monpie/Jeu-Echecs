@@ -1,5 +1,6 @@
 #include "piece.h"
 #include "iostream"
+#include "player.h"
 using namespace std;
 
 int Piece::getWidth(){
@@ -10,15 +11,15 @@ int Piece::getHeigth(){
    return this->height;
 }
 
-int Piece::getX(){
+/*int Piece::getX(){
     return this->lbl->x();
-}
+}*/
 
 int Piece::getY(){
     return this->lbl->y();
 }
 
-int Piece::getOwner(){
+Player * Piece::getOwner(){
     return this->owner;
 }
 
@@ -62,30 +63,11 @@ void Piece::setY(int y){
     this->y = y;
 }
 
-
-bool Piece::validClick(QMouseEvent *event){
-    if(event->pos().x() <= this->getX()+this->getWidth() && event->pos().y() <= this->getY()+this->getHeigth() && event->pos().x() >= this->getX() && event->pos().y() >= this->getY())
-    {
-        this->isClicked = true;
-        qDebug("OK");
-        /*while(this->isClicked){
-           // bug("while");
-
-            if(event->button() & Qt::LeftButton ){
-                qDebug("buttins");
-                this->move(event->pos().x(),event->pos().y());
-                this->isClicked = false;
-            }
-        }*/
-    }
-}
-
 void Piece::move(int x,int y){
-        this->lbl->move(x,y);
+    this->lbl->move(x*TAILLECASE+25,y*TAILLECASE);
 }
 
-bool Piece::isValidMove(int x, int y){
-    cout << "isValidMove piece appelé" << endl;
+bool Piece::isValidMove(int x, int y, std::vector<Piece *> pieces){
     return false;
 }
 
@@ -95,4 +77,49 @@ void Piece::centrer(int x, int y){
 
 char Piece::getPieceName(){
     return this->namePiece;
+}
+
+bool Piece::moveInBoard(int x, int y){
+    if(x<=7 && x>=0 && y<=7 && y>=0)
+        return true;
+    else
+        return false;
+}
+
+QString Piece::getColor(){
+    return this->color;
+}
+
+bool Piece::getIsPion(){
+    return this->isPion;
+}
+
+Piece::~Piece(){}
+
+/***/
+void Piece::setHorizontalBlocked(bool state){
+    this->horizontalBlocked = state;
+}
+
+void Piece::setVerticalBlocked(bool state){
+    this->verticalBlocked=state;
+}
+
+Piece * Piece::getPieceAt(std::vector<Piece*> pieces, int x, int y){
+    for(int i=0; i<pieces.size();i++){
+        if(pieces[i]->getTabPosX()==x && pieces[i]->getTabPosY()==y){
+            return pieces[i];
+        }
+    }
+}
+
+bool Piece::checkIfMate(int x, int y){
+    if(this->owner->getPiecesAt(x,y)){
+        if(this->owner->getPiecesAt(x,y)->getOwner()!=this->owner){
+            return true;
+        }else
+            return false;
+    }else{
+        return true;
+    }
 }

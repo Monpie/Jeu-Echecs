@@ -25,14 +25,25 @@ int Player::getId()
 }
 
 //removePiece
-void Player::removePiece(Piece piece)
+void Player::removePiece(Piece  piece)
 {
     //this->pieces.erase(piece);
 }
 
 //addPiece
-void Player::addPiece(Piece piece){
-    this->pieces.push_back(&piece);
+void Player::addPiece(Piece * piece){
+    this->pieces.push_back(piece);
 }
 
 
+vector<Piece *> Player::getPieces(){
+    return this->pieces;
+}
+
+Piece * Player::getPiecesAt(int x, int y){
+    for(int i=0; i<this->pieces.size();i++){
+        if(pieces[i]->getTabPosX()==x && pieces[i]->getTabPosY()==y){
+            return this->pieces[i];
+        }
+    }
+}

@@ -4,12 +4,14 @@
 #include <QLabel>
 #include "constante.h"
 
+class Player;
+
 class Piece
 {
 public:
      int getX();
      int getY();
-     int getOwner();
+     Player * getOwner();
      void setX(int x);
      void setY(int y);
      int getWidth();
@@ -23,13 +25,24 @@ public:
      void setTabPosX(int x);
      void setTabPosY(int y);
      virtual void move(int x, int y);
-     virtual bool isValidMove(int x, int y);
-     bool validClick(QMouseEvent *event);
+     virtual bool isValidMove(int x, int y, std::vector<Piece *> pieces);
      void setImage(QString color);
      char getPieceName();
      void centrer(int x, int y);
+     QString getColor();
+     std::vector<QPoint> allPossibleMove;
+     bool getIsPion();
+     void destructPiece(int x, int y);
+     virtual ~Piece();
+     //***//
+   //  virtual void updateAllPossibleMove(vector<Piece> pieces);
+     void setVerticalBlocked(bool state);
+     void setHorizontalBlocked(bool state);
+     Piece *getPieceAt(std::vector<Piece*> pieces, int x, int y);
+    bool checkIfMate(int x, int y);
 
 protected:
+    bool moveInBoard(int x, int y);
     QLabel  *lbl;    //Image de la pièce
     QString color;  //Couleur de la pièce
     char namePiece;
@@ -41,8 +54,12 @@ protected:
     int oldY;
     int tabPosX;    //position ligne de la pièce dans le tableau
     int tabPosY;    //position colonne de la pièce dans le tableau
-    int owner;
-    bool isClicked = false;
+    Player * owner;
+    bool isPion = false;
+    bool verticalBlocked=false;
+    bool horizontalBlocked=false;
+    //bool isClicked = false;
+
 };
 
 #endif // PIECE_H

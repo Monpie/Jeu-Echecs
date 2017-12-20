@@ -1,11 +1,12 @@
-        #include "case.h"
+#include "case.h"
 
-    Case::Case(int size, int xPos, int yPos)
-    {
-        this->size = size;
-        this->xPos = xPos;
-        this->yPos = yPos;
-    }
+Case::Case(int size, int xPos, int yPos)
+{
+    this->size = size;
+    this->xPos = xPos+DECALAGECASE;
+    this->yPos = yPos+DECALAGECASE;
+}
+
 
 
     void Case::draw(QPainter *painter, QColor color)
