@@ -214,6 +214,7 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                 ///***Détruire la pièce si elle est mangée***///
                 Piece * test = this->getPieceAt((int)floor(event->x()/TAILLECASE),(int)floor(event->y()/TAILLECASE));
                 if(test && test!=this->selectedPiece && test->getOwner()!=this->selectedPiece->getOwner()){
+                    test->move(8,3);
                     if(test->getIsKing())
                     {
                         cout << "Roi mangé " << endl;
@@ -230,9 +231,11 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                         MainMenu menu;
                         menu.exec();
                     }
+
                     this->removePiece(test);
                     this->selectedPiece->getOwner()->removePiece(test);
-                    delete test;
+                    //delete test;
+
                 }
 
                 for(int i=0;i<this->pieces.size();i++){

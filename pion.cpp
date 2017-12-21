@@ -15,6 +15,7 @@ Pion::Pion(QWidget *parent, QString color, Player * owner,  int width, int heigh
     this->lbl->move(x,y);
     this->owner = owner;
     this->isPion=true;
+    this->lbl->setVisible(true);
 }
 
 void Pion::setImage(QString color){
