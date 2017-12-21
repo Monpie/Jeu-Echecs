@@ -18,6 +18,7 @@
 #include<string>
 #include "constante.h"
 #include "player.h"
+#include <QException>
 
 using namespace std;
 #include <mainmenu.h>

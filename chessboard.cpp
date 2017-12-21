@@ -11,6 +11,7 @@
 #include "math.h"
 #include "choixupgrade.h"
 #include <QMessageBox>
+#include <QException>
 /*int ChessBoard::operator ++(int a){
     cout << "a = " << a << endl;
     a++;
@@ -56,7 +57,7 @@ ChessBoard::ChessBoard(QString file,QWidget *parent):
     this->player2->setHasPlayed(true);
     this->currentPlayer=this->player1;
     this->initGame(file.toStdString());
-    this->initPlayers();
+    //this->initPlayers();
 
     connect(this,SIGNAL(maxAtteint()),this,SLOT(upgradePion()));
     /*this->operator +(1);
@@ -176,19 +177,19 @@ void ChessBoard::paintEvent(QPaintEvent *)
             if(i%2==0){
                 if(j%2==0){
                     caseBoard[i][j] = new Case(TAILLECASE,i*TAILLECASE,j*TAILLECASE);
-                    caseBoard[i][j]->draw(&painter, Qt::darkBlue);
+                    caseBoard[i][j]->draw(&painter, QColor(36,68,92));
                 }else{
                     caseBoard[i][j] = new Case(TAILLECASE,i*TAILLECASE,j*TAILLECASE);
-                    caseBoard[i][j]->draw(&painter, Qt::lightGray);
+                    caseBoard[i][j]->draw(&painter, QColor(206,206,206));
                 }
             }else{
                 if(j%2==0){
                     caseBoard[i][j]= new Case(TAILLECASE,i*TAILLECASE,j*TAILLECASE);
-                    caseBoard[i][j]->draw(&painter, Qt::lightGray);
+                    caseBoard[i][j]->draw(&painter, QColor(206,206,206));
 
                 }else{
                     caseBoard[i][j]=new Case(TAILLECASE,i*TAILLECASE,j*TAILLECASE);
-                    caseBoard[i][j]->draw(&painter, Qt::darkBlue);
+                    caseBoard[i][j]->draw(&painter, QColor(36,68,92));
                 }
             }
         }
@@ -197,7 +198,9 @@ void ChessBoard::paintEvent(QPaintEvent *)
     {
         for(unsigned int i=0; i< this->selectedPiece->allPossibleMove.size();i++){
             this->possibleMove.push_back( new Case(TAILLECASE,this->selectedPiece->allPossibleMove.at(i).x()*TAILLECASE,this->selectedPiece->allPossibleMove[i].y()*TAILLECASE));
-            this->possibleMove.at(i)->draw(&painter, Qt::white);
+            QColor color(255,87,51,150);
+
+            this->possibleMove.at(i)->draw(&painter, color);
 
         }
     }
@@ -208,7 +211,7 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
     if(event->buttons() & Qt::LeftButton ){
         if(this->selectedPiece){
             if(this->selectedPiece->isValidMove(floor(event->x()/TAILLECASE),floor(event->y()/TAILLECASE),this->pieces) && !this->selectedPiece->getOwner()->getHasPlayed())
-                //if(!this->selectedPiece->getOwner()->getHasPlayed())
+              //  if(!this->selectedPiece->getOwner()->getHasPlayed())
             {
 
                 ///***Détruire la pièce si elle est mangée***///
@@ -238,7 +241,7 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
 
                 }
 
-                for(int i=0;i<this->pieces.size();i++){
+                /*for(int i=0;i<this->pieces.size();i++){
                     cout << pieces[i]->getPieceName() << "  " ;
                 }
 
@@ -246,7 +249,7 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                 for(int i=0;i<this->currentPlayer->getPieces().size();i++){
                     cout << this->currentPlayer->getPieces()[i]->getPieceName() << "  " ;
                 }
-                cout << endl;
+                cout << endl;*/
                 ///*****************************************///
 
                 ///*****Gestion du déplacement de la pièce*****///
@@ -302,6 +305,7 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                             if(this->selectedPiece->isValidMove(i,j,this->pieces))
                             {
                                 this->selectedPiece->allPossibleMove.push_back(QPoint(i,j));
+
                             }
                         }
                     }
@@ -362,7 +366,14 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
 
 //____________________________________________________________INITIALISATION JEU__________________________________________________
 void ChessBoard::initGame(string fichier){
+    try{
     this->lectureFichier(fichier);
+    for(int i=0;i<8;i++){
+        for(int j=0;j<8;j++)
+        cout << chessBoard[i][j] << " ";
+        cout << endl;
+    }
+
     for(int i=0; i<8;i++){
         for(int j=0; j<8;j++){
             switch(chessBoard[i][j])
@@ -466,8 +477,11 @@ void ChessBoard::initGame(string fichier){
             }
         }
     }
-}
 
+    }catch(QException e){
+        cout << "Erreur" << endl;
+    }
+}
 
 
 
@@ -476,8 +490,32 @@ void ChessBoard::initGame(string fichier){
 //Méthode pour lire un fichier
 void ChessBoard::lectureFichier(string sauvegarde){
 
-    ifstream fichier(sauvegarde, ios::in);  // on ouvre le fichier en lecture
-    if(fichier)  // si l'ouverture a réussi
+    try{
+        ifstream fichier(sauvegarde, ios::in);  // on ouvre le fichier en lecture
+        string ligne;
+        if(!fichier)
+            throw QException();
+
+        for(int i=0;i<8;i++){
+            getline(fichier, ligne);
+            for(int j=0;j<8;j++){
+                this->chessBoard[i][j] = ligne[j];
+            }
+        }
+
+        fichier.close();
+    }catch(QException e){
+        QMessageBox *msg = new QMessageBox(this);
+        msg->setText("Jeu impossible");
+        msg->exec();
+
+        for(int i = 0 ; i<8;i++)
+            for(int j=0;j<8;j++)
+                chessBoard[i][j]='0';
+        cout << "Exception levé" << endl;
+
+    }
+    /*if(fichier)  // si l'ouverture a réussi
     {
         cout<<"fichier ouvert"<<endl;
         string ligne;
@@ -494,7 +532,7 @@ void ChessBoard::lectureFichier(string sauvegarde){
     else //sinon
     {    cout<<"erreur"<<endl;
         cerr << "Impossible d'ouvrir le fichier !" << endl;
-    }
+    }*/
 
 
 }
