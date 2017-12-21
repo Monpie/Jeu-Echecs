@@ -170,6 +170,8 @@ void ChessBoard::transformToTour(){
 
 void ChessBoard::paintEvent(QPaintEvent *)
 {
+    //a modifier
+
     QPainter painter(this);
     for(int i=0; i<8 ; i++){
         for(int j=0; j<8; j++){
