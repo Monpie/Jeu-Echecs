@@ -12,6 +12,7 @@ Tour::Tour(QWidget *parent, QString color, Player * owner,  int width, int heigh
     this->y = y;
     this->lbl->move(x,y);
     this->owner = owner;
+    this->lbl->setVisible(true);
 }
 
 void Tour::setImage(QString color){
@@ -25,21 +26,9 @@ void Tour::setImage(QString color){
 }
 
 bool Tour::isValidMove(int x, int y,std::vector<Piece*> pieces){
+    this->updateAllPossibleMove(pieces);
 
-   /* for(Piece * piece : pieces){
-        if(piece->getTabPosX()==this->tabPosX+1)
-        {
-            this->verticalBlocked = true;
-            cout <<" Mouvement vertical bloqué" << endl;
-        }
-
-        if(piece->getTabPosY()==this->tabPosY+1){
-            this->horizontalBlocked = true;
-            cout <<" Mouvement horizontal bloqué" << endl;
-        }
-    }*/
-
-    if(((x!=this->tabPosX && y==this->tabPosY) || (x==this->tabPosX && y != this->tabPosY)) && this->moveInBoard(x,y) && this->checkIfMate(x,y))
+    if(((x!=this->tabPosX && y==this->tabPosY) || (x==this->tabPosX && y != this->tabPosY)) && this->moveInBoard(x,y) && this->checkIfMate(x,y) && this->IsPossibleMove(x,y,this->allPossibleMove) )
         return true;
     else
         return false;
@@ -56,31 +45,70 @@ Tour::~Tour(){
     delete this->lbl;
 }
 
-void Tour::updateAllPossibleMove(vector<Piece *> pieces){
-    Piece * verticalPiece;
-    Piece * horizotalPiece;
-    for(Piece * piece : pieces){
-            if(piece->getTabPosX()==this->tabPosX+1)
-            {
-                this->verticalBlocked = true;
-                verticalPiece = piece;
-                cout <<" Mouvement vertical bloqué" << endl;
-            }
-
-            if(piece->getTabPosY()==this->tabPosY+1){
-                this->horizontalBlocked = true;
-                horizotalPiece = piece;
-                cout <<" Mouvement horizontal bloqué" << endl;
-            }
-    }
-
-
-
-    for(int i=0;i<8;i++){
-        for(int j=0;j<8;j++){
-            if(this->isValidMove(i,j,pieces)){
-                this->allPossibleMove.push_back(QPoint(i,j));
-            }
+void Tour::updateAllPossibleMove(std::vector<Piece *> pieces){
+    int i=this->tabPosX-1,j=this->tabPosX+1;
+    bool alreadyHasEnemy = false;
+    while(i>=0){
+        if(!this->checkIfMate(i,this->tabPosY) || alreadyHasEnemy)
+        {
+            break;
+        }else{
+            if(this->getPieceAt(pieces,i,this->tabPosY) && this->getPieceAt(pieces,i,this->tabPosY)->getOwner()!=this->owner)
+                alreadyHasEnemy = true;
+            this->allPossibleMove.push_back(QPoint(i,this->tabPosY));
         }
+        i--;
     }
+
+    alreadyHasEnemy = false;
+    while(j<8){
+        if(!this->checkIfMate(j,this->tabPosY) || alreadyHasEnemy)
+        {
+            break;
+        }
+        else{
+            if(this->getPieceAt(pieces,j,this->tabPosY) && this->getPieceAt(pieces,j,this->tabPosY)->getOwner()!=this->owner)
+                alreadyHasEnemy = true;
+            this->allPossibleMove.push_back(QPoint(j,this->tabPosY));
+        }
+        j++;
+    }
+
+    alreadyHasEnemy = false;
+    i=this->tabPosY+1,j=this->tabPosY-1;
+    while(i<8){
+        if(!this->checkIfMate(this->tabPosX,i) || alreadyHasEnemy)
+        {
+            cout << !this->checkIfMate(i,this->tabPosY) << endl;
+            break;
+        }
+        else{
+            if(this->getPieceAt(pieces,this->tabPosX,i) && this->getPieceAt(pieces,this->tabPosX,i)->getOwner()!=this->owner)
+                alreadyHasEnemy = true;
+            this->allPossibleMove.push_back(QPoint(this->tabPosX,i));
+        }
+        i++;
+    }
+
+    alreadyHasEnemy = false;
+    while(j>=0){
+        if(!this->checkIfMate(this->tabPosX,j) || alreadyHasEnemy)
+        {
+            break;
+        }else{
+            if(this->getPieceAt(pieces,this->tabPosX,j) && this->getPieceAt(pieces,this->tabPosX,j)->getOwner()!=this->owner)
+                alreadyHasEnemy = true;
+            this->allPossibleMove.push_back(QPoint(this->tabPosX,j));
+        }
+        j--;
+    }
+}
+
+bool Tour::IsPossibleMove(int x, int y, vector<QPoint> possibleMove){
+    for(int i=0;i<possibleMove.size();i++)
+    {
+        if(QPoint(x,y)==possibleMove[i])
+            return true;
+    }
+    return false;
 }

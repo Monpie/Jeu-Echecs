@@ -10,6 +10,7 @@ Cavalier::Cavalier(QWidget *parent, QString color, Player * owner , int width, i
     this->y = y;
     this->lbl->move(x,y);
     this->owner = owner;
+    this->lbl->setVisible(true);
 }
 
 void Cavalier::setImage(QString color){

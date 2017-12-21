@@ -18,9 +18,15 @@ public:
     //bool checkIfMate(int x, int y);
     bool test(std::vector<Piece *> pieces,int x,int y);
     ~Pion();
+    void updateAllPossibleMove(std::vector<Piece*> pieces);
+    bool IsPossibleMove(int x, int y, std::vector<QPoint> possibleMove);
+    void testSlot();
 
 private:
     bool firstMove = true;
+
+signals:
+    void maxAtteint();
 
 };
 

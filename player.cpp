@@ -9,7 +9,7 @@ Player::Player(int id)
 //getteur et setteur
 void Player::setHasPlayed(bool hasPlayed)
 {
-     this->hasPlayed = hasPlayed;
+    this->hasPlayed = hasPlayed;
 }
 
 //getAsPlar
@@ -25,10 +25,14 @@ int Player::getId()
 }
 
 //removePiece
-void Player::removePiece(Piece  piece)
-{
-    //this->pieces.erase(piece);
+void Player::removePiece(Piece  *piece)
+{    
+    for(std::vector<Piece *>::iterator it = this->pieces.begin() ; it != this->pieces.end(); ++it)
+        if(piece==*it){
+            this->pieces.erase(it);
+        }
 }
+
 
 //addPiece
 void Player::addPiece(Piece * piece){
