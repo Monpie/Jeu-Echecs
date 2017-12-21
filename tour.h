@@ -11,11 +11,8 @@ public:
     void move(int x, int y);
     bool isValidMove(int x, int y,std::vector<Piece*> pieces);
     void updateAllPossibleMove(std::vector<Piece*> pieces);
-    ~Tour();
     bool IsPossibleMove(int x, int y, std::vector<QPoint> possibleMove);
-private:
-    bool verticalBlocked = false;
-    bool horizontalBlocked = true;
+    ~Tour();
 };
 
 #endif // TOUR_H

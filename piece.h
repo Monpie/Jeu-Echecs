@@ -26,12 +26,13 @@ public:
      void setTabPosY(int y);
      virtual void move(int x, int y);
      virtual bool isValidMove(int x, int y, std::vector<Piece *> pieces);
-     void setImage(QString color);
+   virtual  void setImage(QString color);
      char getPieceName();
      void centrer(int x, int y);
      QString getColor();
      std::vector<QPoint> allPossibleMove;
      bool getIsPion();
+     bool getIsKing();
      void destructPiece(int x, int y);
      virtual ~Piece();
      //***//
@@ -40,7 +41,6 @@ public:
      void setHorizontalBlocked(bool state);
      Piece *getPieceAt(std::vector<Piece*> pieces, int x, int y);
     bool checkIfMate(int x, int y);
-    bool getIsTour();
 
 protected:
     bool moveInBoard(int x, int y);
@@ -57,10 +57,10 @@ protected:
     int tabPosY;    //position colonne de la pièce dans le tableau
     Player * owner;
     bool isPion = false;
+    bool isKing = false;
+    /*
     bool verticalBlocked=false;
-    bool horizontalBlocked=false;
-    bool isTour=false;
-    //bool isClicked = false;
+    bool horizontalBlocked=false;*/
 
 };
 

@@ -11,6 +11,7 @@ Fou::Fou(QWidget *parent, QString color, Player * owner,  int width, int height,
     this->y = y;
     this->lbl->move(x,y);
     this->owner = owner;
+    this->lbl->setVisible(true);
 }
 
 void Fou::setImage(QString color){

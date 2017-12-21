@@ -7,7 +7,7 @@ class Player
 {
 public:
     Player(int id);
-    void removePiece(Piece piece);
+    void removePiece(Piece *piece);
     void addPiece(Piece * piece);
     void playPiece();
     vector<Piece *> getPieces();

@@ -9,7 +9,8 @@
 #include <QHBoxLayout>
 #include "constante.h"
 #include "math.h"
-
+#include "choixupgrade.h"
+#include <QMessageBox>
 /*int ChessBoard::operator ++(int a){
     cout << "a = " << a << endl;
     a++;
@@ -57,18 +58,114 @@ ChessBoard::ChessBoard(QString file,QWidget *parent):
     this->initGame(file.toStdString());
     this->initPlayers();
 
-    connect(this,SIGNAL(maxAtteint()),this,SLOT(testSlot()));
+    connect(this,SIGNAL(maxAtteint()),this,SLOT(upgradePion()));
     /*this->operator +(1);
     this->operator ++();*/
 }
 
-void ChessBoard::testSlot(){
+void ChessBoard::upgradePion(){
+
     cout << "methode slot appelé" << endl;
+    ChoixUpgrade *choix = new ChoixUpgrade;
+    connect(choix,SIGNAL(btn_reine_clicked()),this,SLOT(transformToReine()));
+    connect(choix,SIGNAL(btn_tour_clicked()),this,SLOT(transformToTour()));
+    connect(choix,SIGNAL(btn_cavalier_clicked()),this,SLOT(transformToCavalier()));
+    connect(choix,SIGNAL(btn_fou_clicked()),this,SLOT(transformToFou()));
+    choix->exec();
+
+    /*QDialog *dialog = new QDialog(this);
+    dialog->setFixedHeight(200);
+    dialog->setFixedWidth(600);
+    //dialog->setAttribute(Qt::WA_TranslucentBackground);
+
+    QVBoxLayout *vLayout = new QVBoxLayout(dialog);
+    QLabel *lbl = new QLabel(dialog);
+    lbl->setFixedHeight(100);
+    lbl->setFixedWidth(500);
+    lbl->setText("Bravo! Votre pion a réussi à atteindre la dernière rangée adverse\nVous avez donc le droit de choisir une pièce");
+    vLayout->addWidget(lbl);
+
+    QHBoxLayout *hLayout = new QHBoxLayout(dialog);
+    vLayout->addLayout(hLayout);
+    QPushButton *btn_reine = new QPushButton(dialog);
+    btn_reine->setText("Reine");
+    hLayout->addWidget(btn_reine);
+    QPushButton *btn_fou = new QPushButton(dialog);
+    btn_fou->setText("Fou");
+    hLayout->addWidget(btn_fou);
+    QPushButton *btn_tour = new QPushButton(dialog);
+    btn_tour->setText("Tour");
+    hLayout->addWidget(btn_tour);
+    QPushButton *btn_cavalier = new QPushButton(dialog);
+    btn_cavalier->setText("Cavalier");
+    hLayout->addWidget(btn_cavalier);
+    connect(btn_reine,SIGNAL(clicked()),this,SLOT(on_btn_reine_clicked(dialog)));
+    //connect(btn_reine,SIGNAL(clicked(bool)),dialog,SLOT(close()));
+    connect(btn_fou,SIGNAL(clicked(bool)),this,SLOT(upgradePion()));
+    connect(btn_tour,SIGNAL(clicked(bool)),this,SLOT(upgradePion()));
+    connect(btn_cavalier,SIGNAL(clicked(bool)),this,SLOT(upgradePion()));
+    dialog->show();*/
 }
 
 ChessBoard::~ChessBoard()
 {
     delete ui;
+}
+
+void ChessBoard::transformToReine(){
+    Reine *reine = new Reine(this,"Blanc",this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
+    reine->setTabPosX(this->selectedPiece->getTabPosX());
+    reine->setTabPosY(this->selectedPiece->getTabPosY());
+
+    this->pieces.push_back(reine);
+    reine->getOwner()->addPiece(reine);
+    this->chessBoard[reine->getTabPosX()][reine->getTabPosY()] = reine->getPieceName();
+    this->removePiece(this->selectedPiece);
+    reine->getOwner()->removePiece(this->selectedPiece);
+    delete this->selectedPiece;
+    this->selectedPiece = reine;
+}
+
+void ChessBoard::transformToCavalier(){
+    Cavalier *cavalier = new Cavalier(this,"Blanc",this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
+    cavalier->setTabPosX(this->selectedPiece->getTabPosX());
+    cavalier->setTabPosY(this->selectedPiece->getTabPosY());
+
+    this->pieces.push_back(cavalier);
+    cavalier->getOwner()->addPiece(cavalier);
+    this->chessBoard[cavalier->getTabPosX()][cavalier->getTabPosY()] = cavalier->getPieceName();
+    this->removePiece(this->selectedPiece);
+    cavalier->getOwner()->removePiece(this->selectedPiece);
+    delete this->selectedPiece;
+    this->selectedPiece = cavalier;
+}
+
+void ChessBoard::transformToFou(){
+    Fou *fou = new Fou(this,"Blanc",this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
+    fou->setTabPosX(this->selectedPiece->getTabPosX());
+    fou->setTabPosY(this->selectedPiece->getTabPosY());
+
+    this->pieces.push_back(fou);
+    fou->getOwner()->addPiece(fou);
+    this->chessBoard[fou->getTabPosX()][fou->getTabPosY()] = fou->getPieceName();
+    this->removePiece(this->selectedPiece);
+    fou->getOwner()->removePiece(this->selectedPiece);
+    delete this->selectedPiece;
+    this->selectedPiece = fou;
+}
+
+void ChessBoard::transformToTour(){
+    Tour *tour = new Tour(this,"Blanc",this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
+    tour->setTabPosX(this->selectedPiece->getTabPosX());
+    tour->setTabPosY(this->selectedPiece->getTabPosY());
+
+    this->pieces.push_back(tour);
+    tour->getOwner()->addPiece(tour);
+    this->chessBoard[tour->getTabPosX()][tour->getTabPosY()] = tour->getPieceName();
+    this->removePiece(this->selectedPiece);
+    tour->getOwner()->removePiece(this->selectedPiece);
+    delete this->selectedPiece;
+    this->selectedPiece = tour;
 }
 
 void ChessBoard::paintEvent(QPaintEvent *)
@@ -110,32 +207,69 @@ void ChessBoard::paintEvent(QPaintEvent *)
 void ChessBoard::mousePressEvent(QMouseEvent *event){
     if(event->buttons() & Qt::LeftButton ){
         if(this->selectedPiece){
-             if(this->selectedPiece->isValidMove(floor(event->x()/TAILLECASE),floor(event->y()/TAILLECASE),this->pieces) && !this->selectedPiece->getOwner()->getHasPlayed())
-            //if(!this->selectedPiece->getOwner()->getHasPlayed())
+            if(this->selectedPiece->isValidMove(floor(event->x()/TAILLECASE),floor(event->y()/TAILLECASE),this->pieces) && !this->selectedPiece->getOwner()->getHasPlayed())
+                //if(!this->selectedPiece->getOwner()->getHasPlayed())
             {
 
                 ///***Détruire la pièce si elle est mangée***///
                 Piece * test = this->getPieceAt((int)floor(event->x()/TAILLECASE),(int)floor(event->y()/TAILLECASE));
-                if(test && test!=this->selectedPiece && test->getOwner()!=this->selectedPiece->getOwner())
+                if(test && test!=this->selectedPiece && test->getOwner()!=this->selectedPiece->getOwner()){
+                    if(test->getIsKing())
+                    {
+                        cout << "Roi mangé " << endl;
+                        QMessageBox *msg = new QMessageBox(this);
+                        QString test("Joueur ");
+                        test+=QString::number(this->selectedPiece->getOwner()->getId()+1);
+                        test.operator +=(" a gagné !");
+
+                        msg->setText(test);
+                        msg->addButton("Ok",QMessageBox::AcceptRole);
+                        int ret = msg->exec();
+                        qDebug() << "valeur ret " << ret << endl;
+                        this->close();
+                        MainMenu menu;
+                        menu.exec();
+                    }
+                    this->removePiece(test);
+                    this->selectedPiece->getOwner()->removePiece(test);
                     delete test;
+                }
+
+                for(int i=0;i<this->pieces.size();i++){
+                    cout << pieces[i]->getPieceName() << "  " ;
+                }
+
+                cout << endl << "Tableau joueur : " << endl;;
+                for(int i=0;i<this->currentPlayer->getPieces().size();i++){
+                    cout << this->currentPlayer->getPieces()[i]->getPieceName() << "  " ;
+                }
+                cout << endl;
                 ///*****************************************///
 
                 ///*****Gestion du déplacement de la pièce*****///
                 this->selectedPiece->move(floor(event->x()/TAILLECASE),floor(event->y()/TAILLECASE));
                 this->chessBoard[(int)(floor(this->selectedPiece->getOldY()/TAILLECASE))][(int)(floor(this->selectedPiece->getOldX()/TAILLECASE))] = '0';
                 this->chessBoard[(int)floor(event->y()/TAILLECASE)][(int)floor(event->x()/TAILLECASE)] = this->selectedPiece->getPieceName();
+
+
                 ///********************************************///
+
                 if(this->selectedPiece->getIsPion() && this->selectedPiece->getTabPosY()==7)
                     emit maxAtteint();
 
                 ///******Gestion tour joueur******///
                 this->currentPlayer->setHasPlayed(true);
-                if(this->currentPlayer==this->player1)
+                if(this->currentPlayer==this->player1){
                     this->currentPlayer=this->player2;
-                else
+                    ui->namePlayer->setText("Joueur 2");
+                }else{
                     this->currentPlayer=this->player1;
+                    ui->namePlayer->setText("Joueur 1");
+                }
                 this->currentPlayer->setHasPlayed(false);
+
                 ///******************************///
+
             }
 
             this->selectedPiece->allPossibleMove.clear();
@@ -148,7 +282,7 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                 if(this->currentPlayer==this->pieces[i]->getOwner() && (event->x() > this->pieces.at(i)->getTabPosX()*TAILLECASE && event->x() <this->pieces.at(i)->getTabPosX()*TAILLECASE+TAILLECASE && event->y() > this->pieces.at(i)->getY() && event->y() < this->pieces.at(i)->getY()+TAILLECASE)){
                     //cout << event->pos().x() << "old pos x pion : " << this->pieces.at(i)->getX()<< "old pos y pion : " << this->pieces.at(i)->getY() << endl;
                     //cout << this->pieces.at(i)->getX()+50 << " , " << this->pieces.at(i)->getY()+50 << endl;
-                   // cout << this->pieces.at(i)->getTabPosX() << " , " << this->pieces.at(i)->getTabPosY() << endl;
+                    // cout << this->pieces.at(i)->getTabPosX() << " , " << this->pieces.at(i)->getTabPosY() << endl;
                     this->selectedPiece = this->pieces.at(i);
                     this->selectedPiece->setOldX(event->x());
                     this->selectedPiece->setOldY(event->y());
@@ -158,23 +292,16 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                         Pion *pion = static_cast<Pion *>(this->selectedPiece);
                         pion->canAttack(this->chessBoard);
                         cout << "pos pion : " << pion->getTabPosY() << endl;
-                       }
+                    }
                     for(int i=0;i<8;i++)
                     {
                         for(int j=0;j<8;j++){
                             if(this->selectedPiece->isValidMove(i,j,this->pieces))
                             {
-                                if(!this->selectedPiece->getIsTour())
-                                    this->selectedPiece->allPossibleMove.push_back(QPoint(i,j));
+                                this->selectedPiece->allPossibleMove.push_back(QPoint(i,j));
                             }
                         }
                     }
-                    if(this->selectedPiece->getIsTour()){
-                        Tour *t = static_cast<Tour*> (this->selectedPiece);
-                        t->updateAllPossibleMove(this->pieces);
-                    }
-                    //for(QPoint p : this->selectedPiece->allPossibleMove)
-                       // cout << "x = " << p.x() << ", y = " << p.y() << endl;
                     this->update();
                 }
 
@@ -413,7 +540,6 @@ void ChessBoard::on_pushButton_clicked()
     this->close();
     MainMenu menu;
     menu.exec();
-
 }
 
 
@@ -471,3 +597,10 @@ Piece ChessBoard::operator -(Piece a){
     cout << " p : " << p.getTabPosX() << endl;
     return p;
 }*/
+
+void ChessBoard::removePiece(Piece *piece){
+    for(std::vector<Piece *>::iterator it = pieces.begin() ; it != pieces.end(); ++it)
+        if(piece==*it){
+            this->pieces.erase(it);
+        }
+}

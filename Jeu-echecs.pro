@@ -38,7 +38,8 @@ SOURCES += \
     reine.cpp \
     player.cpp \
     constante.cpp \
-    pageregle.cpp
+    pageregle.cpp \
+    choixupgrade.cpp
 
 HEADERS += \
         chessboard.h \
@@ -53,12 +54,14 @@ HEADERS += \
     reine.h \
     player.h \
     constante.h \
-    pageregle.h
+    pageregle.h \
+    choixupgrade.h
 
 FORMS += \
         chessboard.ui \
     mainmenu.ui \
-    pageregle.ui
+    pageregle.ui \
+    choixupgrade.ui
 
 DISTFILES +=
 

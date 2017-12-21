@@ -37,10 +37,14 @@ void Pion::move(int x,int y){
 
 
 bool Pion::isValidMove(int x,int y,std::vector<Piece*> pieces){
+
+    if(this->getColor()=="Blanc" && this->tabPosY!=1)
+        this->firstMove=false;
+    else if(this->getColor()=="Noir" && this->tabPosY!=6)
+        this->firstMove=false;
     if(this->IsPossibleMove(x,y,this->allPossibleMove))
         return true;
-    //for(QPoint p : this->allPossibleMove)
-       // cout << "move en x = " << p.x() << ", y = " << p.y() << endl;
+
     if(this->firstMove){
         this->test(pieces,x,y);
         if(y<=this->tabPosY+2 && x==this->tabPosX && y>tabPosY && this->color=="Blanc" && this->IsPossibleMove(x,y,this->allPossibleMove)){
@@ -50,9 +54,9 @@ bool Pion::isValidMove(int x,int y,std::vector<Piece*> pieces){
         else
             return false;
     }else{
-        if(y<=this->tabPosY+1 && x==this->tabPosX && y>tabPosY && this->color=="Blanc" && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY+1) )
+        if(y<=this->tabPosY+1 && x==this->tabPosX && y>tabPosY && this->color=="Blanc" && !this->getPieceAt(pieces,this->tabPosX,this->tabPosY+1) && this->moveInBoard(x,y) )
             return true;
-        else if(this->color=="Noir" && (y>=this->tabPosY-1 && x==this->tabPosX && y<this->tabPosY)&& !this->getPieceAt(pieces,this->tabPosX,this->tabPosY-1))
+        else if(this->color=="Noir" && (y>=this->tabPosY-1 && x==this->tabPosX && y<this->tabPosY)&& !this->getPieceAt(pieces,this->tabPosX,this->tabPosY-1) && this->moveInBoard(x,y))
             return true;
         else
             return false;
@@ -131,8 +135,8 @@ bool Pion::IsPossibleMove(int x, int y, vector<QPoint> possibleMove){
 
 bool Pion::test(std::vector<Piece *> pieces, int x, int y){
     int i = tabPosY+1;
-   // if((this->tabPosY==7 && this->color=="Blanc")||(this->tabPosY==0 && this->color=="Noir"))
-        //emit this->maxAtteint();
+    // if((this->tabPosY==7 && this->color=="Blanc")||(this->tabPosY==0 && this->color=="Noir"))
+    //emit this->maxAtteint();
 
     while(i<=this->tabPosY+2 && this->color=="Blanc"){
         if(this->getPieceAt(pieces,this->tabPosX,i))

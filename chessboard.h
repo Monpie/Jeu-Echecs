@@ -48,12 +48,17 @@ public:
    // int operator ++(int a);
     ChessBoard& operator++();
    // friend Piece operator -(Piece a);
+    void removePiece(Piece *piece);
 
 private slots:
     void on_boutonSauvegarder_clicked();
-    void testSlot();
-
+    void upgradePion();
     void on_pushButton_clicked();
+    void transformToReine();
+    void transformToTour();
+    void transformToCavalier();
+    void transformToFou();
+
 private:
     Ui::ChessBoard *ui;
     vector<Piece*> pieces;

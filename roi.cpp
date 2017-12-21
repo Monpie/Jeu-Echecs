@@ -13,6 +13,7 @@ Roi::Roi(QWidget *parent, QString color,Player * owner, int width, int height, i
     this->y = y;
     this->lbl->move(x,y);
     this->owner = owner;
+    this->isKing = true;
 }
 
 void Roi::move(int x,int y){

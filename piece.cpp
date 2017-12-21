@@ -97,13 +97,13 @@ bool Piece::getIsPion(){
 Piece::~Piece(){}
 
 /***/
-void Piece::setHorizontalBlocked(bool state){
+/*void Piece::setHorizontalBlocked(bool state){
     this->horizontalBlocked = state;
 }
 
 void Piece::setVerticalBlocked(bool state){
     this->verticalBlocked=state;
-}
+}*/
 
 Piece * Piece::getPieceAt(std::vector<Piece*> pieces, int x, int y){
     for(int i=0; i<pieces.size();i++){
@@ -124,6 +124,10 @@ bool Piece::checkIfMate(int x, int y){
     }
 }
 
-bool Piece::getIsTour(){
-    return this->isTour;
+void Piece::setImage(QString color){
+
+}
+
+bool Piece::getIsKing(){
+    return this->isKing;
 }
