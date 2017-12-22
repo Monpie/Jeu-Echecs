@@ -27,7 +27,7 @@ int Player::getId()
 //removePiece
 void Player::removePiece(Piece  *piece)
 {    
-    for(std::vector<Piece *>::iterator it = this->pieces.begin() ; it != this->pieces.end(); ++it)
+    for(std::vector<Piece *>::iterator it = this->pieces.begin() ; it < this->pieces.end(); it++)
         if(piece==*it){
             this->pieces.erase(it);
         }

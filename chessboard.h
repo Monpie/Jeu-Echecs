@@ -38,10 +38,10 @@ public:
 
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
-    void initGame(string fichier);
+    void initGame(QString fichier);
     ~ChessBoard();
     void lectureFichier(string Sauvegarde);
-    void ecritureFichierSauvegarde();
+    void ecritureFichierSauvegarde(QString fileName);
     void centrerPiece(Piece *piece, QPoint pos);
     void initPlayers();
     Piece * getPieceAt(int x,int y);
@@ -50,6 +50,7 @@ public:
     ChessBoard& operator++();
    // friend Piece operator -(Piece a);
     void removePiece(Piece *piece);
+    void resizeEvent(QResizeEvent *e);
 
 private slots:
     void on_boutonSauvegarder_clicked();
@@ -70,6 +71,7 @@ private:
     Player *player1;
     Player *player2;
     Player *currentPlayer;
+    QPoint posDeadPiece;
     int a=5;
 
 signals:

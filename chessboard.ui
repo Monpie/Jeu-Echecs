@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>910</x>
-     <y>510</y>
+     <y>640</y>
      <width>141</width>
      <height>51</height>
     </rect>
@@ -35,7 +35,7 @@
    <property name="geometry">
     <rect>
      <x>980</x>
-     <y>180</y>
+     <y>80</y>
      <width>141</width>
      <height>51</height>
     </rect>
@@ -53,7 +53,7 @@
    <property name="geometry">
     <rect>
      <x>1060</x>
-     <y>510</y>
+     <y>640</y>
      <width>141</width>
      <height>51</height>
     </rect>
@@ -70,11 +70,14 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>750</x>
+     <x>760</x>
      <y>0</y>
-     <width>620</width>
-     <height>768</height>
+     <width>610</width>
+     <height>760</height>
     </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
    </property>
    <property name="text">
     <string/>
@@ -82,11 +85,31 @@
    <property name="pixmap">
     <pixmap resource="resources.qrc">:/images/game/game/fond partie 1.jpg</pixmap>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>840</x>
+     <y>140</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Joueur 1</string>
+   </property>
   </widget>
   <zorder>label</zorder>
   <zorder>boutonSauvegarder</zorder>
   <zorder>namePlayer</zorder>
   <zorder>pushButton</zorder>
+  <zorder>label_2</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

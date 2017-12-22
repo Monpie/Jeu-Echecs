@@ -17,7 +17,7 @@ Roi::Roi(QWidget *parent, QString color,Player * owner, int width, int height, i
 }
 
 void Roi::move(int x,int y){
-    this->lbl->move(x*TAILLECASE+25,y*TAILLECASE);
+    this->lbl->move(x*TAILLECASE+CENTRER_PIECE+CHESSBOARD_POS.x(),y*TAILLECASE+CHESSBOARD_POS.y());
     this->setTabPosX(x);
     this->setTabPosY(y);
 }

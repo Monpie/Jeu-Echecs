@@ -27,7 +27,6 @@ void Tour::setImage(QString color){
 
 bool Tour::isValidMove(int x, int y,std::vector<Piece*> pieces){
     this->updateAllPossibleMove(pieces);
-
     if(((x!=this->tabPosX && y==this->tabPosY) || (x==this->tabPosX && y != this->tabPosY)) && this->moveInBoard(x,y) && this->checkIfMate(x,y) && this->IsPossibleMove(x,y,this->allPossibleMove) )
         return true;
     else
@@ -35,7 +34,7 @@ bool Tour::isValidMove(int x, int y,std::vector<Piece*> pieces){
 }
 
 void Tour::move(int x, int y){
-    this->lbl->move(x*TAILLECASE+25,y*TAILLECASE);
+    this->lbl->move(x*TAILLECASE+CENTRER_PIECE+CHESSBOARD_POS.x(),y*TAILLECASE+CHESSBOARD_POS.y());
     this->setTabPosX(x);
     this->setTabPosY(y);
 }

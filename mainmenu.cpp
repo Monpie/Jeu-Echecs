@@ -14,6 +14,7 @@ MainMenu::MainMenu(QWidget *parent) :
 {
     QSound::play(":/musique/Musique/Game_of_Thrones.wav");
     ui->setupUi(this);
+    this->setFixedSize(this->size());   //Empêche le redimensionnement de la fenêtre en fixant la taille actuelle de la fenêtre
 }
 
 MainMenu::~MainMenu()

@@ -8,8 +8,8 @@ Pion::Pion(QWidget *parent, QString color, Player * owner,  int width, int heigh
     this->lbl = new QLabel(parent);
     this->setImage(color);
     this->color = color;
-    this->width = width;
-    this->height = height;
+   /* this->width = width;
+    this->height = height;*/
     this->x = x;
     this->y = y;
     this->lbl->move(x,y);
@@ -29,7 +29,7 @@ void Pion::setImage(QString color){
 }
 
 void Pion::move(int x,int y){
-    this->lbl->move(x*TAILLECASE+25,y*TAILLECASE);
+    this->lbl->move(x*TAILLECASE+CENTRER_PIECE+CHESSBOARD_POS.x(),y*TAILLECASE+CHESSBOARD_POS.y());
     this->setTabPosX(x);
     this->setTabPosY(y);
     this->firstMovePlayed();

@@ -3,8 +3,8 @@
 Case::Case(int size, int xPos, int yPos)
 {
     this->size = size;
-    this->xPos = xPos+DECALAGECASE;
-    this->yPos = yPos+DECALAGECASE;
+    this->xPos = xPos+CHESSBOARD_POS.x();
+    this->yPos = yPos+CHESSBOARD_POS.y();
 }
 
 

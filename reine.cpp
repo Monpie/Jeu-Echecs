@@ -1,5 +1,7 @@
 #include "reine.h"
+#include "iostream"
 using namespace std;
+
 Reine::Reine(QWidget *parent, QString color,Player * owner, int width, int height, int x,int y)
 {
     this->lbl = new QLabel(parent);
@@ -26,7 +28,7 @@ void Reine::setImage(QString color){
 
 
 void Reine::move(int x, int y){
-    this->lbl->move(x*TAILLECASE+25,y*TAILLECASE);
+    this->lbl->move(x*TAILLECASE+CENTRER_PIECE+CHESSBOARD_POS.x(),y*TAILLECASE+CHESSBOARD_POS.y());
     this->setTabPosX(x);
     this->setTabPosY(y);
 }
@@ -169,7 +171,7 @@ void Reine::updateAllPossibleMove(std::vector<Piece*> pieces){
         //if(this->getPieceAt(pieces,this->tabPosX,j))
         if(!this->checkIfMate(this->tabPosX,j) || alreadyHasEnemy)
         {
-            //cout << "break true" << endl;
+            cout << "break true" << endl;
             break;
         }else{
             if(this->getPieceAt(pieces,this->tabPosX,j) && this->getPieceAt(pieces,this->tabPosX,j)->getOwner()!=this->owner)
@@ -181,6 +183,7 @@ void Reine::updateAllPossibleMove(std::vector<Piece*> pieces){
 }
 
 bool Reine::IsPossibleMove(int x, int y, vector<QPoint> possibleMove){
+   cout << "ispossibleMove" ;
     for(int i=0;i<possibleMove.size();i++)
     {
         if(QPoint(x,y)==possibleMove[i])

@@ -64,7 +64,7 @@ void Piece::setY(int y){
 }
 
 void Piece::move(int x,int y){
-    this->lbl->move(x*TAILLECASE+25,y*TAILLECASE);
+    this->lbl->move(x*TAILLECASE+CENTRER_PIECE,y*TAILLECASE);
 }
 
 bool Piece::isValidMove(int x, int y, std::vector<Piece *> pieces){
