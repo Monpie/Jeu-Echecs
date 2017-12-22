@@ -1,17 +1,6 @@
 #include "chessboard.h"
 #include "ui_chessboard.h"
-#include <QPainter>
-#include "pion.h"
-#include <iostream>
-#include <ostream>
-#include <fstream>
-#include <QGridLayout>
-#include <QHBoxLayout>
-#include "constante.h"
-#include "math.h"
-#include "choixupgrade.h"
-#include <QMessageBox>
-#include <QException>
+
 
 /*int ChessBoard::operator ++(int a){
     cout << "a = " << a << endl;
@@ -38,7 +27,7 @@ ChessBoard::ChessBoard(QWidget *parent) :
     //this->player1->setHasPlayed(false);
     this->player2 = new Player(1);
  // this->player2->setHasPlayed(true);
-    //this->currentPlayer=this->player1;
+    this->currentPlayer=this->player1;
     this->initGame(INIT_FILE);
     this->initPlayers();
 
@@ -53,18 +42,16 @@ ChessBoard::ChessBoard(QString file,QWidget *parent):
     QDialog(parent),
     ui(new Ui::ChessBoard){
     ui->setupUi(this);
-
+    this->setFixedSize(this->size());
     this->posDeadPiece.setX(0);
     this->posDeadPiece.setY(2);
     this->player1 = new Player(0);
     //this->player1->setHasPlayed(false);
     this->player2 = new Player(1);
     //this->player2->setHasPlayed(true);
-  //  this->currentPlayer=this->player1;
+    this->currentPlayer=this->player1;
     this->initGame(file);
     this->initPlayers();
-
-    //resizeEvent evenement de redimenssionement
 
     connect(this,SIGNAL(maxAtteint()),this,SLOT(upgradePion()));
     /*this->operator +(1);
@@ -221,9 +208,9 @@ void ChessBoard::paintEvent(QPaintEvent *)
     {
         for(unsigned int i=0; i< this->selectedPiece->allPossibleMove.size();i++){
             this->possibleMove.push_back( new Case(TAILLECASE,this->selectedPiece->allPossibleMove.at(i).x()*TAILLECASE,this->selectedPiece->allPossibleMove[i].y()*TAILLECASE));
-            QColor color(255,87,51,150);
 
-            this->possibleMove.at(i)->draw(&painter, color);
+
+            this->possibleMove.at(i)->draw(&painter, QColor(255,87,51,150));
 
         }
     }
@@ -251,7 +238,6 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                     }
                     if(test->getIsKing())
                     {
-                       // cout << "Roi mangé " << endl;
                         QMessageBox *msg = new QMessageBox(this);
                         QString test("Joueur ");
                         test+=QString::number(this->selectedPiece->getOwner()->getId()+1);
@@ -259,8 +245,7 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
 
                         msg->setText(test);
                         msg->addButton("Ok",QMessageBox::AcceptRole);
-                        int ret = msg->exec();
-                        //qDebug() << "valeur ret " << ret << endl;
+                        msg->exec();
                         this->close();
                         MainMenu menu;
                         menu.exec();
@@ -269,19 +254,8 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                     this->removePiece(test);
 
                     this->selectedPiece->getOwner()->removePiece(test);
-                    //delete test;
-
                 }
 
-                /*for(int i=0;i<this->pieces.size();i++){
-                    cout << pieces[i]->getPieceName() << "  " ;
-                }
-
-                cout << endl << "Tableau joueur : " << endl;;
-                for(int i=0;i<this->currentPlayer->getPieces().size();i++){
-                    cout << this->currentPlayer->getPieces()[i]->getPieceName() << "  " ;
-                }
-                cout << endl;*/
                 ///*****************************************///
 
                 ///*****Gestion du déplacement de la pièce*****///
@@ -326,7 +300,6 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
 
                         Pion *pion = static_cast<Pion *>(this->selectedPiece);
                         pion->canAttack(this->chessBoard);
-                        //cout << "pos pion : " << pion->getTabPosY() << endl;
                     }
 
                     for(int i=0;i<8;i++)
@@ -353,46 +326,6 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
         }
     }
 }
-
-/*void ChessBoard::mouseReleaseEvent(QMouseEvent *event){
-    qDebug("releaseEvent");
-    this->isClicked = false;
-    //cout << "oldPosTabX = " << this->selectedPiece->getTabPosX() << ", y= " << this->selectedPiece->getTabPosY() << endl;
-   // this->selectedPiece->setTabPosX(floor(event->x()/TAILLECASE));
-  //  this->selectedPiece->setTabPosY(floor(event->y()/TAILLECASE));
-    //cout << "newPosTabX = " << this->selectedPiece->getTabPosX() << ", y= " << this->selectedPiece->getTabPosY() << endl;
-    if(this->selectedPiece!=NULL)
-        this->centrerPiece(this->selectedPiece, event->pos());
-    this->selectedPiece = NULL;
-
-
-
-    /*if(this->currentPlayer==0)
-        this->currentPlayer=1;
-    else
-        this->currentPlayer = 0;
-
-    // cout << "current player : " << this->currentPlayer << endl;
-}*/
-
-/*void ChessBoard::mouseMoveEvent(QMouseEvent *event){
-
-    if(this->selectedPiece!=NULL) {
-        this->selectedPiece->move(event->x()-TAILLECASE/4,event->y()-TAILLECASE/4);
-   // cout << " piece pos x : " << this->selectedPiece->getX() << " , old x : " << this->selectedPiece->getOldX() << endl;
-   // cout << " pos curseur x : " << event->x() << " , y :" << event->y() << endl;
-}
-
-
-    /*if(this->piece->validClick(event) && this->piece->getMyOwner()==this->currentPlayer)
-    {
-
-        this->piece->move(event->x()-this->taille/4,event->y()-this->taille/4);
-    }else if(this->secondRoi->validClick(event) && this->secondRoi->getMyOwner()==this->currentPlayer){
-        this->secondRoi->move(event->x()-this->taille/4,event->y()-this->taille/4);
-    }
-}*/
-
 
 //____________________________________________________________INITIALISATION JEU__________________________________________________
 void ChessBoard::initGame(QString fichier){
@@ -575,26 +508,6 @@ void ChessBoard::lectureFichier(string sauvegarde){
 
 
     }
-    /*if(fichier)  // si l'ouverture a réussi
-    {
-        cout<<"fichier ouvert"<<endl;
-        string ligne;
-
-        for(int i=0;i<8;i++){
-            getline(fichier, ligne);
-            for(int j=0;j<8;j++){
-                this->chessBoard[i][j] = ligne[j];
-            }
-        }
-
-        fichier.close();
-    }
-    else //sinon
-    {    cout<<"erreur"<<endl;
-        cerr << "Impossible d'ouvrir le fichier !" << endl;
-    }*/
-
-
 }
 
 
@@ -603,7 +516,7 @@ void ChessBoard::lectureFichier(string sauvegarde){
 void ChessBoard::ecritureFichierSauvegarde(QString fileName)
 {
     try{
-    ofstream fichier(fileName.toStdString(), ios::out | ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+        ofstream fichier(fileName.toStdString(), ios::out | ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
     if(!fichier)
         throw QException();
 
@@ -626,33 +539,12 @@ void ChessBoard::ecritureFichierSauvegarde(QString fileName)
         msg->setText("Impossible de trouver le fichier sauvegarde");
         msg->exec();
     }
-   /* if(fichier)
-
-    {
-
-        for (int cpt1=0; cpt1<8 ;cpt1++ )
-        {
-            for (int cpt2=0; cpt2<8 ;cpt2++ )
-            {
-                fichier<<chessBoard[cpt1][cpt2];
-            }
-
-            fichier<<endl;
-        }
-
-        fichier.close();
-
-    }
-
-    else
-        cerr << "Impossible d'ouvrir le fichier !" << endl;*/
 }
 
 
 //Appui du bouton sauvegarde
 void ChessBoard::on_boutonSauvegarder_clicked()
 {
-    //this->lectureFichier("initialisation.txt");
     this->ecritureFichierSauvegarde("sauvegarde.txt");
 }
 
@@ -668,25 +560,8 @@ void ChessBoard::on_pushButton_clicked()
 
 //__________________________________CENTRER CASE___________________________________
 
-
-
-
-
-/*void ChessBoard::centrerPiece(Piece *piece, QPoint pos){
-    int posX = floor(pos.x()/TAILLECASE);
-    int posY = floor(pos.y()/TAILLECASE);
-    piece->move((posX)*TAILLECASE+25,(posY)*TAILLECASE);
-    piece->setTabPosX(posX);
-    piece->setTabPosY(posY);
-    cout << "oldX = " << piece->getOldX() << ", oldY = " << piece->getOldY() << endl;
-    cout << "i = " << (int)(floor(piece->getOldX()/TAILLECASE)) << ", j = " << (int)(floor(piece->getOldY()/TAILLECASE))<< endl;
-    this->chessBoard[(int)(floor(piece->getOldY()/TAILLECASE))][(int)(floor(piece->getOldX()/TAILLECASE))] = '0';
-    this->chessBoard[posY][posX] = piece->getPieceName();
-
-}*/
-
 void ChessBoard::initPlayers(){
-    for(int i=0;i<this->pieces.size();i++){
+    for(unsigned int i=0;i<this->pieces.size();i++){
         if(this->pieces[i]->getOwner()==this->player1){
             this->player1->addPiece(this->pieces[i]);
         }else{
@@ -696,19 +571,13 @@ void ChessBoard::initPlayers(){
 }
 
 Piece * ChessBoard::getPieceAt(int x, int y){
-    for(int i=0;i<this->pieces.size();i++)
-        cout << pieces[i]->getPieceName() << "  ";
-    cout << endl;
-    for(int i=0;i<this->pieces.size();i++)
+    for(unsigned int i=0;i<this->pieces.size();i++)
     {
         if(x==this->pieces[i]->getTabPosX() && y==this->pieces[i]->getTabPosY())
         {
-            //cout << "piece : " << this->pieces[i]->getPieceName() << endl;
-            cout << "piece : " << pieces[i]->getPieceName() << " a la pos " << i << endl;
             return this->pieces[i];
         }
     }
-   // cout << "NULL" << endl;
     return 0;
 }
 
@@ -717,13 +586,6 @@ int ChessBoard::operator +(int a){
     cout << "a : "<< a  << ", res : " << res << endl;
     return res;
 }
-/*
-Piece ChessBoard::operator -(Piece a){
-    Piece p = a;
-    p.setTabPosX(a.getTabPosX()-2);
-    cout << " p : " << p.getTabPosX() << endl;
-    return p;
-}*/
 
 void ChessBoard::removePiece(Piece *piece){
     for(std::vector<Piece *>::iterator it = pieces.begin() ; it < pieces.end(); it++)

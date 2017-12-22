@@ -1,6 +1,5 @@
 #include "roi.h"
-#include <QDebug>
-#include "case.h"
+
 
 Roi::Roi(QWidget *parent, QString color,Player * owner, int width, int height, int x, int y)
 {
@@ -37,10 +36,6 @@ void Roi::setImage(QString color){
         this->lbl->setPixmap(QPixmap(":/images/Pieces/roi_noir.png"));  //Image tour noire
         this->namePiece = 'k';
     }
-}
-
-bool Roi::isInDanger(int x, int y){
-
 }
 
 Roi::~Roi(){

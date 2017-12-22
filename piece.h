@@ -41,6 +41,7 @@ public:
      void setHorizontalBlocked(bool state);
      Piece *getPieceAt(std::vector<Piece*> pieces, int x, int y);
     bool checkIfMate(int x, int y);
+    bool IsPossibleMove(int x, int y, std::vector<QPoint> possibleMove);
 
 protected:
     bool moveInBoard(int x, int y);

@@ -47,7 +47,7 @@ bool Pion::isValidMove(int x,int y,std::vector<Piece*> pieces){
         return true;
 
     if(this->firstMove){
-        this->test(pieces,x,y);
+        this->test(pieces);
         if(y<=this->tabPosY+2 && x==this->tabPosX && y>tabPosY && this->color=="Blanc" && this->IsPossibleMove(x,y,this->allPossibleMove)){
             return true;
         }else if(this->color=="Noir" && (y>=this->tabPosY-2 && x==this->tabPosX && y<this->tabPosY) && this->IsPossibleMove(x,y,this->allPossibleMove))
@@ -125,19 +125,17 @@ Pion::~Pion(){
     delete this->lbl;
 }
 
-bool Pion::IsPossibleMove(int x, int y, vector<QPoint> possibleMove){
-    for(int i=0;i<possibleMove.size();i++)
+/*bool Pion::IsPossibleMove(int x, int y, vector<QPoint> possibleMove){
+    for(unsigned int i=0;i<possibleMove.size();i++)
     {
         if(QPoint(x,y)==possibleMove[i])
             return true;
     }
     return false;
-}
+}*/
 
-bool Pion::test(std::vector<Piece *> pieces, int x, int y){
+void Pion::test(std::vector<Piece *> pieces){
     int i = tabPosY+1;
-    // if((this->tabPosY==7 && this->color=="Blanc")||(this->tabPosY==0 && this->color=="Noir"))
-    //emit this->maxAtteint();
 
     while(i<=this->tabPosY+2 && this->color=="Blanc"){
         if(this->getPieceAt(pieces,this->tabPosX,i))
@@ -157,6 +155,8 @@ bool Pion::test(std::vector<Piece *> pieces, int x, int y){
     }
 }
 
-void Pion::testSlot(){
-    cout << "méthode slot appelé" << endl;
+void Pion::updateAllPossibleMove(std::vector<Piece *> pieces){
+    for(int i=0;i<pieces.size();i++){
+
+    }
 }

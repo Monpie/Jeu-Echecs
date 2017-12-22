@@ -12,7 +12,7 @@ public:
     bool isValidMove(int x, int y,std::vector<Piece*> pieces);
     ~Reine();
     void updateAllPossibleMove(std::vector<Piece*> pieces);
-    bool IsPossibleMove(int x, int y, std::vector<QPoint> possibleMove);
+   // bool IsPossibleMove(int x, int y, std::vector<QPoint> possibleMove);
 };
 
 #endif // REINE_H

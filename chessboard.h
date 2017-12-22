@@ -5,9 +5,12 @@
 #include <QLabel>
 #include <QMouseEvent>
 #include <QPoint>
-
 #include <QPushButton>
 #include <QPainter>
+#include <QException>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QMessageBox>
 #include "case.h"
 #include "piece.h"
 #include "roi.h"
@@ -15,13 +18,20 @@
 #include "reine.h"
 #include "fou.h"
 #include "tour.h"
-#include<string>
+#include "mainmenu.h"
+//#include<string>
 #include "constante.h"
 #include "player.h"
-#include <QException>
+
+#include "pion.h"
+#include <iostream>
+#include <ostream>
+#include <fstream>
+//#include "math.h"
+#include "choixupgrade.h"
+
 
 using namespace std;
-#include <mainmenu.h>
 
 
 namespace Ui {

@@ -45,7 +45,7 @@ vector<Piece *> Player::getPieces(){
 }
 
 Piece * Player::getPiecesAt(int x, int y){
-    for(int i=0; i<this->pieces.size();i++){
+    for(unsigned int i=0; i<this->pieces.size();i++){
         if(pieces[i]->getTabPosX()==x && pieces[i]->getTabPosY()==y){
             return this->pieces[i];
         }

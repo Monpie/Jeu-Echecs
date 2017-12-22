@@ -11,6 +11,7 @@ public:
     void setImage(QString color);
     void move(int x, int y);
     bool isValidMove(int x, int y,std::vector<Piece*> pieces);
+    void updateAllPossibleMove(std::vector<Piece*> pieces);
     ~Cavalier();
 };
 

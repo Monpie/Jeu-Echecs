@@ -11,10 +11,6 @@ int Piece::getHeigth(){
    return this->height;
 }
 
-/*int Piece::getX(){
-    return this->lbl->x();
-}*/
-
 int Piece::getY(){
     return this->lbl->y();
 }
@@ -96,21 +92,13 @@ bool Piece::getIsPion(){
 
 Piece::~Piece(){}
 
-/***/
-/*void Piece::setHorizontalBlocked(bool state){
-    this->horizontalBlocked = state;
-}
-
-void Piece::setVerticalBlocked(bool state){
-    this->verticalBlocked=state;
-}*/
-
 Piece * Piece::getPieceAt(std::vector<Piece*> pieces, int x, int y){
-    for(int i=0; i<pieces.size();i++){
+    for(unsigned int i=0; i<pieces.size();i++){
         if(pieces[i]->getTabPosX()==x && pieces[i]->getTabPosY()==y){
             return pieces[i];
         }
     }
+    return 0;
 }
 
 bool Piece::checkIfMate(int x, int y){
@@ -125,9 +113,18 @@ bool Piece::checkIfMate(int x, int y){
 }
 
 void Piece::setImage(QString color){
-
+    this->color = color;
 }
 
 bool Piece::getIsKing(){
     return this->isKing;
+}
+
+bool Piece::IsPossibleMove(int x, int y, vector<QPoint> possibleMove){
+    for(int i=0;i<possibleMove.size();i++)
+    {
+        if(QPoint(x,y)==possibleMove[i])
+            return true;
+    }
+    return false;
 }

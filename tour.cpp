@@ -78,7 +78,6 @@ void Tour::updateAllPossibleMove(std::vector<Piece *> pieces){
     while(i<8){
         if(!this->checkIfMate(this->tabPosX,i) || alreadyHasEnemy)
         {
-            cout << !this->checkIfMate(i,this->tabPosY) << endl;
             break;
         }
         else{
@@ -103,11 +102,11 @@ void Tour::updateAllPossibleMove(std::vector<Piece *> pieces){
     }
 }
 
-bool Tour::IsPossibleMove(int x, int y, vector<QPoint> possibleMove){
-    for(int i=0;i<possibleMove.size();i++)
+/*bool Tour::IsPossibleMove(int x, int y, vector<QPoint> possibleMove){
+    for(unsigned int i=0;i<possibleMove.size();i++)
     {
         if(QPoint(x,y)==possibleMove[i])
             return true;
     }
     return false;
-}
+}*/
