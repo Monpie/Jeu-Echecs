@@ -18,7 +18,7 @@ ChessBoard& ChessBoard::operator ++(){
 }
 
 //Constructeur initial
-ChessBoard::ChessBoard(QWidget *parent) :
+/*ChessBoard::ChessBoard(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ChessBoard)
 {
@@ -33,10 +33,10 @@ ChessBoard::ChessBoard(QWidget *parent) :
 
 
     /*this->operator +(1);
-    this->operator ++();*/
+    this->operator ++();
 
 
-}
+}*/
 
 ChessBoard::ChessBoard(QString file,QWidget *parent):
     QDialog(parent),
@@ -81,39 +81,6 @@ void ChessBoard::upgradePion(){
     connect(choix,SIGNAL(btn_cavalier_clicked()),this,SLOT(transformToCavalier()));
     connect(choix,SIGNAL(btn_fou_clicked()),this,SLOT(transformToFou()));
     choix->exec();
-
-    /*QDialog *dialog = new QDialog(this);
-    dialog->setFixedHeight(200);
-    dialog->setFixedWidth(600);
-    //dialog->setAttribute(Qt::WA_TranslucentBackground);
-
-    QVBoxLayout *vLayout = new QVBoxLayout(dialog);
-    QLabel *lbl = new QLabel(dialog);
-    lbl->setFixedHeight(100);
-    lbl->setFixedWidth(500);
-    lbl->setText("Bravo! Votre pion a réussi à atteindre la dernière rangée adverse\nVous avez donc le droit de choisir une pièce");
-    vLayout->addWidget(lbl);
-
-    QHBoxLayout *hLayout = new QHBoxLayout(dialog);
-    vLayout->addLayout(hLayout);
-    QPushButton *btn_reine = new QPushButton(dialog);
-    btn_reine->setText("Reine");
-    hLayout->addWidget(btn_reine);
-    QPushButton *btn_fou = new QPushButton(dialog);
-    btn_fou->setText("Fou");
-    hLayout->addWidget(btn_fou);
-    QPushButton *btn_tour = new QPushButton(dialog);
-    btn_tour->setText("Tour");
-    hLayout->addWidget(btn_tour);
-    QPushButton *btn_cavalier = new QPushButton(dialog);
-    btn_cavalier->setText("Cavalier");
-    hLayout->addWidget(btn_cavalier);
-    connect(btn_reine,SIGNAL(clicked()),this,SLOT(on_btn_reine_clicked(dialog)));
-    //connect(btn_reine,SIGNAL(clicked(bool)),dialog,SLOT(close()));
-    connect(btn_fou,SIGNAL(clicked(bool)),this,SLOT(upgradePion()));
-    connect(btn_tour,SIGNAL(clicked(bool)),this,SLOT(upgradePion()));
-    connect(btn_cavalier,SIGNAL(clicked(bool)),this,SLOT(upgradePion()));
-    dialog->show();*/
 }
 
 ChessBoard::~ChessBoard()
@@ -208,8 +175,6 @@ void ChessBoard::paintEvent(QPaintEvent *)
     {
         for(unsigned int i=0; i< this->selectedPiece->allPossibleMove.size();i++){
             this->possibleMove.push_back( new Case(TAILLECASE,this->selectedPiece->allPossibleMove.at(i).x()*TAILLECASE,this->selectedPiece->allPossibleMove[i].y()*TAILLECASE));
-
-
             this->possibleMove.at(i)->draw(&painter, QColor(255,87,51,150));
 
         }
@@ -263,7 +228,6 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                 this->chessBoard[(int)(floor(this->selectedPiece->getOldY()/TAILLECASE))][(int)(floor(this->selectedPiece->getOldX()/TAILLECASE))] = '0';
                 this->chessBoard[(int)floor(event->y()/TAILLECASE)][(int)floor(event->x()/TAILLECASE)] = this->selectedPiece->getPieceName();
 
-
                 ///********************************************///
 
                 if(this->selectedPiece->getIsPion() && this->selectedPiece->getTabPosY()==7)
@@ -297,12 +261,11 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                     this->selectedPiece->setOldY(event->y());
 
                     if(this->selectedPiece->getIsPion()){
-
                         Pion *pion = static_cast<Pion *>(this->selectedPiece);
                         pion->canAttack(this->chessBoard);
-                    }
+                       }
 
-                    for(int i=0;i<8;i++)
+                    /*for(int i=0;i<8;i++)
                     {
                         for(int j=0;j<8;j++){
                             if(this->selectedPiece->isValidMove(i,j,this->pieces))
@@ -311,8 +274,13 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
 
                             }
                         }
-                    }
+                    }*/
+                    this->selectedPiece->pos.setX(this->selectedPiece->getTabPosX());
+                    this->selectedPiece->pos.setY(this->selectedPiece->getTabPosY());
+                    QPoint p(this->selectedPiece->operator -(QPoint(4,4)));
+                    this->selectedPiece->updateAllPossibleMove(this->pieces);
                     this->update();
+
                 }
 
                 /* QLabel *test  = static_cast<QLabel*> (this->childAt(event->pos()));

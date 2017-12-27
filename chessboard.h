@@ -43,7 +43,7 @@ class ChessBoard : public QDialog
     Q_OBJECT
 
 public:
-    explicit ChessBoard(QWidget *parent = 0);
+   // explicit ChessBoard(QWidget *parent = 0);
     explicit ChessBoard(QString file,QWidget *parent = 0);
 
     void paintEvent(QPaintEvent *);

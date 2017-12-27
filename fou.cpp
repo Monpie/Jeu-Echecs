@@ -33,7 +33,7 @@ void Fou::move(int x, int y){
 
 
 bool Fou::isValidMove(int x, int y,std::vector<Piece*> pieces){
-    this->updateAllPossibleMove(pieces);
+   // this->updateAllPossibleMove(pieces);
     if((abs(x-this->tabPosX)==abs(y-this->tabPosY)) && this->moveInBoard(x,y)  && this->checkIfMate(x,y) && (x!=this->tabPosX || y!=this->tabPosY) && this->IsPossibleMove(x,y,this->allPossibleMove))
         return true;
     else
