@@ -77,3 +77,14 @@ void Roi::setImage(QString color){
 }
 
 
+
+void Roi::updateAllPossibleMove(std::vector<Piece *> pieces){
+    for(int i=0;i<8;i++){
+        for(int j=0;j<8;j++){
+            if(this->isValidMove(i,j,pieces)){
+                this->allPossibleMove.push_back(QPoint(i,j));
+            }
+        }
+    }
+}
+

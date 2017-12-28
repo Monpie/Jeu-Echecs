@@ -43,7 +43,7 @@ void Cavalier::setImage(QString color){
         this->lbl->setPixmap(QPixmap(":/images/Pieces/cavalier_blanc.png")); //Image tour blanche
         this->namePiece = '2';
     }else if(color==("Noir")){
-        this->lbl->setPixmap(QPixmap(":/images/Pieces/cavalier_noir.png"));  //Image tour noire
+       this->lbl->setPixmap(QPixmap(":/images/Pieces/cavalier_noir.png"));  //Image tour noire;
         this->namePiece = 'c';
     }
 }
@@ -75,3 +75,14 @@ bool Cavalier::isValidMove(int x, int y,std::vector<Piece*> pieces){
         return false;
 }
 
+
+
+
+void Cavalier::updateAllPossibleMove(std::vector<Piece *> pieces){
+    for(int i=0;i<8;i++){
+        for(int j=0;j<8;j++){
+            if(this->isValidMove(i,j,pieces))
+                    this->allPossibleMove.push_back(QPoint(i,j));
+        }
+    }
+}

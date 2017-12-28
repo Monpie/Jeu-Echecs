@@ -36,12 +36,14 @@ public:
      void destructPiece(int x, int y);
      virtual ~Piece();
      //***//
-   //  virtual void updateAllPossibleMove(vector<Piece> pieces);
+    virtual void updateAllPossibleMove(std::vector<Piece *> pieces);
      void setVerticalBlocked(bool state);
      void setHorizontalBlocked(bool state);
      Piece *getPieceAt(std::vector<Piece*> pieces, int x, int y);
     bool checkIfMate(int x, int y);
     bool IsPossibleMove(int x, int y, std::vector<QPoint> possibleMove);
+    QPoint& operator -(const QPoint& p);
+        QPoint pos;
 
 protected:
     bool moveInBoard(int x, int y);
@@ -59,6 +61,7 @@ protected:
     Player * owner;
     bool isPion = false;
     bool isKing = false;
+
     /*
     bool verticalBlocked=false;
     bool horizontalBlocked=false;*/

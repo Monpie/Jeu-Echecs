@@ -123,10 +123,22 @@ bool Piece::getIsKing(){
 }
 
 bool Piece::IsPossibleMove(int x, int y, vector<QPoint> possibleMove){
-    for(int i=0;i<possibleMove.size();i++)
+    for(unsigned int i=0;i<possibleMove.size();i++)
     {
         if(QPoint(x,y)==possibleMove[i])
             return true;
     }
     return false;
+}
+
+void Piece::updateAllPossibleMove(vector<Piece *> pieces){
+
+}
+
+QPoint& Piece::operator -(const QPoint& p){
+    pos.setX(abs(this->tabPosX-p.x()));
+    pos.setY(abs(this->tabPosY-p.y()));
+    cout << "x = " << this->tabPosX << " , y = " << this->tabPosY << endl;
+    cout << " x = " << pos.x() << " , y = " << pos.y() << endl;
+    return pos;
 }
