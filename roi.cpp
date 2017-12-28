@@ -77,7 +77,10 @@ void Roi::setImage(QString color){
 }
 
 
-
+/**
+ * @brief Roi::updateAllPossibleMove, check all positions for the king
+ * @param pieces
+ */
 void Roi::updateAllPossibleMove(std::vector<Piece *> pieces){
     for(int i=0;i<8;i++){
         for(int j=0;j<8;j++){
