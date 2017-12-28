@@ -3,6 +3,8 @@
 
 #include "piece.h"
 #include <QMouseEvent>
+#include <QDebug>
+#include "case.h"
 
 class Roi : public Piece
 {
@@ -11,7 +13,7 @@ public:
     void move(int x, int y);
     bool isValidMove(int x, int y,std::vector<Piece*> pieces);
     void setImage(QString color);
-    bool isInDanger(int x, int y);
+    void updateAllPossibleMove(std::vector<Piece*> pieces);
     ~Roi();
 };
 

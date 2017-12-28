@@ -2,6 +2,9 @@
 #include "ui_choixupgrade.h"
 #include "iostream"
 using namespace std;
+
+//_______________________________CHOIXUPGRADE_________________________________
+
 ChoixUpgrade::ChoixUpgrade(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ChoixUpgrade)
@@ -13,6 +16,8 @@ ChoixUpgrade::~ChoixUpgrade()
 {
     delete ui;
 }
+
+//_______________________________METHOD_________________________________
 
 void ChoixUpgrade::on_btn_reine_clicked()
 {

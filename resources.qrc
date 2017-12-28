@@ -33,7 +33,6 @@
         <file>game/fond partie 2.jpg</file>
     </qresource>
     <qresource prefix="/sauvegarde">
-        <file>Sauvegarde/initialisation.txt</file>
         <file>Sauvegarde/sauvegarde.txt</file>
     </qresource>
 </RCC>

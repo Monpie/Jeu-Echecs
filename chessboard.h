@@ -5,9 +5,12 @@
 #include <QLabel>
 #include <QMouseEvent>
 #include <QPoint>
-
 #include <QPushButton>
 #include <QPainter>
+#include <QException>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QMessageBox>
 #include "case.h"
 #include "piece.h"
 #include "roi.h"
@@ -15,12 +18,20 @@
 #include "reine.h"
 #include "fou.h"
 #include "tour.h"
-#include<string>
+#include "mainmenu.h"
+//#include<string>
 #include "constante.h"
 #include "player.h"
 
+#include "pion.h"
+#include <iostream>
+#include <ostream>
+#include <fstream>
+//#include "math.h"
+#include "choixupgrade.h"
+
+
 using namespace std;
-#include <mainmenu.h>
 
 
 namespace Ui {
@@ -37,10 +48,10 @@ public:
 
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
-    void initGame(string fichier);
+    void initGame(QString fichier);
     ~ChessBoard();
     void lectureFichier(string Sauvegarde);
-    void ecritureFichierSauvegarde();
+    void ecritureFichierSauvegarde(QString fileName);
     void centrerPiece(Piece *piece, QPoint pos);
     void initPlayers();
     Piece * getPieceAt(int x,int y);
@@ -49,6 +60,7 @@ public:
     ChessBoard& operator++();
    // friend Piece operator -(Piece a);
     void removePiece(Piece *piece);
+    void resizeEvent(QResizeEvent *e);
 
 private slots:
     void on_boutonSauvegarder_clicked();
@@ -69,6 +81,7 @@ private:
     Player *player1;
     Player *player2;
     Player *currentPlayer;
+    QPoint posDeadPiece;
     int a=5;
 
 signals:

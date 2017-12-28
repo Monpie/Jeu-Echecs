@@ -1,6 +1,8 @@
 #include "pageregle.h"
 #include "ui_pageregle.h"
 
+//_______________________________PAGEREGLE_________________________________
+
 pageRegle::pageRegle(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::pageRegle)
@@ -12,6 +14,8 @@ pageRegle::~pageRegle()
 {
     delete ui;
 }
+
+//_______________________________METHOD_________________________________
 
 //bouton quitter
 void pageRegle::on_pushButton_clicked()
