@@ -3,6 +3,18 @@
 #include "iostream"
 using namespace std;
 
+//_______________________________PION_________________________________
+
+/**
+ * @brief Pion::Pion, constructor of the pawn
+ * @param parent
+ * @param color
+ * @param owner
+ * @param width
+ * @param height
+ * @param x
+ * @param y
+ */
 Pion::Pion(QWidget *parent, QString color, Player * owner,  int width, int height, int x,int y)
 {
     this->lbl = new QLabel(parent);
@@ -18,6 +30,19 @@ Pion::Pion(QWidget *parent, QString color, Player * owner,  int width, int heigh
     this->lbl->setVisible(true);
 }
 
+/**
+ * @brief Pion::~Pion, destructor of the pawn
+ */
+Pion::~Pion(){
+    delete this->lbl;
+}
+
+//_______________________________METHOD_________________________________
+
+/**
+ * @brief Pion::setImage, load the picture for the pawn
+ * @param color
+ */
 void Pion::setImage(QString color){
     if(color==("Blanc")){
         this->lbl->setPixmap(QPixmap(":/images/Pieces/pion_blanc.png")); //Image tour blanche
@@ -28,6 +53,11 @@ void Pion::setImage(QString color){
     }
 }
 
+/**
+ * @brief Pion::move, movement of the pawn
+ * @param x
+ * @param y
+ */
 void Pion::move(int x,int y){
     this->lbl->move(x*TAILLECASE+CENTRER_PIECE+CHESSBOARD_POS.x(),y*TAILLECASE+CHESSBOARD_POS.y());
     this->setTabPosX(x);
@@ -37,6 +67,13 @@ void Pion::move(int x,int y){
 }
 
 
+/**
+ * @brief Pion::isValidMove, check if the movement is possible
+ * @param x
+ * @param y
+ * @param pieces
+ * @return bool
+ */
 bool Pion::isValidMove(int x,int y,std::vector<Piece*> pieces){
     if(this->getColor()=="Blanc" && this->tabPosY!=1)
         this->firstMove=false;
@@ -67,10 +104,18 @@ bool Pion::isValidMove(int x,int y,std::vector<Piece*> pieces){
     }
 }
 
+/**
+ * @brief Pion::firstMovePlayed
+ */
 void Pion::firstMovePlayed(){
     this->firstMove = false;
 }
 
+/**
+ * @brief Pion::canAttack
+ * @param chessboard
+ * @return bool
+ */
 bool Pion::canAttack(char chessboard[8][8] ){
     bool flag = false;
 
@@ -103,9 +148,7 @@ bool Pion::canAttack(char chessboard[8][8] ){
     return flag;
 }
 
-Pion::~Pion(){
-    delete this->lbl;
-}
+
 
 /*bool Pion::IsPossibleMove(int x, int y, vector<QPoint> possibleMove){
     for(unsigned int i=0;i<possibleMove.size();i++)
@@ -137,6 +180,10 @@ void Pion::test(std::vector<Piece *> pieces){
     }
 }
 
+/**
+ * @brief Pion::updateAllPossibleMove, check all possible movement for the pawn
+ * @param pieces
+ */
 void Pion::updateAllPossibleMove(std::vector<Piece *> pieces){
     if(this->color=="Blanc")
         this->isValidMove(this->tabPosX,this->tabPosY+1,pieces);

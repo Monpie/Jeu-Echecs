@@ -8,6 +8,8 @@
 #include <ostream>
 #include <fstream>
 
+//_______________________________MAINMENU_________________________________
+
 MainMenu::MainMenu(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MainMenu)
@@ -21,6 +23,8 @@ MainMenu::~MainMenu()
 {
     delete ui;
 }
+
+//_______________________________METHOD_________________________________
 
 //bouton new game
 void MainMenu::on_newGameButton_clicked()

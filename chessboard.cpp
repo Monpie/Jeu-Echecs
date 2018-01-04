@@ -1,6 +1,7 @@
 #include "chessboard.h"
 #include "ui_chessboard.h"
 
+//_______________________________CHESSBOARD_________________________________
 
 /*int ChessBoard::operator ++(int a){
     cout << "a = " << a << endl;
@@ -57,6 +58,8 @@ ChessBoard::ChessBoard(QString file,QWidget *parent):
     /*this->operator +(1);
     this->operator ++();*/
 }
+
+//_______________________________METHOD_________________________________
 
 void ChessBoard::resizeEvent(QResizeEvent *e){
     qDebug() << "resize Event\n width = " << e->size().width() << " , height = " << e->size().height() << endl;
