@@ -89,7 +89,7 @@ ChessBoard::~ChessBoard()
 }
 
 void ChessBoard::transformToReine(){
-    Reine *reine = new Reine(this,"Blanc",this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
+    Reine *reine = new Reine(this,this->selectedPiece->getColor(),this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
     reine->setTabPosX(this->selectedPiece->getTabPosX());
     reine->setTabPosY(this->selectedPiece->getTabPosY());
 
@@ -103,7 +103,7 @@ void ChessBoard::transformToReine(){
 }
 
 void ChessBoard::transformToCavalier(){
-    Cavalier *cavalier = new Cavalier(this,"Blanc",this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
+    Cavalier *cavalier = new Cavalier(this,this->selectedPiece->getColor(),this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
     cavalier->setTabPosX(this->selectedPiece->getTabPosX());
     cavalier->setTabPosY(this->selectedPiece->getTabPosY());
 
@@ -117,7 +117,7 @@ void ChessBoard::transformToCavalier(){
 }
 
 void ChessBoard::transformToFou(){
-    Fou *fou = new Fou(this,"Blanc",this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
+    Fou *fou = new Fou(this,this->selectedPiece->getColor(),this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
     fou->setTabPosX(this->selectedPiece->getTabPosX());
     fou->setTabPosY(this->selectedPiece->getTabPosY());
 
@@ -131,7 +131,7 @@ void ChessBoard::transformToFou(){
 }
 
 void ChessBoard::transformToTour(){
-    Tour *tour = new Tour(this,"Blanc",this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
+    Tour *tour = new Tour(this,this->selectedPiece->getColor(),this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
     tour->setTabPosX(this->selectedPiece->getTabPosX());
     tour->setTabPosY(this->selectedPiece->getTabPosY());
 
@@ -230,7 +230,7 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
 
                 ///********************************************///
 
-                if(this->selectedPiece->getIsPion() && this->selectedPiece->getTabPosY()==7)
+                if(this->selectedPiece->getIsPion() && (this->selectedPiece->getTabPosY()==7 || this->selectedPiece->getTabPosY()==0))
                     emit maxAtteint();
 
                 ///******Gestion tour joueur******///
