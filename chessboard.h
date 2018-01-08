@@ -19,7 +19,6 @@
 #include "fou.h"
 #include "tour.h"
 #include "mainmenu.h"
-//#include<string>
 #include "constante.h"
 #include "player.h"
 
@@ -27,7 +26,6 @@
 #include <iostream>
 #include <ostream>
 #include <fstream>
-//#include "math.h"
 #include "choixupgrade.h"
 
 
@@ -56,11 +54,8 @@ public:
     void initPlayers();
     Piece * getPieceAt(int x,int y);
     int operator +(int a);
-   // int operator ++(int a);
-    ChessBoard& operator++();
-   // friend Piece operator -(Piece a);
     void removePiece(Piece *piece);
-    void resizeEvent(QResizeEvent *e);
+    //void resizeEvent(QResizeEvent *e);
 
 private slots:
     void on_boutonSauvegarder_clicked();

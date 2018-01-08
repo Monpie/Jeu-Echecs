@@ -9,7 +9,10 @@
 #include <fstream>
 
 //_______________________________MAINMENU_________________________________
-
+/**
+ * @brief MainMenu::MainMenu, constructor of the main menu
+ * @param parent
+ */
 MainMenu::MainMenu(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MainMenu)
@@ -19,6 +22,9 @@ MainMenu::MainMenu(QWidget *parent) :
     this->setFixedSize(this->size());   //Empêche le redimensionnement de la fenêtre en fixant la taille actuelle de la fenêtre
 }
 
+/**
+ * @brief MainMenu::~MainMenu, desctrutor of the main menu
+ */
 MainMenu::~MainMenu()
 {
     delete ui;
@@ -26,7 +32,9 @@ MainMenu::~MainMenu()
 
 //_______________________________METHOD_________________________________
 
-//bouton new game
+/**
+ * @brief MainMenu::on_newGameButton_clicked, launch a new game when the button "New game" is pressed
+ */
 void MainMenu::on_newGameButton_clicked()
 {
     ChessBoard board("initialisation.txt");
@@ -34,7 +42,9 @@ void MainMenu::on_newGameButton_clicked()
     board.exec();
 }
 
-//bouton chargement
+/**
+ * @brief MainMenu::on_loadGameButton_clicked, launch the last game save when the button "Continue" is pressed
+ */
 void MainMenu::on_loadGameButton_clicked()
 {
     ChessBoard board("sauvegarde.txt");
@@ -42,13 +52,17 @@ void MainMenu::on_loadGameButton_clicked()
     board.exec();
 }
 
-//bouton quitter
+/**
+ * @brief MainMenu::on_btnQuitter_clicked, exit the game when the exit button is pressed
+ */
 void MainMenu::on_btnQuitter_clicked()
 {
     this->close();
 }
 
-//Bouton règle
+/**
+ * @brief MainMenu::on_btnRegle_clicked, show the rules menu when the button "Rules" is pressed
+ */
 void MainMenu::on_btnRegle_clicked()
 {
     pageRegle page;

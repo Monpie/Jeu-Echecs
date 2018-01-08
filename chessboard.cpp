@@ -3,21 +3,6 @@
 
 //_______________________________CHESSBOARD_________________________________
 
-/*int ChessBoard::operator ++(int a){
-    cout << "a = " << a << endl;
-    a++;
-    cout << "a++ = " << a << endl;
-    return a;
-}*/
-
-ChessBoard& ChessBoard::operator ++(){
-    cout << " a : " << this->a << endl;
-    cout << "Operateur ++" << endl;
-    this->a++;
-    cout << " a : " << this->a;
-    return *this;
-}
-
 //Constructeur initial
 /*ChessBoard::ChessBoard(QWidget *parent) :
     QDialog(parent),
@@ -38,7 +23,11 @@ ChessBoard& ChessBoard::operator ++(){
 
 
 }*/
-
+/**
+ * @brief ChessBoard::ChessBoard, constructor of chessboard
+ * @param file, file to load to place the piece
+ * @param parent, the parent object
+ */
 ChessBoard::ChessBoard(QString file,QWidget *parent):
     QDialog(parent),
     ui(new Ui::ChessBoard){
@@ -61,20 +50,23 @@ ChessBoard::ChessBoard(QString file,QWidget *parent):
 
 //_______________________________METHOD_________________________________
 
-void ChessBoard::resizeEvent(QResizeEvent *e){
+/*void ChessBoard::resizeEvent(QResizeEvent *e){
     qDebug() << "resize Event\n width = " << e->size().width() << " , height = " << e->size().height() << endl;
     //delete ui->label;
     ui->label->setFixedSize(1000,1000);
     /*ui->label = new QLabel(this);
     ui->label->setPixmap(QPixmap("/images/game/game/fond partie 1.jpg"));*/
 
-   // ui->label->move(e->size().width()-100,e->size().height()-100);
-   //ui->label->setVisible(true);
-    //ui->label->setSizeIncrement(e->size());
-   // ui->label->setFixedHeight(e->size().height());
-  //  ui->label->setFixedWidth(e->size().width());
-}
+// ui->label->move(e->size().width()-100,e->size().height()-100);
+//ui->label->setVisible(true);
+//ui->label->setSizeIncrement(e->size());
+// ui->label->setFixedHeight(e->size().height());
+//  ui->label->setFixedWidth(e->size().width());
+//}
 
+/**
+ * @brief ChessBoard::upgradePion, améliore en une autre pièce le pion quand il atteint la dernière rangée adverse
+ */
 void ChessBoard::upgradePion(){
 
     cout << "methode slot appelé" << endl;
@@ -86,11 +78,17 @@ void ChessBoard::upgradePion(){
     choix->exec();
 }
 
+/**
+ * @brief ChessBoard::~ChessBoard, destructor of chessboard
+ */
 ChessBoard::~ChessBoard()
 {
     delete ui;
 }
 
+/**
+ * @brief ChessBoard::transformToReine, transform the current piece to a queen
+ */
 void ChessBoard::transformToReine(){
     Reine *reine = new Reine(this,this->selectedPiece->getColor(),this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
     reine->setTabPosX(this->selectedPiece->getTabPosX());
@@ -105,6 +103,9 @@ void ChessBoard::transformToReine(){
     this->selectedPiece = reine;
 }
 
+/**
+ * @brief ChessBoard::transformToCavalier, transform the current piece to a knigth
+ */
 void ChessBoard::transformToCavalier(){
     Cavalier *cavalier = new Cavalier(this,this->selectedPiece->getColor(),this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
     cavalier->setTabPosX(this->selectedPiece->getTabPosX());
@@ -119,6 +120,9 @@ void ChessBoard::transformToCavalier(){
     this->selectedPiece = cavalier;
 }
 
+/**
+ * @brief ChessBoard::transformToFou, transform the current piece to a bishop
+ */
 void ChessBoard::transformToFou(){
     Fou *fou = new Fou(this,this->selectedPiece->getColor(),this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
     fou->setTabPosX(this->selectedPiece->getTabPosX());
@@ -133,6 +137,9 @@ void ChessBoard::transformToFou(){
     this->selectedPiece = fou;
 }
 
+/**
+ * @brief ChessBoard::transformToTour, transform the current piece to a rook
+ */
 void ChessBoard::transformToTour(){
     Tour *tour = new Tour(this,this->selectedPiece->getColor(),this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
     tour->setTabPosX(this->selectedPiece->getTabPosX());
@@ -147,10 +154,12 @@ void ChessBoard::transformToTour(){
     this->selectedPiece = tour;
 }
 
+/**
+ * @brief ChessBoard::paintEvent, the paintEvent is called when the signal update() is called. This method is used to draw the case of the chessboard and the case for move
+ */
 void ChessBoard::paintEvent(QPaintEvent *)
 {
-    //a modifier
-
+    //Permet de dessiner les cases de l'échiquier en alternant les couleurs
     QPainter painter(this);
     for(int i=0; i<8 ; i++){
         for(int j=0; j<8; j++){
@@ -174,6 +183,8 @@ void ChessBoard::paintEvent(QPaintEvent *)
             }
         }
     }
+
+    //Si une pièce est selectionnée, dessine tous les mouvements possibles présents dans le tableau allPossibleMove de cette dernière
     if(this->selectedPiece)
     {
         for(unsigned int i=0; i< this->selectedPiece->allPossibleMove.size();i++){
@@ -185,27 +196,41 @@ void ChessBoard::paintEvent(QPaintEvent *)
 }
 
 //____________________________________________________________DEPLACEMENT PIECE___________________________________________________
+/**
+ * @brief ChessBoard::mousePressEvent, this event is called when the user interact with the mouse. This event is used to select a piece and for move it.
+ * @param event
+ */
 void ChessBoard::mousePressEvent(QMouseEvent *event){
+    /**Action à effectuer lors d'un clic gauche de la souris
+     * Lorqu'un clic gauche est détecté et qu'il n'y a aucune pièce sélectionnée actuellement :
+     * - Si le clic gauche est sur une pièce sélectionne la pièce
+     * - Sinon il ne se passe rien
+     *
+     * Losqu'un clic gauche est détecté et qu'une pièce a été précèdemment sélectionne :
+     * - Si le clic est sur un des mouvements valide de la pièce, cela déplace donc la pièce à la case sélectionné
+     * - Sinon déselectionne la pièce
+    **/
     if(event->buttons() & Qt::LeftButton ){
         if(this->selectedPiece){
+            //Vérifie que la case cliquée est bien un mouvement valide de la pièce
             if(this->selectedPiece->isValidMove(floor(event->x()/TAILLECASE),floor(event->y()/TAILLECASE),this->pieces) && !this->selectedPiece->getOwner()->getHasPlayed())
-              //  if(!this->selectedPiece->getOwner()->getHasPlayed())
             {
 
                 ///***Détruire la pièce si elle est mangée***///
                 Piece * test = this->getPieceAt((int)floor(event->x()/TAILLECASE),(int)floor(event->y()/TAILLECASE));
                 if(test && test!=this->selectedPiece && test->getOwner()!=this->selectedPiece->getOwner()){
-                    //if(test->getOwner()==this->player1)
-                        test->move(this->posDeadPiece.x()+8,this->posDeadPiece.y());
-                   /* else
-                        test->move(this->posDeadPiece.x()+10,this->posDeadPiece.y());*/
+                    test->move(this->posDeadPiece.x()+8,this->posDeadPiece.y());
+
+                    //Positionne la pièce détruite en dehors du plateau
                     this->posDeadPiece.setX(this->posDeadPiece.x()+1);
                     if(this->posDeadPiece.x()%6==0){
                         this->posDeadPiece.setY(this->posDeadPiece.y()+1);
                         this->posDeadPiece.setX(0);
                     }
+                    //Si la pièce détruite est le roi du joueur adverse, affiche une pop-up indiquant le joueur ayant gagné et retourne au menu principal
                     if(test->getIsKing())
                     {
+                        //Création de la fenêtre
                         QMessageBox *msg = new QMessageBox(this);
                         QString test("Joueur ");
                         test+=QString::number(this->selectedPiece->getOwner()->getId()+1);
@@ -215,12 +240,15 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
                         msg->addButton("Ok",QMessageBox::AcceptRole);
                         msg->exec();
                         this->close();
+                        //Retour au menu
                         MainMenu menu;
                         menu.exec();
                     }
 
+                    //On enlève la pièce du tableau de pièce jouable
                     this->removePiece(test);
 
+                    //On enlève la pièce du tableau de pièce jouable du joueur
                     this->selectedPiece->getOwner()->removePiece(test);
                 }
 
@@ -233,6 +261,7 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
 
                 ///********************************************///
 
+                //Emet le signal maxAtteint lorsqu'un pion atteint la dernière rangée adverse afin de l'améliorer en une autre pièce
                 if(this->selectedPiece->getIsPion() && (this->selectedPiece->getTabPosY()==7 || this->selectedPiece->getTabPosY()==0))
                     emit maxAtteint();
 
@@ -251,33 +280,27 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
 
             }
 
+            //Suppression de tous les mouvements possible de la pièce
             this->selectedPiece->allPossibleMove.clear();
             this->possibleMove.clear();
             this->selectedPiece = NULL;
+            //On redéssine le plateau afin d'enlever les cases de couleurs indiquant les déplacements possibles de la pièce
             this->update();
         }
         else{
+            //Compare la position du curseur de la souris avec la position de toutes les pièces jouables afin de déterminer quelle pièce est sélectionnée
             for(unsigned int i=0;i<this->pieces.size();i++){
                 if(this->currentPlayer==this->pieces[i]->getOwner() && (event->x() > this->pieces.at(i)->getTabPosX()*TAILLECASE+CHESSBOARD_POS.x() && event->x() <this->pieces.at(i)->getTabPosX()*TAILLECASE+TAILLECASE+CHESSBOARD_POS.x() && event->y() > this->pieces.at(i)->getY() && event->y() < this->pieces.at(i)->getTabPosY()*TAILLECASE+TAILLECASE+CHESSBOARD_POS.y())){
                     this->selectedPiece = this->pieces.at(i);
                     this->selectedPiece->setOldX(event->x());
                     this->selectedPiece->setOldY(event->y());
 
+                    //Si un pion est sélectionné, on regarde si ce dernier peut attaqué ou non
                     if(this->selectedPiece->getIsPion()){
                         Pion *pion = static_cast<Pion *>(this->selectedPiece);
                         pion->canAttack(this->chessBoard);
-                       }
+                    }
 
-                    /*for(int i=0;i<8;i++)
-                    {
-                        for(int j=0;j<8;j++){
-                            if(this->selectedPiece->isValidMove(i,j,this->pieces))
-                            {
-                                this->selectedPiece->allPossibleMove.push_back(QPoint(i,j));
-
-                            }
-                        }
-                    }*/
                     this->selectedPiece->pos.setX(this->selectedPiece->getTabPosX());
                     this->selectedPiece->pos.setY(this->selectedPiece->getTabPosY());
                     QPoint p(this->selectedPiece->operator -(QPoint(4,4)));
@@ -286,12 +309,6 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
 
                 }
 
-                /* QLabel *test  = static_cast<QLabel*> (this->childAt(event->pos()));
-           if(test->inherits("QLabel")){
-               cout << "if ok" << endl;
-               this->selectedPiece = dynamic_cast <Piece*> (this->childAt(event->pos()));
-           }*/
-
             }
 
         }
@@ -299,14 +316,19 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
 }
 
 //____________________________________________________________INITIALISATION JEU__________________________________________________
+/**
+ * @brief ChessBoard::initGame, permet d'initialiser les différents pièces sur le tableau
+ * @param fichier, fichier lu pour l'initialisation des pièces
+ */
 void ChessBoard::initGame(QString fichier){
     this->lectureFichier(fichier.toStdString());
     for(int i=0;i<8;i++){
         for(int j=0;j<8;j++)
-        cout << chessBoard[i][j] << " ";
+            cout << chessBoard[i][j] << " ";
         cout << endl;
     }
 
+    //Instancie les différentes pièces en fonction des charactères du fichier
     for(int i=0; i<8;i++){
         for(int j=0; j<8;j++){
             switch(chessBoard[i][j])
@@ -416,9 +438,13 @@ void ChessBoard::initGame(QString fichier){
 
 //____________________________________________________________GESTION LECTURE FICHIER___________________________________________________
 
-//Méthode pour lire un fichier
+/**
+ * @brief ChessBoard::lectureFichier, permet de lire un fichier
+ * @param sauvegarde, nom du fichier de sauvegarde
+ */
 void ChessBoard::lectureFichier(string sauvegarde){
 
+    //Si le fichier n'est pas présent, on déclenche une exception
     try{
         ifstream fichier(sauvegarde, ios::in);  // on ouvre le fichier en lecture
         string ligne;
@@ -441,7 +467,7 @@ void ChessBoard::lectureFichier(string sauvegarde){
         fichier.close();
     }catch(QException e){
         QMessageBox *msg = new QMessageBox(this);
-        msg->setText("Jeu impossible");
+        msg->setText("Fichier non trouvé");
         msg->exec();
 
         //Initialisation de l'échiquier
@@ -449,6 +475,7 @@ void ChessBoard::lectureFichier(string sauvegarde){
             for(int j=0;j<8;j++)
                 this->chessBoard[i][j] = '0';
 
+        //Lorsque le fichier n'est pas trouvé, on le recréé en ajoutant la position de base des pièces
         this->chessBoard[0][0] = '3';
         this->chessBoard[0][1] = '2';
         this->chessBoard[0][2] = '4';
@@ -481,31 +508,35 @@ void ChessBoard::lectureFichier(string sauvegarde){
     }
 }
 
-
-
-//Ecriture fichier sauvegarde
+/**
+ * @brief ChessBoard::ecritureFichierSauvegarde, permet d'écrire dans un fichier
+ * @param fileName, nom du fichier dans lequel il faut écrire
+ */
 void ChessBoard::ecritureFichierSauvegarde(QString fileName)
 {
     try{
         ofstream fichier(fileName.toStdString(), ios::out | ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
-    if(!fichier)
-        throw QException();
 
-    for (int cpt1=0; cpt1<8 ;cpt1++ )
-    {
-        for (int cpt2=0; cpt2<8 ;cpt2++ )
+        //Si le fichier n'est pas présent, on déclenche une exception
+        if(!fichier)
+            throw QException();
+
+        for (int cpt1=0; cpt1<8 ;cpt1++ )
         {
-            fichier<<chessBoard[cpt1][cpt2];
-        }
+            for (int cpt2=0; cpt2<8 ;cpt2++ )
+            {
+                fichier<<chessBoard[cpt1][cpt2];
+            }
 
-        fichier<<endl;
-    }
-    if(this->currentPlayer==this->player1)
-        fichier<<'9';
-    else
-        fichier<<'j';
-    fichier.close();
+            fichier<<endl;
+        }
+        if(this->currentPlayer==this->player1)
+            fichier<<'9';
+        else
+            fichier<<'j';
+        fichier.close();
     }catch (QException e){
+        //Indique que le fichier de sauvegarde n'est pas présent dans une pop up
         QMessageBox *msg = new QMessageBox(this);
         msg->setText("Impossible de trouver le fichier sauvegarde");
         msg->exec();
@@ -513,14 +544,18 @@ void ChessBoard::ecritureFichierSauvegarde(QString fileName)
 }
 
 
-//Appui du bouton sauvegarde
+/**
+ * @brief ChessBoard::on_boutonSauvegarder_clicked, sauvegarde la partie dans le fichier de sauvegarde lors de l'appui sur le bouton sauvegarder
+ */
 void ChessBoard::on_boutonSauvegarder_clicked()
 {
     this->ecritureFichierSauvegarde("sauvegarde.txt");
 }
 
 
-//Gestion du bouton quitter
+/**
+ * @brief ChessBoard::on_pushButton_clicked, ferme la fenêtre lors de l'appui du bouton quitter
+ */
 void ChessBoard::on_pushButton_clicked()
 {
     this->close();
@@ -528,9 +563,9 @@ void ChessBoard::on_pushButton_clicked()
     menu.exec();
 }
 
-
-//__________________________________CENTRER CASE___________________________________
-
+/**
+ * @brief ChessBoard::initPlayers, permet d'initialiser les tableaux de pièces de chaque joueurs
+ */
 void ChessBoard::initPlayers(){
     for(unsigned int i=0;i<this->pieces.size();i++){
         if(this->pieces[i]->getOwner()==this->player1){
@@ -541,6 +576,12 @@ void ChessBoard::initPlayers(){
     }
 }
 
+/**
+ * @brief ChessBoard::getPieceAt, récupères la pièce à la position (x,y) passé en paramètre
+ * @param x, position x de la pièce
+ * @param y, position y de la pièce
+ * @return la pièce se situant à la position (x,y) ou null s'il n'y a aucune pièce
+ */
 Piece * ChessBoard::getPieceAt(int x, int y){
     for(unsigned int i=0;i<this->pieces.size();i++)
     {
@@ -552,12 +593,10 @@ Piece * ChessBoard::getPieceAt(int x, int y){
     return 0;
 }
 
-int ChessBoard::operator +(int a){
-    int res = a+a;
-    cout << "a : "<< a  << ", res : " << res << endl;
-    return res;
-}
-
+/**
+ * @brief ChessBoard::removePiece, supprime la pièce du tableau de pièce
+ * @param piece, pièce à supprimer
+ */
 void ChessBoard::removePiece(Piece *piece){
     for(std::vector<Piece *>::iterator it = pieces.begin() ; it < pieces.end(); it++)
         if(piece==*it){
