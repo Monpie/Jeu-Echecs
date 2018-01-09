@@ -89,27 +89,10 @@
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>840</x>
-     <y>140</y>
-     <width>67</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Joueur 1</string>
-   </property>
-  </widget>
   <zorder>label</zorder>
   <zorder>boutonSauvegarder</zorder>
   <zorder>namePlayer</zorder>
   <zorder>pushButton</zorder>
-  <zorder>label_2</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

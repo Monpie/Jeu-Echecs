@@ -2,27 +2,6 @@
 #include "ui_chessboard.h"
 
 //_______________________________CHESSBOARD_________________________________
-
-//Constructeur initial
-/*ChessBoard::ChessBoard(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::ChessBoard)
-{
-    ui->setupUi(this);
-    this->player1 = new Player(0);
-    //this->player1->setHasPlayed(false);
-    this->player2 = new Player(1);
- // this->player2->setHasPlayed(true);
-    this->currentPlayer=this->player1;
-    this->initGame(INIT_FILE);
-    this->initPlayers();
-
-
-    /*this->operator +(1);
-    this->operator ++();
-
-
-}*/
 /**
  * @brief ChessBoard::ChessBoard, constructor of chessboard
  * @param file, file to load to place the piece
@@ -36,40 +15,21 @@ ChessBoard::ChessBoard(QString file,QWidget *parent):
     this->posDeadPiece.setX(0);
     this->posDeadPiece.setY(2);
     this->player1 = new Player(0);
-    //this->player1->setHasPlayed(false);
     this->player2 = new Player(1);
-    //this->player2->setHasPlayed(true);
     this->currentPlayer=this->player1;
     this->initGame(file);
     this->initPlayers();
 
     connect(this,SIGNAL(maxAtteint()),this,SLOT(upgradePion()));
-    /*this->operator +(1);
-    this->operator ++();*/
 }
 
 //_______________________________METHOD_________________________________
-
-/*void ChessBoard::resizeEvent(QResizeEvent *e){
-    qDebug() << "resize Event\n width = " << e->size().width() << " , height = " << e->size().height() << endl;
-    //delete ui->label;
-    ui->label->setFixedSize(1000,1000);
-    /*ui->label = new QLabel(this);
-    ui->label->setPixmap(QPixmap("/images/game/game/fond partie 1.jpg"));*/
-
-// ui->label->move(e->size().width()-100,e->size().height()-100);
-//ui->label->setVisible(true);
-//ui->label->setSizeIncrement(e->size());
-// ui->label->setFixedHeight(e->size().height());
-//  ui->label->setFixedWidth(e->size().width());
-//}
-
 /**
  * @brief ChessBoard::upgradePion, améliore en une autre pièce le pion quand il atteint la dernière rangée adverse
  */
 void ChessBoard::upgradePion(){
 
-    cout << "methode slot appelé" << endl;
+    //cout << "methode slot appelé" << endl;
     ChoixUpgrade *choix = new ChoixUpgrade;
     connect(choix,SIGNAL(btn_reine_clicked()),this,SLOT(transformToReine()));
     connect(choix,SIGNAL(btn_tour_clicked()),this,SLOT(transformToTour()));
@@ -90,68 +50,97 @@ ChessBoard::~ChessBoard()
  * @brief ChessBoard::transformToReine, transform the current piece to a queen
  */
 void ChessBoard::transformToReine(){
+    /**
+     * @brief reine, créatipn d'une reine avec comme couleur et comme position celle de la pièce sélectionnée
+     */
     Reine *reine = new Reine(this,this->selectedPiece->getColor(),this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
     reine->setTabPosX(this->selectedPiece->getTabPosX());
     reine->setTabPosY(this->selectedPiece->getTabPosY());
 
+    //Ajoute la nouvelle pièce créée dans le tableau de pièece de chessboard et du tableau de pièce du joueur
     this->pieces.push_back(reine);
     reine->getOwner()->addPiece(reine);
-    this->chessBoard[reine->getTabPosX()][reine->getTabPosY()] = reine->getPieceName();
+
+    this->chessBoard[reine->getTabPosX()][reine->getTabPosY()] = reine->getPieceName(); //On remplace le caractère de la pièce actuelle par celle qui vient d'être créé
+
+    //On supprime l'ancienne pièce des tableaux de chessboard et player
     this->removePiece(this->selectedPiece);
     reine->getOwner()->removePiece(this->selectedPiece);
     delete this->selectedPiece;
-    this->selectedPiece = reine;
+    this->selectedPiece = reine; //On indique que la pièce sélectionnée est celle qui vient d'être créé
 }
 
 /**
  * @brief ChessBoard::transformToCavalier, transform the current piece to a knigth
  */
 void ChessBoard::transformToCavalier(){
+    /**
+     * @brief cavalier, création d'un cavalier avec comme couleur et comme position celle de la pièce sélectionnée
+     */
     Cavalier *cavalier = new Cavalier(this,this->selectedPiece->getColor(),this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
     cavalier->setTabPosX(this->selectedPiece->getTabPosX());
     cavalier->setTabPosY(this->selectedPiece->getTabPosY());
 
+
+    //Ajoute la nouvelle pièce créée dans le tableau de pièece de chessboard et du tableau de pièce du joueur
     this->pieces.push_back(cavalier);
     cavalier->getOwner()->addPiece(cavalier);
-    this->chessBoard[cavalier->getTabPosX()][cavalier->getTabPosY()] = cavalier->getPieceName();
+    this->chessBoard[cavalier->getTabPosX()][cavalier->getTabPosY()] = cavalier->getPieceName();//On remplace le caractère de la pièce actuelle par celle qui vient d'être créé
+
+    //On supprime l'ancienne pièce des tableaux de chessboard et player
     this->removePiece(this->selectedPiece);
     cavalier->getOwner()->removePiece(this->selectedPiece);
     delete this->selectedPiece;
-    this->selectedPiece = cavalier;
+    this->selectedPiece = cavalier; //On indique que la pièce sélectionnée est celle qui vient d'être créé
 }
 
 /**
  * @brief ChessBoard::transformToFou, transform the current piece to a bishop
  */
 void ChessBoard::transformToFou(){
+
+    /**
+     * @brief fou, création d'un fou avec comme couleur et comme position celle de la pièce sélectionnée
+     */
     Fou *fou = new Fou(this,this->selectedPiece->getColor(),this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
     fou->setTabPosX(this->selectedPiece->getTabPosX());
     fou->setTabPosY(this->selectedPiece->getTabPosY());
 
+
+    //Ajoute la nouvelle pièce créée dans le tableau de pièece de chessboard et du tableau de pièce du joueur
     this->pieces.push_back(fou);
     fou->getOwner()->addPiece(fou);
-    this->chessBoard[fou->getTabPosX()][fou->getTabPosY()] = fou->getPieceName();
+    this->chessBoard[fou->getTabPosX()][fou->getTabPosY()] = fou->getPieceName(); //On remplace le caractère de la pièce actuelle par celle qui vient d'être créé
+
+    //On supprime l'ancienne pièce des tableaux de chessboard et player
     this->removePiece(this->selectedPiece);
     fou->getOwner()->removePiece(this->selectedPiece);
     delete this->selectedPiece;
-    this->selectedPiece = fou;
+    this->selectedPiece = fou; //On indique que la pièce sélectionnée est celle qui vient d'être créé
 }
 
 /**
  * @brief ChessBoard::transformToTour, transform the current piece to a rook
  */
 void ChessBoard::transformToTour(){
+
+    /**
+     * @brief tour, création d'une tour avec comme couleur et comme position celle de la pièce sélectionnée
+     */
     Tour *tour = new Tour(this,this->selectedPiece->getColor(),this->selectedPiece->getOwner(),this->selectedPiece->getWidth(),this->selectedPiece->getHeigth(),this->selectedPiece->getTabPosX()*TAILLECASE+25,this->selectedPiece->getTabPosY()*TAILLECASE);
     tour->setTabPosX(this->selectedPiece->getTabPosX());
     tour->setTabPosY(this->selectedPiece->getTabPosY());
 
+    //Ajoute la nouvelle pièce créée dans le tableau de pièece de chessboard et du tableau de pièce du joueur
     this->pieces.push_back(tour);
     tour->getOwner()->addPiece(tour);
-    this->chessBoard[tour->getTabPosX()][tour->getTabPosY()] = tour->getPieceName();
+    this->chessBoard[tour->getTabPosX()][tour->getTabPosY()] = tour->getPieceName(); //On remplace le caractère de la pièce actuelle par celle qui vient d'être créé
+
+    //On supprime l'ancienne pièce des tableaux de chessboard et player
     this->removePiece(this->selectedPiece);
     tour->getOwner()->removePiece(this->selectedPiece);
     delete this->selectedPiece;
-    this->selectedPiece = tour;
+    this->selectedPiece = tour; //On indique que la pièce sélectionnée est celle qui vient d'être créé
 }
 
 /**
