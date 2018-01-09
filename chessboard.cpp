@@ -279,10 +279,13 @@ void ChessBoard::mousePressEvent(QMouseEvent *event){
         else{
             //Compare la position du curseur de la souris avec la position de toutes les pièces jouables afin de déterminer quelle pièce est sélectionnée
             for(unsigned int i=0;i<this->pieces.size();i++){
-                if(this->currentPlayer==this->pieces[i]->getOwner() && (event->x() > this->pieces.at(i)->getTabPosX()*TAILLECASE+CHESSBOARD_POS.x() && event->x() <this->pieces.at(i)->getTabPosX()*TAILLECASE+TAILLECASE+CHESSBOARD_POS.x() && event->y() > this->pieces.at(i)->getY() && event->y() < this->pieces.at(i)->getTabPosY()*TAILLECASE+TAILLECASE+CHESSBOARD_POS.y())){
-                    this->selectedPiece = this->pieces.at(i);
-                    this->selectedPiece->setOldX(event->x());
-                    this->selectedPiece->setOldY(event->y());
+                if(this->currentPlayer==this->pieces[i]->getOwner() && (event->x() > this->pieces.at(i)->getTabPosX()*TAILLECASE+
+                     CHESSBOARD_POS.x() && event->x() <this->pieces.at(i)->getTabPosX()*TAILLECASE+TAILLECASE+CHESSBOARD_POS.x() &&
+                     event->y() > this->pieces.at(i)->getY() && event->y() < this->pieces.at(i)->getTabPosY()*TAILLECASE+TAILLECASE+
+                     CHESSBOARD_POS.y())){
+                        this->selectedPiece = this->pieces.at(i);
+                        this->selectedPiece->setOldX(event->x());
+                        this->selectedPiece->setOldY(event->y());
 
                     //Si un pion est sélectionné, on regarde si ce dernier peut attaqué ou non
                     if(this->selectedPiece->getIsPion()){
